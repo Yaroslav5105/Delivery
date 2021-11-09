@@ -1,5 +1,6 @@
 package com.yaroslav.delivery.db;
 
+import com.yaroslav.delivery.db.entity.Order;
 import com.yaroslav.delivery.db.entity.User;
 
 import java.io.IOException;
@@ -13,16 +14,18 @@ import java.util.logging.Logger;
 
 public class DBManager {
 
+    private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static Connection connection;
-    private static final Lock CONNECTION_LOCK = new ReentrantLock();
     private static DBManager dbManager;
-    private static final String FIND_ALL_USERS = "SELECT * FROM login";
+    private static final String FIND_ALL_USERS = "SELECT * FROM user";
     private static final Logger LOG = Logger.getLogger(DBManager.class.getName());
-    private static final String INSERT_USERS_SQL = "INSERT INTO login" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
-    private static final String SELECT_USER_BY_ID = "select id,name,email,pasword,number from login where id =?";
-    private static final String DELETE_USERS_SQL = "delete from login where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update login set name = ?,email= ?, password =? , number= ? where id = ?;";
-    private static final String query = "select * from login where email=? and password = ?";
+    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
+    private static final String SELECT_USER_BY_ID = "select id,name,email,pasword,number from user where id =?";
+    private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, password =? , number= ? where id = ?;";
+    private static final String query = "select * from user where email=? and password = ?";
+    private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price ) VALUES  (?,?,?,?,?);";
+
     public Connection getConnection(String host, String user, String password) {
         try {
             return DriverManager.getConnection(host, user, password);
@@ -129,13 +132,13 @@ public class DBManager {
             throws SQLException {
 
         try {
-            PreparedStatement stm = connection.prepareStatement(query);
-            stm.setString(1, name);
-            stm.setString(2, password);
-            ResultSet result = stm.executeQuery();
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setString(1, name);
+            st.setString(2, password);
+            ResultSet result = st.executeQuery();
             if (result.next()) {
                 do {
-                    System.out.println("Welcome, "+result.getString("firstName"));
+                    System.out.println("Welcome, "+result.getString("name"));
                 } while(result.next());
             }
             else{
@@ -148,6 +151,35 @@ public class DBManager {
             connection.close();
         }
        return true;
+    }
+
+    public static void insertOrder(Order order) throws SQLException {
+        int i ;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
+            preparedStatement.setString(1, order.getIdUser());
+            preparedStatement.setInt(2, order.getIdRoute());
+            preparedStatement.setInt(3, order.getVolume());
+            preparedStatement.setInt(4, order.getWeight());
+            int route = order.getIdRoute();
+            int volume = order.getVolume();
+            int weight = order.getWeight();
+            i = (volume + weight) * 2 + route * 4 ;
+            order.setPrice(i);
+            preparedStatement.setInt(5, i );
+            System.out.println(i);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOG.info("insertOrder error ");
+        }
+    }
+
+    public static boolean deleteOrder(int id) throws SQLException {
+        boolean rowDeleted;
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
+            statement.setInt(1, id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 
 }
