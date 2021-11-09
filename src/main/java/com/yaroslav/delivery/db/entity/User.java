@@ -6,7 +6,7 @@ public class User {
     private String login;
     private String password ;
     private String number ;
-    private String mail ;
+    private String email ;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class User {
     }
 
     public String getMail() {
-        return mail;
+        return email;
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.email = mail;
     }
 
     public void setId(int id) {
@@ -46,6 +46,26 @@ public class User {
         user.setMail(mail);
         user.setNumber(number);
         return user;
+    }
+
+    public  User (String login , String password  , String number , String email) {
+        super();
+        this.login = login;
+        this.email = email;
+        this.number = number;
+        this.password = password;
+
+    }
+
+    public User(){}
+
+    public User  (int id , String login , String password  , String number , String email) {
+        super();
+        this.id = id;
+        this.login = login;
+        this.email = email;
+        this.number = number;
+        this.password = password;
     }
     public String getPassword () {
         return password ;
