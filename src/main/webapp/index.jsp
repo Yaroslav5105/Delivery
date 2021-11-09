@@ -33,6 +33,13 @@
     <form name="DeleteOrderServlet" method="post" action="DeleteOrderServlet">
                     delete Order: <input type="deleteorder" name="deleteorder"/>
                     <input type="submit" value="deleter" />
-                </form>
+    </form>
+
+    <form name="AuthenticateServlet" method="post" action="AuthenticateServlet">
+                        email: <input type="email" name="email"/>
+                        password: <input type="password" name="password"/>
+                        <input type="submit" value="Authenticate" />
+        </form>
+
 </body>
 </html>

@@ -6,10 +6,7 @@ import com.yaroslav.delivery.db.entity.User;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 public class DBManager {
@@ -128,7 +125,7 @@ public class DBManager {
         return rowUpdated;
     }
 
-    public static boolean authenticate(String name,String password)
+    public static String authenticate(String name, String password)
             throws SQLException {
 
         try {
@@ -138,7 +135,8 @@ public class DBManager {
             ResultSet result = st.executeQuery();
             if (result.next()) {
                 do {
-                    System.out.println("Welcome, "+result.getString("name"));
+                    return result.getString("name");
+
                 } while(result.next());
             }
             else{
@@ -150,7 +148,7 @@ public class DBManager {
         finally{
             connection.close();
         }
-       return true;
+       return null;
     }
 
     public static void insertOrder(Order order) throws SQLException {
