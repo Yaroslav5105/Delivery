@@ -4,9 +4,27 @@ public class User {
 
     private Integer id;
     private String login;
+    private String password ;
+    private String number ;
+    private String mail ;
 
     public int getId() {
         return id;
+    }
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setId(int id) {
@@ -21,10 +39,20 @@ public class User {
         this.login = login;
     }
 
-    public static User createUser(String login) {
+    public static User createUser(String login , String password  , String number , String mail) {
         User user = new User();
         user.setLogin(login);
+        user.setPassword(password);
+        user.setMail(mail);
+        user.setNumber(number);
         return user;
+    }
+    public String getPassword () {
+        return password ;
+    }
+
+    public void setPassword (String paaword) {
+        this.password  = paaword;
     }
 
     @Override
@@ -56,4 +84,7 @@ public class User {
     public String toString() {
         return login;
     }
+
+
+
 }

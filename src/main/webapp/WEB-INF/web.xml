@@ -20,4 +20,11 @@
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+
+    <display-name>Delivery</display-name>
+    <welcome-file-list>
+
+        <welcome-file>/</welcome-file>
+
+    </welcome-file-list>
 </web-app>

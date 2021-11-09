@@ -12,8 +12,8 @@ import java.io.PrintWriter;
 public class MyServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/pracrice8", "root", "19731968");
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws  IOException {
+        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
         response.setContentType("text/html");
         try (PrintWriter writer = response.getWriter()) {
