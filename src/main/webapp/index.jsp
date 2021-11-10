@@ -1,20 +1,5 @@
 <html>
 <body>
-<form name="loginForm" method="post" action="loginServlet">
-    Username: <input type="text" name="name"/> <br/>
-    Password: <input type="password" name="password"/> <br/>
-    Number: <input type="number" name="number"/> <br/>
-    Mail: <input type="mail" name="mail"/> <br/>
-    <input type="submit" value="Login" />
-</form>
-
-<br/>
-
-    <form name="MyServlet" method="post" action="MyServlet">
-        delete: <input type="delete" name="delete"/>
-        <input type="submit" value="delete" />
-    </form>
-
     <form name="OrderServlet" method="post" action="OrderServlet">
         idUser: <input type="idUser" name="idUser"/> <br/>
         idRoute:
@@ -41,5 +26,8 @@
                         <input type="submit" value="Authenticate" />
         </form>
 
+        <form name="managerListUser.jsp" method="post" action="managerListUser.jsp">
+                <input type="submit" value="managerListUser" />
+            </form>
 </body>
 </html>

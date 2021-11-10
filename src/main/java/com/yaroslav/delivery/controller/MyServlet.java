@@ -13,18 +13,18 @@ import java.sql.SQLException;
 @WebServlet("/MyServlet")
 public class MyServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws  IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+
         int delete = Integer.parseInt(req.getParameter("delete"));
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
-            writer.println(DBManager.selectAllUsers());
         try {
-            writer.println(DBManager.deleteUser(delete));
+            DBManager.deleteUser(delete);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         String htmlRespone = "<html>";
         htmlRespone += "<h2>Your delete is: " + delete + "<br/>";
         htmlRespone += "</html>";

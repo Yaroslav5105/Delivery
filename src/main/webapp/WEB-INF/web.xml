@@ -21,5 +21,12 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>PriceServlet</servlet-name>
+        <servlet-class>com.yaroslav.delivery.controller.PriceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PriceServlet</servlet-name>
+        <url-pattern>/PriceServlet/*</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -20,7 +20,7 @@ public class DBManager {
     private static final String SELECT_USER_BY_ID = "select id,name,email,pasword,number from user where id =?";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
     private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, password =? , number= ? where id = ?;";
-    private static final String query = "select * from user where email=? and password = ?";
+    private static final String AUTHENTICATE = "select * from user where email=? and password = ?";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price ) VALUES  (?,?,?,?,?);";
 
     public Connection getConnection(String host, String user, String password) {
@@ -129,7 +129,7 @@ public class DBManager {
             throws SQLException {
 
         try {
-            PreparedStatement st = connection.prepareStatement(query);
+            PreparedStatement st = connection.prepareStatement(AUTHENTICATE);
             st.setString(1, name);
             st.setString(2, password);
             ResultSet result = st.executeQuery();
