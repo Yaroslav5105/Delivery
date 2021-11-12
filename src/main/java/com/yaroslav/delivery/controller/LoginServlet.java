@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String mail = request.getParameter("mail");
 
         try {
-            dbManager.insertUser(User.createUser(username ,password , number , mail));
+            DBManager.insertUser(User.createUser(username ,password , number , mail));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
         writer.println(htmlRespone);
 
 
+        response.sendRedirect("/allUserServlet");
     }
 
 }

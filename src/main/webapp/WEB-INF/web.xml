@@ -22,11 +22,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>PriceServlet</servlet-name>
-        <servlet-class>com.yaroslav.delivery.controller.PriceServlet</servlet-class>
+        <servlet-name>allUserServlet</servlet-name>
+        <servlet-class>com.yaroslav.delivery.controller.allUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>PriceServlet</servlet-name>
-        <url-pattern>/PriceServlet/*</url-pattern>
+        <servlet-name>allUserServlet</servlet-name>
+        <url-pattern>/allUserServlet/*</url-pattern>
     </servlet-mapping>
 </web-app>

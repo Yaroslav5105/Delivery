@@ -5,7 +5,7 @@
            <input type="submit" value="delete" />
        </form>
  <form name="managerListUser.jsp" method="post" action="managerListUser.jsp">
-                <input type="submit" value="managerListUser" />
+                <input type="submit" value="back" />
             </form>
     </body>
     </html>

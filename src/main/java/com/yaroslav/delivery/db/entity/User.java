@@ -3,7 +3,7 @@ package com.yaroslav.delivery.db.entity;
 public class User {
 
     private Integer id;
-    private static String login;
+    private String login;
     private String password ;
     private String number ;
     private String email ;
@@ -31,12 +31,12 @@ public class User {
         this.id = id;
     }
 
-    public static String getLogin() {
+    public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
-        User.login = login;
+        this.login = login;
     }
 
     public static User createUser(String login , String password  , String number , String mail) {

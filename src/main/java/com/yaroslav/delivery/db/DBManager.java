@@ -6,11 +6,15 @@ import com.yaroslav.delivery.db.entity.User;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 public class DBManager {
 
+    private static final Lock CONNECTION_LOCK = new ReentrantLock();
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static Connection connection;
     private static DBManager dbManager;
@@ -58,7 +62,7 @@ public class DBManager {
             preparedStatement.setString(4, user.getMail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOG.info("insertUserup error ");
+            LOG.info("insertUser error " + e.getMessage());
         }
     }
 
@@ -82,7 +86,32 @@ public class DBManager {
         return user;
     }
 
-    public static List<User> selectAllUsers() {
+
+
+    public List<User> findAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Statement ps = connection.createStatement()) {
+            CONNECTION_LOCK.lock();
+            try (ResultSet rs = ps.executeQuery(FIND_ALL_USERS)) {
+                while (rs.next()) {
+                    User user = new User();
+                    users.add(user);
+                    user.setId(rs.getInt(1));
+                    user.setLogin(rs.getString(2));
+                    user.setNumber(rs.getString(3));
+                    user.setMail(rs.getString(4));
+                    user.setPassword(rs.getString(5));
+                }
+            }
+        } catch (Exception e) {
+            LOG.info(e.getMessage());
+            return Collections.emptyList();
+
+        }
+        CONNECTION_LOCK.unlock();
+        return users;
+    }
+    public  List<User> selectAllUsers() {
 
         List<User> users = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_USERS);) {
@@ -96,6 +125,7 @@ public class DBManager {
                 String email = rs.getString("email");
                 users.add(new User(id, name,  password, number ,email ));
             }
+
         } catch (SQLException e) {
             LOG.info("error in selectAllUsers!");
         }
@@ -125,11 +155,8 @@ public class DBManager {
         return rowUpdated;
     }
 
-    public static String authenticate(String name, String password)
-            throws SQLException {
-
-        try {
-            PreparedStatement st = connection.prepareStatement(AUTHENTICATE);
+    public static String authenticate(String name, String password) throws SQLException {
+        try (PreparedStatement st = connection.prepareStatement(AUTHENTICATE)) {
             st.setString(1, name);
             st.setString(2, password);
             ResultSet result = st.executeQuery();
@@ -144,9 +171,6 @@ public class DBManager {
             }
         } catch (SQLException e) {
             System.out.println("Error :" + e.getMessage());
-        }
-        finally{
-            connection.close();
         }
        return null;
     }

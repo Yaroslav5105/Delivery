@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
 <title>User Management Application</title>
@@ -19,6 +19,8 @@
 
 				<a href="adduser.jsp" class="btn btn-success">Add New User</a>
 			</div>
+			<br/>
+
 			<br>
 			<table class="table table-bordered">
 				<thead>
@@ -31,27 +33,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--   for (Todo todo: todos) {  -->
-					<c:forEach var="user" items="${listUser}">
+					<c:forEach var="User" items="${listUser}">
 
 						<tr>
-							<td><c:out value="${user.id}" /></td>
-							<td><c:out value="${user.login}" /></td>
-							<td><c:out value="${user.password}" /></td>
-							<td><c:out value="${user.number}" /></td>
-							<td><a href="manager.jsp">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="deleteuser.jsp">Delete</a></td>
+							<td><c:out value="${User.id}" /></td>
+							<td><c:out value="${User.login}" /></td>
+							<td><c:out value="${User.password}" /></td>
+							<td><c:out value="${User.number}" /></td>
+
+							<td><a href="managerEditUser.jsp">Edit</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="deleteuser.jsp">Delete</a></td>
 						</tr>
 					</c:forEach>
-					<!-- } -->
+
 				</tbody>
 
 			</table>
 		</div>
 	</div>
 	<form name="index.jsp" method="post" action="index.jsp">
-            <input type="submit" value="index" />
+            <input type="submit" value="to the main page" />
         </form>
+
 </body>
 </html>

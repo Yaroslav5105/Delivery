@@ -19,6 +19,9 @@ public class UserServlet extends HttpServlet {
 
     public void init() {   dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968"); }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        doGet(request, response);
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
         try {
@@ -39,7 +42,7 @@ public class UserServlet extends HttpServlet {
                     updateUser(request, response);
                     break;
                 default:
-                    listUser(request, response);
+                    listUser (request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -49,15 +52,15 @@ public class UserServlet extends HttpServlet {
 
     private void listUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<User> listUser = DBManager.selectAllUsers();
-        request.setAttribute("listUser", listUser);
+       // List<User> listUser = DBManager.selectAllUsers();
+       // request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("managerListUser.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("manager.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("managerEditUser.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -65,7 +68,7 @@ public class UserServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         User existingUser = DBManager.selectUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("manager.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("managerEditUser.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
 

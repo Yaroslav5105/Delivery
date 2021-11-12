@@ -39,21 +39,27 @@
 
       				<fieldset class="form-group">
       					<label>User Name</label> <input type="text"
-      						value="<c:out value='${user.name}' />" class="form-control"
+      						value="" class="form-control"
       						name="name" required="required">
       				</fieldset>
 
       				<fieldset class="form-group">
-      					<label>User Email</label> <input type="text"
-      						value="<c:out value='${user.email}' />" class="form-control"
+      					<label>User Route</label> <input type="text"
+      						value="" class="form-control"
       						name="email">
       				</fieldset>
 
       				<fieldset class="form-group">
-      					<label>User Number</label> <input type="text"
-      						value="<c:out value='${user.country}' />" class="form-control"
+      					<label>User Volume</label> <input type="text"
+      						value="" class="form-control"
       						name="country">
       				</fieldset>
+
+      				<fieldset class="form-group">
+                       <label>User Weight</label> <input type="text"
+                      value="" class="form-control"
+                    name="country">
+                       </fieldset>
 
       				<button type="submit" class="btn btn-success">Save</button>
       				</form>

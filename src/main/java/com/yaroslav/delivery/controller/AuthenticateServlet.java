@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/AuthenticateServlet")
 
 public class AuthenticateServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher  = getServletConfig().getServletContext().getRequestDispatcher("/maneger");
+        requestDispatcher.forward(req , resp);
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
         String email = req.getParameter("email");
@@ -24,16 +32,21 @@ public class AuthenticateServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
         String name = null;
+
         try {
-            name= DBManager.authenticate(email, password);
+            name
+                    = DBManager.authenticate(email, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        if(email.equals("admin@gmail.com")){
+            if (password.equals("12345"))
+                response.sendRedirect("maneger.jsp");
+        }else if (name != null) {
+            response.sendRedirect("manegerIII.jsp");
+        }
         String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your name  is: " + name + "<br/>";
-        htmlRespone += "<h2>Your email  is: " + email + "<br/>";
-        htmlRespone += "<h2>Your password  is: " + password + "<br/>";
+        htmlRespone += "<h2>Your not regestretion";
         htmlRespone += "</html>";
 
         // return response
