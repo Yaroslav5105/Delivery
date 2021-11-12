@@ -26,6 +26,7 @@ public class OrderServlet extends HttpServlet {
         req.setAttribute("routes", routes);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
         requestDispatcher.forward(req, resp);
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,17 +43,8 @@ public class OrderServlet extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        PrintWriter writer = response.getWriter();
+        response.sendRedirect("/managerListOrder.jsp");
 
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your idRoute kilometrov is: " + idRoute + "<br/>";
-        htmlRespone += "<h2>Your volume is: " + volume + "<br/>";
-        htmlRespone += "<h2>Your weight is: " + weight + "<br/>";
-        htmlRespone += "<h2>Your price is: " + Order.getPrice() + "<br/>";
-        htmlRespone += "</html>";
-
-        // return response
-        writer.println(htmlRespone);
 
     }
 }

@@ -21,12 +21,5 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>allUserServlet</servlet-name>
-        <servlet-class>com.yaroslav.delivery.controller.allUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>allUserServlet</servlet-name>
-        <url-pattern>/allUserServlet/*</url-pattern>
-    </servlet-mapping>
+
 </web-app>

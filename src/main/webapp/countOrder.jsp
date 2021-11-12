@@ -16,8 +16,13 @@
         <br/><br/>
     </form>
 
-   <table border="1"
+   <table border="3"
        style="border-color: black;">
    <tr> <td>Price</td> <td>${count}</td></tr>
+</table>
+</br>
+   <form name="index.jsp" method="post" action="index.jsp">
+               <input type="submit" value="menu" />
+           </form>
     </body>
     </html>

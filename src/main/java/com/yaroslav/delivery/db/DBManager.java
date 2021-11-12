@@ -19,9 +19,10 @@ public class DBManager {
     private static Connection connection;
     private static DBManager dbManager;
     private static final String FIND_ALL_USERS = "SELECT * FROM user";
+    private static final String FIND_ALL_ORDERS = "SELECT * FROM orderuser";
     private static final Logger LOG = Logger.getLogger(DBManager.class.getName());
     private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
-    private static final String SELECT_USER_BY_ID = "select id,name,email,pasword,number from user where id =?";
+    private static final String SELECT_USER_BY_ID = "select id,name,email,password,number from user where id =?";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
     private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, password =? , number= ? where id = ?;";
     private static final String AUTHENTICATE = "select * from user where email=? and password = ?";
@@ -111,26 +112,33 @@ public class DBManager {
         CONNECTION_LOCK.unlock();
         return users;
     }
-    public  List<User> selectAllUsers() {
 
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_USERS);) {
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String number = rs.getString("number");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                users.add(new User(id, name,  password, number ,email ));
+    public List<Order> findAllOrder() {
+        List<Order> users = new ArrayList<>();
+        try (Statement ps = connection.createStatement()) {
+            CONNECTION_LOCK.lock();
+            try (ResultSet rs = ps.executeQuery(FIND_ALL_ORDERS)) {
+                while (rs.next()) {
+                    Order order= new Order();
+                    users.add(order);
+                    order.setId(rs.getInt(1));
+                    order.setIdUser(rs.getString(2));
+                    order.setIdRoute(rs.getInt(3));
+                    order.setVolume(rs.getInt(4));
+                    order.setWeight(rs.getInt(5));
+                    order.setPrice(rs.getInt(6));
+                }
             }
+        } catch (Exception e) {
+            LOG.info(" Error in method findAllOrder = " + e.getMessage() );
+            return Collections.emptyList();
 
-        } catch (SQLException e) {
-            LOG.info("error in selectAllUsers!");
         }
+        CONNECTION_LOCK.unlock();
         return users;
     }
+
+
 
     public static boolean deleteUser(int id) throws SQLException {
         boolean rowDeleted;

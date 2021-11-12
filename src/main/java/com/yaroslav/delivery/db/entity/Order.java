@@ -6,7 +6,7 @@ public class Order {
     private Integer idRoute;
     private Integer volume;
     private Integer weight;
-    private static Integer price ;
+    private Integer price ;
 
 
 
@@ -60,9 +60,7 @@ public class Order {
         this.weight = weight;
     }
 
-    public static Integer getPrice() {
-        return price;
-    }
+    public  Integer getPrice() { return price;  }
 
     public void setPrice(Integer price) {
         this.price = price;

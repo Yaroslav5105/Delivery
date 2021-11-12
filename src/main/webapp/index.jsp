@@ -7,20 +7,20 @@
         </form>
             </br>
 
-        <form name="maneger.jsp" method="post" action="maneger.jsp">
-                <input type="submit" value="Manager" />
-        </form>
-            </br>
 
-            <form name="countOrder.jsp" method="post" action="countOrder.jsp">
+
+            <form name="countOrder.jsp" method="get" action="countOrder.jsp">
                                             <input type="submit" value="countOrder" />
             </br>
 
             </form>
-            <form name="register.jsp" method="post" action="register.jsp">
+            <form name="register.jsp" method="get" action="register.jsp">
                                                         <input type="submit" value="register" />
 
             </form>
-
+<form name="maneger.jsp" method="get" action="maneger.jsp">
+                            <input type="submit" value="menu" />
+                        </form>
+            </body>
 </body>
 </html>

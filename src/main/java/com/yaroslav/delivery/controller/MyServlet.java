@@ -14,23 +14,15 @@ import java.sql.SQLException;
 public class MyServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
-
-        int delete = Integer.parseInt(req.getParameter("delete"));
+        int delete = Integer.parseInt(req.getParameter("id"));
         response.setContentType("text/html");
-        PrintWriter writer = response.getWriter();
         try {
             DBManager.deleteUser(delete);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your delete is: " + delete + "<br/>";
-        htmlRespone += "</html>";
-
-        // return response
-        writer.println(htmlRespone);
-
+        response.sendRedirect("/managerListUser.jsp");
     }
 }

@@ -1,5 +1,4 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
 <title>User Management Application</title>
@@ -28,7 +27,7 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Email</th>
-						<th>number</th>
+						<th>password</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -43,7 +42,7 @@
 
 							<td><a href="managerEditUser.jsp">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="deleteuser.jsp">Delete</a></td>
+								<a href="MyServlet?id=${User.id}">Delete</a></td>
 						</tr>
 					</c:forEach>
 
@@ -52,9 +51,10 @@
 			</table>
 		</div>
 	</div>
-	<form name="index.jsp" method="post" action="index.jsp">
-            <input type="submit" value="to the main page" />
-        </form>
+        <form name="maneger.jsp" method="post" action="maneger.jsp">
+                            <input type="submit" value="menu" />
+                        </form>
+            </body>
 
 </body>
 </html>

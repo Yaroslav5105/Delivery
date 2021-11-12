@@ -18,7 +18,7 @@
 
 			<div class="container text-left">
 
-            				<a href="addorder.jsp" class="btn btn-success">Add New Order</a>
+            				<a href="OrderServlet" class="btn btn-success">Add New Order</a>
             			</div>
 			<br>
 			<table class="table table-bordered">
@@ -34,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="user" items="${listUser}">
+					<c:forEach var="Order" items="${listOrder}">
 
 						<tr>
 							<td><c:out value="${Order.id}" /></td>
@@ -49,18 +49,14 @@
 								href="deleteOrder.jsp">Delete</a></td>
 						</tr>
 					</c:forEach>
-					<!-- } -->
 				</tbody>
-
 			</table>
 		</div>
 	</div>
-	<form name="index.jsp" method="post" action="index.jsp">
-            <input type="submit" value="to the main page" />
+
+	<form name="maneger.jsp" method="post" action="maneger.jsp">
+            <input type="submit" value="menu" />
         </form>
-        <form name="DeleteOrderServlet" method="post" action="DeleteOrderServlet">
-                            delete Order: <input type="deleteorder" name="deleteorder"/>
-                            <input type="submit" value="deleter" />
-           </form>
+
 </body>
 </html>
