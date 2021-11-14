@@ -30,12 +30,11 @@ public class AuthenticateServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         response.setContentType("text/html");
-        PrintWriter writer = response.getWriter();
+
         String name = null;
 
         try {
-            name
-                    = DBManager.authenticate(email, password);
+            name = DBManager.authenticate(email, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -43,14 +42,7 @@ public class AuthenticateServlet extends HttpServlet {
             if (password.equals("12345"))
                 response.sendRedirect("maneger.jsp");
         }else if (name != null) {
-            response.sendRedirect("manegerIII.jsp");
+            response.sendRedirect("maneger.jsp");
         }
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your not regestretion";
-        htmlRespone += "</html>";
-
-        // return response
-        writer.println(htmlRespone);
-
     }
 }

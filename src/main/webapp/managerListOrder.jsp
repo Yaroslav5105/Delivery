@@ -17,7 +17,7 @@
 
 			<div class="container text-left">
 
-            				<a href="OrderServlet" class="btn btn-success">Add New Order</a>
+            				<a href="allUserServlet" class="btn btn-success">Add New Order</a>
             			</div>
 			<br>
 			<table class="table table-bordered">
@@ -44,9 +44,8 @@
 							<td><c:out value="${Order.price}" /></td>
 
 							<td>
-
 								<a href="DeleteOrderServlet?id=${Order.id}">
-                                <input type="submit" value="Delete" /></a></td>
+                                <input type="submit" value="Delete" /></a> </td>
 						</tr>
 					</c:forEach>
 				</tbody>

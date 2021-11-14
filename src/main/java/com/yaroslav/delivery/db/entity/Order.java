@@ -2,20 +2,16 @@ package com.yaroslav.delivery.db.entity;
 
 public class Order {
     private Integer id;
-    private String idUser;
+    private Integer idUser;
     private Integer idRoute;
     private Integer volume;
     private Integer weight;
     private Integer price ;
 
-    @Override
-    public String toString() {
-        return idUser;
-    }
 
     public Order(){}
 
-    public static Order creatOrder(String idUser ,Integer idRoute  , Integer volume , Integer weight ){
+    public static Order creatOrder(Integer idUser ,Integer idRoute  , Integer volume , Integer weight ){
         Order order = new Order();
         order.setIdUser(idUser);
         order.setIdRoute(idRoute);
@@ -33,11 +29,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

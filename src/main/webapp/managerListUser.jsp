@@ -42,7 +42,11 @@
 							<td><a href="managerEditUser.jsp"> <input type="submit" value="edit" /></a>
 
 								<a href="MyServlet?id=${User.id}">
-							   <input type="submit" value="Delete" /></a></td>
+							   <input type="submit" value="Delete" /></a>
+
+							   <a href="OrderServlet?id=${User.id}">
+                               	<input type="submit" value="add order" /></a>
+                               	</td>
 						</tr>
 					</c:forEach>
 

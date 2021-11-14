@@ -2,8 +2,6 @@
  <html>
  <body>
 <form name="OrderServlet" method="post" action="OrderServlet">
-        idUser: <input type="idUser" name="idUser"/> <br/>
-
         idRoute: <select name="idRoute">
         <c:forEach var="route" items="${routes}">
         <option value="${route.value}">${route.key}</option>

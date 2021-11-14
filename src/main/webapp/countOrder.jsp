@@ -2,13 +2,11 @@
 <html>
 <body>
 <form name="CountOrderServlet" method="post" action="CountOrderServlet">
-        idRoute:
-            <select name="idRoute">
-                <option value="150">Kharkiv - Poltava</option>
-                <option value="700">Kharkiv - Lviv</option>
-                <option value="500">Kharkiv - Kuev</option>
-                <option value="350">Kharkiv - Dnepr </option>
-            </select>
+       idRoute: <select name="idRoute">
+               <c:forEach var="route" items="${routes}">
+               <option value="${route.value}">${route.key}</option>
+               </c:forEach>
+               </select>
             <br/>
         volume: <input type="volume" name="volume" />  <br/>
         weight: <input type="weight" name="weight"/> <br/>

@@ -123,7 +123,7 @@ public class DBManager {
                     Order order= new Order();
                     orders.add(order);
                     order.setId(rs.getInt(1));
-                    order.setIdUser(rs.getString(2));
+                    order.setIdUser(rs.getInt(2));
                     order.setIdRoute(rs.getInt(3));
                     order.setVolume(rs.getInt(4));
                     order.setWeight(rs.getInt(5));
@@ -184,7 +184,7 @@ public class DBManager {
     public static void insertOrder(Order order) throws SQLException {
         int i ;
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
-            preparedStatement.setString(1, order.getIdUser());
+            preparedStatement.setInt(1, order.getIdUser());
             preparedStatement.setInt(2, order.getIdRoute());
             preparedStatement.setInt(3, order.getVolume());
             preparedStatement.setInt(4, order.getWeight());
