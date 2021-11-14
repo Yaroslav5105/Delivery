@@ -7,8 +7,6 @@
         </form>
             </br>
 
-
-
             <form name="countOrder.jsp" method="get" action="countOrder.jsp">
                                             <input type="submit" value="countOrder" />
             </br>

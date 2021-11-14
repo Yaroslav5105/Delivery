@@ -7,6 +7,8 @@
     email: <input type="email" name="mail"/> <br/>
     <input type="submit" value="register" />
 </form>
-
+<form name="index.jsp" method="post" action="index.jsp">
+                <input type="submit" value="index" />
+            </form>
 </body>
 </html>

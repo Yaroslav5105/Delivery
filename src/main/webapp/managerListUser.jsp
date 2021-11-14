@@ -33,16 +33,16 @@
 				</thead>
 				<tbody>
 					<c:forEach var="User" items="${listUser}">
-
 						<tr>
 							<td><c:out value="${User.id}" /></td>
 							<td><c:out value="${User.login}" /></td>
 							<td><c:out value="${User.password}" /></td>
 							<td><c:out value="${User.number}" /></td>
 
-							<td><a href="managerEditUser.jsp">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="MyServlet?id=${User.id}">Delete</a></td>
+							<td><a href="managerEditUser.jsp"> <input type="submit" value="edit" /></a>
+
+								<a href="MyServlet?id=${User.id}">
+							   <input type="submit" value="Delete" /></a></td>
 						</tr>
 					</c:forEach>
 

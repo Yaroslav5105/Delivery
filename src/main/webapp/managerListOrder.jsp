@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <title>User Management Application</title>
@@ -44,9 +43,10 @@
 							<td><c:out value="${Order.weight}" /></td>
 							<td><c:out value="${Order.price}" /></td>
 
-							<td><a href="managerEditOrder.jsp">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="deleteOrder.jsp">Delete</a></td>
+							<td>
+
+								<a href="DeleteOrderServlet?id=${Order.id}">
+                                <input type="submit" value="Delete" /></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

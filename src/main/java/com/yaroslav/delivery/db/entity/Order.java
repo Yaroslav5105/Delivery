@@ -8,7 +8,12 @@ public class Order {
     private Integer weight;
     private Integer price ;
 
+    @Override
+    public String toString() {
+        return idUser;
+    }
 
+    public Order(){}
 
     public static Order creatOrder(String idUser ,Integer idRoute  , Integer volume , Integer weight ){
         Order order = new Order();
@@ -40,9 +45,7 @@ public class Order {
         return idRoute;
     }
 
-    public void setIdRoute(Integer idRoute) {
-        this.idRoute = idRoute;
-    }
+    public void setIdRoute(Integer idRoute) { this.idRoute = idRoute; }
 
     public Integer getVolume() {
         return volume;

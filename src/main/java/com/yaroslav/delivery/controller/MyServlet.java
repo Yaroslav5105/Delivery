@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet("/MyServlet")
@@ -23,6 +22,6 @@ public class MyServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        response.sendRedirect("/managerListUser.jsp");
+        response.sendRedirect("/allUserServlet");
     }
 }

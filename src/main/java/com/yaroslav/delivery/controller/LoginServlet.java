@@ -30,23 +30,6 @@ public class LoginServlet extends HttpServlet {
             throwables.printStackTrace();
         }
 
-
-        // get response writer
-        PrintWriter writer = response.getWriter();
-
-        // build HTML code
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your username is: " + username + "<br/>";
-        htmlRespone += "Your password is: " + password + "<br/>";
-        htmlRespone += "Your Feed back is: " + number + "<br/>";
-        htmlRespone += "Your number is: " + mail + "<br/>";
-        htmlRespone += "</html>";
-
-
-        // return response
-        writer.println(htmlRespone);
-
-
         response.sendRedirect("/allUserServlet");
     }
 

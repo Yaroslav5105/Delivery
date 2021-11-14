@@ -2,9 +2,6 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
 
-import com.yaroslav.delivery.db.DBManager;
-
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -27,6 +27,7 @@ public class OrderServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
         requestDispatcher.forward(req, resp);
 
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

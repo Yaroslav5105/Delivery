@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 public class DBManager {
 
+
     private static final Lock CONNECTION_LOCK = new ReentrantLock();
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static Connection connection;
@@ -114,13 +115,13 @@ public class DBManager {
     }
 
     public List<Order> findAllOrder() {
-        List<Order> users = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
         try (Statement ps = connection.createStatement()) {
-            CONNECTION_LOCK.lock();
+
             try (ResultSet rs = ps.executeQuery(FIND_ALL_ORDERS)) {
                 while (rs.next()) {
                     Order order= new Order();
-                    users.add(order);
+                    orders.add(order);
                     order.setId(rs.getInt(1));
                     order.setIdUser(rs.getString(2));
                     order.setIdRoute(rs.getInt(3));
@@ -134,11 +135,8 @@ public class DBManager {
             return Collections.emptyList();
 
         }
-        CONNECTION_LOCK.unlock();
-        return users;
+        return orders;
     }
-
-
 
     public static boolean deleteUser(int id) throws SQLException {
         boolean rowDeleted;
@@ -199,7 +197,7 @@ public class DBManager {
             System.out.println(i);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOG.info("insertOrder error ");
+            LOG.info("insertOrder error = " + e.getMessage() );
         }
     }
 
