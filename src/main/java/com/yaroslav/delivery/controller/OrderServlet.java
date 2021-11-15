@@ -18,19 +18,12 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, Integer> routes = new HashMap<>();
-        routes.put("Kharkiv - Poltava", 140);
-        routes.put("Kharkiv - Kyiv", 480);
-        routes.put("Kharkiv - Dnipro", 210);
-        routes.put("Kharkiv - Vinnitsa", 705);
-        routes.put("Kharkiv - Lviv", 1010);
-        routes.put("Kharkiv - Ivano-Frankivsk", 1080);
-        routes.put("Kharkiv - Sumy", 180);
-        req.setAttribute("routes", routes);
+        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+
+        req.setAttribute("routes", dbManager.findAllRoute());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
         requestDispatcher.forward(req, resp);
-
-         setIdUser(Integer.parseInt(req.getParameter("id")));
+        setIdUser(Integer.parseInt(req.getParameter("id")));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

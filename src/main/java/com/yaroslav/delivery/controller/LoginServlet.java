@@ -29,8 +29,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         response.sendRedirect("/allUserServlet");
     }
-
 }

@@ -4,7 +4,7 @@
 <form name="CountOrderServlet" method="post" action="CountOrderServlet">
        idRoute: <select name="idRoute">
                <c:forEach var="route" items="${routes}">
-               <option value="${route.value}">${route.key}</option>
+               <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
                </c:forEach>
                </select>
             <br/>

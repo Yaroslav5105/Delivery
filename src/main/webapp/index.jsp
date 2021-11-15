@@ -7,9 +7,7 @@
         </form>
             </br>
 
-            <form name="countOrder.jsp" method="get" action="CountOrderServlet">
-                                            <input type="submit" value="countOrder" />
-            </br>
+
 
             </form>
             <form name="register.jsp" method="get" action="register.jsp">
@@ -17,8 +15,12 @@
 
             </form>
 <form name="maneger.jsp" method="get" action="maneger.jsp">
-                            <input type="submit" value="menu" />
+                            <input type="submit" value="manager" />
                         </form>
-            </body>
+
+<form name="IndexAuthenticateUser.jsp" method="get" action="IndexAuthenticateUser.jsp">
+                             <input type="submit" value="user" />
+                         </form>
+
 </body>
 </html>

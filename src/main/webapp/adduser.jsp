@@ -8,7 +8,7 @@
     <input type="submit" value="Login" />
 </form>
 
- <form name="managerListUser.jsp" method="post" action="managerListUser.jsp">
+ <form name="maneger.jsp" method="post" action="maneger.jsp">
                 <input type="submit" value="back" />
             </form>
 </body>

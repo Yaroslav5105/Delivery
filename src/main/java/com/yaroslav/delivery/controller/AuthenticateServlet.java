@@ -42,7 +42,8 @@ public class AuthenticateServlet extends HttpServlet {
             if (password.equals("12345"))
                 response.sendRedirect("maneger.jsp");
         }else if (name != null) {
-            response.sendRedirect("maneger.jsp");
+            response.sendRedirect("IndexAuthenticateUser.jsp");
         }
+
     }
 }

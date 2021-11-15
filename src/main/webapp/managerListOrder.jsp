@@ -24,7 +24,7 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Name</th>
+						<th>ID Name</th>
 						<th>Route</th>
 						<th>Volume</th>
 						<th>Weight</th>

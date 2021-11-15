@@ -39,14 +39,16 @@
 							<td><c:out value="${User.password}" /></td>
 							<td><c:out value="${User.number}" /></td>
 
-							<td><a href="managerEditUser.jsp"> <input type="submit" value="edit" /></a>
+				            <td>
+				            <a href="EditUserManagerServlet?id=${User.id}">
+				            <input type="submit" value="edit" /></a>
 
-								<a href="MyServlet?id=${User.id}">
-							   <input type="submit" value="Delete" /></a>
+							<a href="MyServlet?id=${User.id}">
+							<input type="submit" value="Delete" /></a>
 
-							   <a href="OrderServlet?id=${User.id}">
-                               	<input type="submit" value="add order" /></a>
-                               	</td>
+							<a href="OrderServlet?id=${User.id}">
+                            <input type="submit" value="add order" /></a>
+                          	</td>
 						</tr>
 					</c:forEach>
 
