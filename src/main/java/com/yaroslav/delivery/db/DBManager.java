@@ -28,8 +28,10 @@ public class DBManager {
     private static final Logger LOG = Logger.getLogger(DBManager.class.getName());
     private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
     private static final String SELECT_USER_BY_ID = "select id,name,email,password,number from user where id =?";
+    private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight from orderuser where id =?";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
     private static final String UPDATE_USERS_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
+    private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? where id = ?;";
     private static final String AUTHENTICATE = "select * from user where email=? and password = ?";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price ) VALUES  (?,?,?,?,?);";
 
@@ -93,6 +95,24 @@ public class DBManager {
         }
         return user;
     }
+    public static Order selectOrder(int id) {
+        Order order = new Order();
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Integer idUser = rs.getInt("user");
+                Integer idRoute = rs.getInt("route");
+                Integer volume = rs.getInt("volume");
+                Integer weight = rs.getInt("weight");
+                order = new Order(id, idUser, idRoute, volume, weight);
+            }
+        } catch (SQLException e) {
+            LOG.info("error in selectUser!");
+        }
+        return order;
+    }
 
 
     public List<User> findAllUsers() {
@@ -143,7 +163,7 @@ public class DBManager {
         return orders;
     }
 
-    public List<Route> findAllRoute() {
+    public static List<Route> findAllRoute() {
         List<Route> routes = new ArrayList<>();
         try (Statement ps = connection.createStatement()) {
             CONNECTION_LOCK.lock();
@@ -205,6 +225,23 @@ public class DBManager {
             statement.setString(4, user.getMail());
             statement.setInt(5, user.getId());
 
+            statement.executeUpdate();
+        }
+    }
+    public static void  updateOrder(Order order) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
+            statement.setInt(1, order.getIdUser());
+            statement.setInt(2, order.getIdRoute());
+            statement.setInt(3, order.getVolume());
+            statement.setInt(4, order.getWeight());
+
+            int route = order.getIdRoute();
+            int volume = order.getVolume();
+            int weight = order.getWeight();
+            int i = (volume + weight) * 2 + route * 4;
+            order.setPrice(i);
+            statement.setInt(5, i);
+            statement.setInt(6, order.getId());
             statement.executeUpdate();
         }
     }

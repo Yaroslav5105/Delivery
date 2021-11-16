@@ -20,7 +20,7 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
-        req.setAttribute("routes", dbManager.findAllRoute());
+        req.setAttribute("routes", DBManager.findAllRoute());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
         requestDispatcher.forward(req, resp);
         setIdUser(Integer.parseInt(req.getParameter("id")));

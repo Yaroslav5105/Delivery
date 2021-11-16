@@ -28,7 +28,6 @@ public class EditUserManagerServlet extends HttpServlet {
         list.add(DBManager.selectUser(id));
         req.setAttribute("user", list);
         resp.sendRedirect("userEditForm.jsp");
-        System.out.println(getId());
     }
 
     @Override

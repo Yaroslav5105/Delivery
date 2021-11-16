@@ -11,6 +11,15 @@ public class Order {
 
     public Order(){}
 
+    public  Order (Integer id , Integer idUser ,Integer idRoute  , Integer volume , Integer weight ){
+        super();
+        this.id = id;
+        this.idUser = idUser;
+        this.idRoute = idRoute;
+        this.volume = volume;
+        this.weight = weight;
+    }
+
     public static Order creatOrder(Integer idUser ,Integer idRoute  , Integer volume , Integer weight ){
         Order order = new Order();
         order.setIdUser(idUser);
@@ -63,5 +72,16 @@ public class Order {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", idRoute=" + idRoute +
+                ", volume=" + volume +
+                ", weight=" + weight +
+                '}';
     }
 }

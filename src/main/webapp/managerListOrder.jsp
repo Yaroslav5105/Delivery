@@ -44,8 +44,11 @@
 							<td><c:out value="${Order.price}" /></td>
 
 							<td>
-								<a href="DeleteOrderServlet?id=${Order.id}">
-                                <input type="submit" value="Delete" /></a> </td>
+							<a href="EditOrderManagerServlet?id=${Order.id}">
+                            <input type="submit" value="edit" /></a>
+
+							<a href="DeleteOrderServlet?id=${Order.id}">
+                            <input type="submit" value="Delete" /></a> </td>
 						</tr>
 					</c:forEach>
 				</tbody>

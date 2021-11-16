@@ -1,6 +1,7 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.db.entity.Order;
 import com.yaroslav.delivery.db.entity.User;
 
 import javax.servlet.RequestDispatcher;
@@ -20,8 +21,8 @@ public class test extends HttpServlet {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
 
-        List<User> list = new ArrayList<>();
-        list.add(DBManager.selectUser(106));
+        List<Order> list = new ArrayList<>();
+        list.add(DBManager.selectOrder(65));
         System.out.println(list);
     }
 }
