@@ -38,7 +38,7 @@
 						<tr>
 							<td><c:out value="${Order.id}" /></td>
 							<td><c:out value="${Order.idUser}" /></td>
-							<td><c:out value="${Order.idRoute}" /></td>
+							<td><c:out value="${Order.way}" /></td>
 							<td><c:out value="${Order.volume}" /></td>
 							<td><c:out value="${Order.weight}" /></td>
 							<td><c:out value="${Order.price}" /></td>

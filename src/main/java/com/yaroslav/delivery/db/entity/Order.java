@@ -7,15 +7,16 @@ public class Order {
     private Integer volume;
     private Integer weight;
     private Integer price ;
+    private String way ;
 
 
     public Order(){}
 
-    public  Order (Integer id , Integer idUser ,Integer idRoute  , Integer volume , Integer weight ){
+    public  Order (Integer id , Integer idUser ,String way  , Integer volume , Integer weight ){
         super();
         this.id = id;
         this.idUser = idUser;
-        this.idRoute = idRoute;
+        this.way = way;
         this.volume = volume;
         this.weight = weight;
     }
@@ -74,14 +75,11 @@ public class Order {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", idUser=" + idUser +
-                ", idRoute=" + idRoute +
-                ", volume=" + volume +
-                ", weight=" + weight +
-                '}';
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
     }
 }

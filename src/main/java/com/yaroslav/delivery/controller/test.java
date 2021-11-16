@@ -21,8 +21,7 @@ public class test extends HttpServlet {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
 
-        List<Order> list = new ArrayList<>();
-        list.add(DBManager.selectOrder(65));
-        System.out.println(list);
+
+        System.out.println(dbManager.selectWay(480));
     }
 }

@@ -28,6 +28,7 @@ public class OrderServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+
         int idRoute = Integer.parseInt(request.getParameter("idRoute"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));

@@ -29,6 +29,7 @@ public class DBManager {
     private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
     private static final String SELECT_USER_BY_ID = "select id,name,email,password,number from user where id =?";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight from orderuser where id =?";
+    private static final String SELECT_ROUTE_BY_ID = "select way from route where kilometers =?";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
     private static final String UPDATE_USERS_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? where id = ?;";
@@ -103,17 +104,31 @@ public class DBManager {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Integer idUser = rs.getInt("user");
-                Integer idRoute = rs.getInt("route");
+                String way = rs.getString("route");
                 Integer volume = rs.getInt("volume");
                 Integer weight = rs.getInt("weight");
-                order = new Order(id, idUser, idRoute, volume, weight);
+                order = new Order(id, idUser, way, volume, weight);
             }
         } catch (SQLException e) {
-            LOG.info("error in selectUser!");
+            LOG.info("error in selectOrder!" + e.getMessage());
         }
         return order;
     }
 
+    public  String selectWay(int id) {
+        String idUser = " PIO" ;
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROUTE_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                idUser = rs.getString("way");
+            }
+        } catch (SQLException e) {
+            LOG.info("error in selectUser!");
+        }
+        return idUser;
+    }
 
     public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
@@ -149,7 +164,7 @@ public class DBManager {
                     orders.add(order);
                     order.setId(rs.getInt(1));
                     order.setIdUser(rs.getInt(2));
-                    order.setIdRoute(rs.getInt(3));
+                    order.setWay(rs.getString(3));
                     order.setVolume(rs.getInt(4));
                     order.setWeight(rs.getInt(5));
                     order.setPrice(rs.getInt(6));
@@ -231,7 +246,7 @@ public class DBManager {
     public static void  updateOrder(Order order) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, order.getIdUser());
-            statement.setInt(2, order.getIdRoute());
+            statement.setString(2, order.getWay());
             statement.setInt(3, order.getVolume());
             statement.setInt(4, order.getWeight());
 
@@ -266,8 +281,11 @@ public class DBManager {
     public static void insertOrder(Order order) throws SQLException {
         int i;
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
+
+            String way = dbManager.selectWay(order.getIdRoute());
+            System.out.println(way);
             preparedStatement.setInt(1, order.getIdUser());
-            preparedStatement.setInt(2, order.getIdRoute());
+            preparedStatement.setString(2, way);
             preparedStatement.setInt(3, order.getVolume());
             preparedStatement.setInt(4, order.getWeight());
             int route = order.getIdRoute();

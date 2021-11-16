@@ -29,19 +29,22 @@ public class EditOrderManagerServlet extends HttpServlet {
         list.add(DBManager.selectOrder(id));
 
         req.setAttribute("routes", DBManager.findAllRoute());
-        req.setAttribute("Order", list);
+        req.setAttribute("order", list);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orderEditForm.jsp");
         requestDispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
         int id = this.id;
         Order order= DBManager.selectOrder(id);
 
         int idRoute = Integer.parseInt(req.getParameter("idRoute"));
         order.setIdRoute(idRoute);
+        String way = dbManager.selectWay(idRoute);
+        order.setWay(way);
 
         int weight = Integer.parseInt(req.getParameter("weight"));
         order.setWeight(weight);
