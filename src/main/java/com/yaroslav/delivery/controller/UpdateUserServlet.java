@@ -14,7 +14,8 @@ public class UpdateUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+
+        int id = EditUserManagerServlet.getId();
 
         User user = DBManager.selectUser(id);
 

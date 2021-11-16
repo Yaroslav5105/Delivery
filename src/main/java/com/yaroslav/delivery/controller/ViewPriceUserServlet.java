@@ -1,10 +1,7 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.Order;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +20,5 @@ public class ViewPriceUserServlet extends  HttpServlet {
         req.setAttribute("prices", dbManager.findPrice());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/price.jsp");
         requestDispatcher.forward(req, resp);
-
     }
 }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/test")
 public class test extends HttpServlet {
@@ -17,7 +19,9 @@ public class test extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
-        System.out.println(DBManager.selectUser(102));
 
+        List<User> list = new ArrayList<>();
+        list.add(DBManager.selectUser(106));
+        System.out.println(list);
     }
 }
