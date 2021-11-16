@@ -10,13 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/EditUserManagerServlet")
 public class EditUserManagerServlet extends HttpServlet {
 
-    private static Integer id ;
+    private Integer id ;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String paramId = req.getParameter("id");
@@ -29,11 +31,39 @@ public class EditUserManagerServlet extends HttpServlet {
         System.out.println(getId());
     }
 
-    public static Integer getId() {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        int id = getId();
+
+        User user = DBManager.selectUser(id);
+
+        String name = req.getParameter("login");
+        user.setLogin(name);
+
+        String password = req.getParameter("password");
+        user.setPassword(password);
+
+        String number = req.getParameter("number");
+        user.setNumber(number);
+
+        String email = req.getParameter("email");
+        user.setMail(email);
+
+        user.setId(id);
+        try {
+            DBManager.updateUser(user);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        resp.sendRedirect("/allUserServlet");
+    }
+
+    public  Integer getId() {
         return id;
     }
 
-    public  void setId(Integer id) {
-        EditUserManagerServlet.id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
