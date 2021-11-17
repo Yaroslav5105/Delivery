@@ -9,22 +9,13 @@
 </head>
 <body>
 	<div class="row">
-		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">List of Order</h3>
+			<h3 class="text-center">my orders</h3>
 			<hr>
-
-			<div class="container text-left">
-
-            				<a href="allUserServlet" class="btn btn-success">Add New Order</a>
-            			</div>
-			<br>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>ID Name</th>
 						<th>Route</th>
 						<th>Volume</th>
 						<th>Weight</th>
@@ -39,32 +30,26 @@
 					<c:forEach var="Order" items="${listOrder}">
 
 						<tr>
-							<td><c:out value="${Order.id}" /></td>
-							<td><c:out value="${Order.idUser}" /></td>
 							<td><c:out value="${Order.way}" /></td>
 							<td><c:out value="${Order.volume}" /></td>
 							<td><c:out value="${Order.weight}" /></td>
                             <td><c:out value="${Order.date}" /></td>
                             <td><c:out value="${Order.type}" /></td>
-                            <td><c:out value="${Order.price}" /></td>
+							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
 
-							<td>
-							<a href="EditOrderManagerServlet?id=${Order.id}">
-                            <input type="submit" value="edit" /></a>
-
-							<a href="DeleteOrderServlet?id=${Order.id}">
-                            <input type="submit" value="Delete" /></a> </td>
+                            <td>
+							<a href="PayOrderServlet?id=${Order.id}">
+                            <input type="submit" value="pay" /></a>
+							 </td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 	</div>
-
-	<form name="maneger.jsp" method="post" action="maneger.jsp">
-            <input type="submit" value="menu" />
-        </form>
-
+<form name="IndexAuthenticateUser.jsp" method="get" action="IndexAuthenticateUser.jsp">
+<input type="submit" value="user" />
+</form>
 </body>
 </html>

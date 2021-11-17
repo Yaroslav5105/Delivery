@@ -8,7 +8,9 @@ public class Order {
     private Integer weight;
     private Integer price ;
     private String way ;
-
+    private String payment;
+    private String date ;
+    private String type ;
 
     public Order(){}
 
@@ -21,13 +23,15 @@ public class Order {
         this.weight = weight;
     }
 
-    public static Order creatOrder(Integer idUser ,Integer idRoute  , Integer volume , Integer weight ){
+    public static Order creatOrder(Integer idUser ,Integer idRoute  , Integer volume , Integer weight , String payment , String date , String type){
         Order order = new Order();
         order.setIdUser(idUser);
         order.setIdRoute(idRoute);
         order.setVolume(volume);
         order.setWeight(weight);
-
+        order.setPayment(payment);
+        order.setDate(date);
+        order.setType(type);
         return order;
     }
 
@@ -81,5 +85,29 @@ public class Order {
 
     public void setWay(String way) {
         this.way = way;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

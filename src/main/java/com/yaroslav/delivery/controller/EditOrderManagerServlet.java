@@ -27,7 +27,7 @@ public class EditOrderManagerServlet extends HttpServlet {
         this.id = id;
         List<Order> list = new ArrayList<>();
         list.add(DBManager.selectOrder(id));
-
+        req.setAttribute("luggages", DBManager.findAllLuggage());
         req.setAttribute("routes", DBManager.findAllRoute());
         req.setAttribute("order", list);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orderEditForm.jsp");
@@ -43,6 +43,7 @@ public class EditOrderManagerServlet extends HttpServlet {
 
         int idRoute = Integer.parseInt(req.getParameter("idRoute"));
         order.setIdRoute(idRoute);
+
         String way = dbManager.selectWay(idRoute);
         order.setWay(way);
 
@@ -51,6 +52,12 @@ public class EditOrderManagerServlet extends HttpServlet {
 
         int volume = Integer.parseInt(req.getParameter("volume"));
         order.setVolume(volume);
+
+        String  date = req.getParameter("date");
+        order.setDate(date);
+
+        String type = req.getParameter("type");
+        order.setType(type);
 
         order.setId(id);
         try {

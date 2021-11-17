@@ -18,9 +18,6 @@
                             <input type="submit" value="manager" />
                         </form>
 
-<form name="IndexAuthenticateUser.jsp" method="get" action="IndexAuthenticateUser.jsp">
-                             <input type="submit" value="user" />
-                         </form>
 
 </body>
 </html>

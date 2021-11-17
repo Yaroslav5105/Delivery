@@ -8,8 +8,8 @@
                </c:forEach>
                </select>
             <br/>
-        volume: <input type="volume" name="volume" />  <br/>
-        weight: <input type="weight" name="weight"/> <br/>
+        volume: <input type="number" name="volume" />  <br/>
+        weight: <input type="number" name="weight"/> <br/>
         <input type="submit" value="order" />
         <br/><br/>
     </form>

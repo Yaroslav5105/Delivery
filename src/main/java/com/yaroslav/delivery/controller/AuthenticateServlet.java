@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/AuthenticateServlet")
 
 public class AuthenticateServlet extends HttpServlet {
+
+    private static int id ;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher  = getServletConfig().getServletContext().getRequestDispatcher("/maneger");
@@ -30,9 +32,9 @@ public class AuthenticateServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         response.setContentType("text/html");
-
         String name = null;
 
+       User user = dbManager.selectUserByEmail(email);
         try {
             name = DBManager.authenticate(email, password);
         } catch (SQLException throwables) {
@@ -44,6 +46,14 @@ public class AuthenticateServlet extends HttpServlet {
         }else if (name != null) {
             response.sendRedirect("IndexAuthenticateUser.jsp");
         }
+        setId(user.getId());
+    }
 
+    public static int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        AuthenticateServlet.id = id;
     }
 }
