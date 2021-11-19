@@ -26,8 +26,8 @@
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
-						<th>Email</th>
 						<th>password</th>
+						<th>Email</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -37,7 +37,7 @@
 							<td><c:out value="${User.id}" /></td>
 							<td><c:out value="${User.login}" /></td>
 							<td><c:out value="${User.password}" /></td>
-							<td><c:out value="${User.number}" /></td>
+							<td><c:out value="${User.email}" /></td>
 
 				            <td>
 				            <a href="EditUserManagerServlet?id=${User.id}">

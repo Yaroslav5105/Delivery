@@ -1,6 +1,7 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.service.UserService;
 
 
 import javax.servlet.RequestDispatcher;
@@ -14,11 +15,12 @@ import java.io.IOException;
 @WebServlet("/allUserServlet")
 public class allUserServlet extends HttpServlet {
 
+    private final UserService creatUserService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
-        req.setAttribute("listUser", dbManager.findAllUsers());
+        req.setAttribute("listUser", creatUserService.findAllUser());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/managerListUser.jsp");
         requestDispatcher.forward(req, response);
     }

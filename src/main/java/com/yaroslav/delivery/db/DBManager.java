@@ -1,6 +1,7 @@
 package com.yaroslav.delivery.db;
 
 import com.yaroslav.delivery.db.entity.*;
+import com.yaroslav.delivery.model.UserModel;
 
 import java.io.IOException;
 import java.sql.*;
@@ -16,7 +17,7 @@ public class DBManager {
 
     private static final Lock CONNECTION_LOCK = new ReentrantLock();
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
-    private static Connection connection;
+    public static Connection connection;
     private static DBManager dbManager;
     private static final String FIND_ALL_USERS = "SELECT * FROM user";
     private static final String FIND_ALL_ORDERS = "SELECT * FROM orderuser";
@@ -37,9 +38,9 @@ public class DBManager {
     private static final String AUTHENTICATE = "select * from user where email=? and password = ?";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price , payment ,date ,type) VALUES  (?,?,?,?,?,?,?,?);";
 
-    public Connection getConnection(String host, String user, String password) {
+    public Connection getConnection() {
         try {
-            return DriverManager.getConnection(host, user, password);
+            return DriverManager.getConnection("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
         } catch (SQLException e) {
             LOG.info(e.getMessage());
         }
@@ -47,10 +48,11 @@ public class DBManager {
     }
 
     public DBManager() {
+        connection = getConnection();
     }
 
     private DBManager(String host, String user, String password) throws IOException {
-        connection = getConnection(host, user, password);
+        connection = getConnection();
     }
 
     public static DBManager getInstance(String host, String user, String password) {
@@ -149,13 +151,13 @@ public class DBManager {
         return idUser;
     }
 
-    public List<User> findAllUsers() {
-        List<User> users = new ArrayList<>();
+    public List<UserModel> findAllUsers() {
+        List<UserModel> users = new ArrayList<>();
         try (Statement ps = connection.createStatement()) {
             CONNECTION_LOCK.lock();
             try (ResultSet rs = ps.executeQuery(FIND_ALL_USERS)) {
                 while (rs.next()) {
-                    User user = new User();
+                    UserModel user = new UserModel();
                     users.add(user);
                     user.setId(rs.getInt(1));
                     user.setLogin(rs.getString(2));

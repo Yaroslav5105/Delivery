@@ -4,7 +4,7 @@
               <input type="submit" value="managerListOrder" />
               </form>
 
-              <form name="managerListUser.jsp" method="get" action="allUserServlet">
+              <form name="allUserServlet" method="get" action="allUserServlet">
               <input type="submit" value="managerListUser" />
               </form>
 </body>
