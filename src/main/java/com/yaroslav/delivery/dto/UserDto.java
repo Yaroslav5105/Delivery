@@ -3,12 +3,21 @@ package com.yaroslav.delivery.dto;
 public class UserDto {
 
     private Integer id;
-    private String login ;
-    private String password ;
-    private String number ;
+    private String login;
+    private String password;
+    private String number;
     private String email;
 
-public UserDto(){}
+    public UserDto() {
+    }
+
+    public UserDto(String login , String password , String number , String email , Integer id){
+        setLogin(login);
+        setPassword(password);
+        setNumber(number);
+        setEmail(email);
+        setId(id);
+    }
     public UserDto(String name, String password, String number, String email) {
         setLogin(name);
         setNumber(number);

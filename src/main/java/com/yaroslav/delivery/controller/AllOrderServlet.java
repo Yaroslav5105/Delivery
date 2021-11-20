@@ -1,6 +1,7 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.service.OrderService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,12 +14,12 @@ import java.io.IOException;
 @WebServlet("/AllOrderServlet")
 public class AllOrderServlet extends HttpServlet {
 
+    OrderService findAllOrderService = new OrderService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
-        req.setAttribute("listOrder", dbManager.findAllOrder());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/managerListOrder.jsp");
-        requestDispatcher.forward(req, response);
+        req.setAttribute("listOrder", findAllOrderService.findAllOrder());
+        req.getRequestDispatcher("/managerListOrder.jsp").forward(req, response);
     }
 }

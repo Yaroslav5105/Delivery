@@ -31,7 +31,6 @@ public class AuthenticateServlet extends HttpServlet {
         DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        response.setContentType("text/html");
         String name = null;
 
        User user = dbManager.selectUserByEmail(email);
@@ -45,8 +44,9 @@ public class AuthenticateServlet extends HttpServlet {
                 response.sendRedirect("maneger.jsp");
         }else if (name != null) {
             response.sendRedirect("IndexAuthenticateUser.jsp");
-        }
-        setId(user.getId());
+            setId(user.getId());
+        }else response.sendRedirect("index.jsp");
+
     }
 
     public static int getId() {

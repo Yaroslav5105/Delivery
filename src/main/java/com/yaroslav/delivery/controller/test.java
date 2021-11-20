@@ -20,7 +20,6 @@ public class test extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
 
         String idRoute = req.getParameter("start");
         System.out.println(idRoute);

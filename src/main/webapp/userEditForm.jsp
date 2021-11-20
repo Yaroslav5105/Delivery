@@ -6,6 +6,7 @@
         Username number :<input name="number" value="${user.number}"><br>
 		User password: <input name="password" value="${user.password}"><br>
 		User email:<input name="email" value="${user.email}" ><br>
+		<input type="hidden" name="id" value="${user.id}"/>
 		<input type="submit" value="Save">
 	</form>
 </body>

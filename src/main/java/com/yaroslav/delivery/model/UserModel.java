@@ -41,7 +41,7 @@ public class UserModel {
         this.login = login;
     }
 
-    public static User createUser(String login , String password  , String number , String mail) {
+    public User createUser(String login , String password  , String number , String mail) {
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
@@ -75,31 +75,6 @@ public class UserModel {
 
     public void setPassword (String paaword) {
         this.password  = paaword;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (obj instanceof User) {
-            return true;
-        }
-        UserModel other = (UserModel) obj;
-        if (login == null) {
-            return other.login == null;
-        } else return login.equals(other.login);
-    }
-
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        result = prime * result + ((login == null) ? 0 : login.hashCode());
-        return result;
     }
 
     @Override

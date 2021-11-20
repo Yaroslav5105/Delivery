@@ -3,9 +3,7 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.dto.UserDto;
 import com.yaroslav.delivery.service.UserService;
-
 import java.io.IOException;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,3 +26,4 @@ public class LoginServlet extends HttpServlet {
         response.sendRedirect("/allUserServlet");
     }
 }
+

@@ -9,16 +9,17 @@ import java.util.List;
 
 public class UserService {
     private final UserDAO userDAO = new UserDAO();
+    private final UserModel userModel = new UserModel();
 
-    public void createUser(UserDto creatUserDto) {
+    public void createUser(UserDto createUserDto) {
 
-        String username = creatUserDto.getLogin();
-        String password = creatUserDto.getPassword();
-        String number = creatUserDto.getNumber();
-        String mail = creatUserDto.getEmail();
+        String username = createUserDto.getLogin();
+        String password = createUserDto.getPassword();
+        String number = createUserDto.getNumber();
+        String mail = createUserDto.getEmail();
 
         try {
-            userDAO.insertUser(UserModel.createUser(username, password, number, mail));
+            userDAO.insertUser(userModel.createUser(username, password, number, mail));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -39,5 +40,39 @@ public class UserService {
             userDto.setEmail(userModel.getMail());
         }
         return userDtos;
+    }
+    public void updateUser(UserDto userDto){
+        UserModel userModel = userDAO.selectUser(userDto.getId());
+
+        userModel.setLogin(userDto.getLogin());
+        userModel.setMail(userDto.getEmail());
+        userModel.setNumber(userDto.getNumber());
+        userModel.setPassword(userDto.getPassword());
+        userModel.setId(userDto.getId());
+
+        try {
+            userDAO.updateUser(userModel);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public UserDto selectUser(int id ){
+        UserDto userDto = new UserDto();
+        UserModel userModel = userDAO.selectUser(id);
+
+        userDto.setEmail(userModel.getMail());
+        userDto.setNumber(userDto.getNumber());
+        userDto.setPassword(userModel.getPassword());
+        userDto.setLogin(userModel.getLogin());
+        userDto.setId(userModel.getId());
+        return userDto;
+    }
+    public void delete (int id){
+        try {
+            userDAO.deleteUser(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.yaroslav.delivery.controller;
 
-import com.yaroslav.delivery.db.DBManager;
 import com.yaroslav.delivery.service.UserService;
 
 
@@ -15,13 +14,12 @@ import java.io.IOException;
 @WebServlet("/allUserServlet")
 public class allUserServlet extends HttpServlet {
 
-    private final UserService creatUserService = new UserService();
+    private final UserService findAllUsers = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-        req.setAttribute("listUser", creatUserService.findAllUser());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/managerListUser.jsp");
-        requestDispatcher.forward(req, response);
+        req.setAttribute("listUser", findAllUsers.findAllUser());
+        req.getRequestDispatcher("/managerListUser.jsp").forward(req, response);
     }
 }

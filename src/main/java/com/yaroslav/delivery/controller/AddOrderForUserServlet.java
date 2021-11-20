@@ -1,48 +1,40 @@
 package com.yaroslav.delivery.controller;
 
-import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.Order;
+import com.yaroslav.delivery.dto.OrderDto;
+import com.yaroslav.delivery.service.LuggageService;
+import com.yaroslav.delivery.service.OrderService;
+import com.yaroslav.delivery.service.RouteService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/AddOrderForUserServlet")
 public class AddOrderForUserServlet extends HttpServlet {
-    private int idUser;
+
+    LuggageService luggageService = new LuggageService();
+    OrderService orderService = new OrderService();
+    RouteService routeService = new RouteService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
-        req.setAttribute("luggages", DBManager.findAllLuggage());
-        req.setAttribute("routes", DBManager.findAllRoute());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addOrderForUser.jsp");
-        requestDispatcher.forward(req, resp);
-        setIdUser(AuthenticateServlet.getId());
+        req.setAttribute("luggages", luggageService.findAllLuggage());
+        req.setAttribute("routes", routeService.findAllRoute());
+        req.getRequestDispatcher("/addOrderForUser.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+        String date = request.getParameter("date");
         String type = request.getParameter("type");
-        String  date = request.getParameter("date");
         int idRoute = Integer.parseInt(request.getParameter("idRoute"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));
-        String payment = "not paid" ;
-        try {
-            DBManager.insertOrder(Order.creatOrder(idUser,idRoute,volume,weight,payment , date , type));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
+        orderService.createOrder(new OrderDto(AuthenticateServlet.getId(), idRoute, volume, weight, date, type));
         response.sendRedirect("/UserListOrderServlet");
-    }
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
     }
 }

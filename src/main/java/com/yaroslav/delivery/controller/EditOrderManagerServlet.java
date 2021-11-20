@@ -1,9 +1,9 @@
 package com.yaroslav.delivery.controller;
 
-import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.Order;
-import com.yaroslav.delivery.db.entity.User;
-
+import com.yaroslav.delivery.dto.OrderDto;
+import com.yaroslav.delivery.service.LuggageService;
+import com.yaroslav.delivery.service.OrderService;
+import com.yaroslav.delivery.service.RouteService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
@@ -11,61 +11,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @WebServlet("/EditOrderManagerServlet")
 public class EditOrderManagerServlet extends HttpServlet {
 
-    private Integer id ;
+    private final LuggageService luggageService = new LuggageService();
+    private final RouteService routeService = new RouteService();
+    private final OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-        this.id = id;
-        List<Order> list = new ArrayList<>();
-        list.add(DBManager.selectOrder(id));
-        req.setAttribute("luggages", DBManager.findAllLuggage());
-        req.setAttribute("routes", DBManager.findAllRoute());
-        req.setAttribute("order", list);
+        req.setAttribute("order", orderService.selectOrder(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("luggages", luggageService.findAllLuggage());
+        req.setAttribute("routes", routeService.findAllRoute());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orderEditForm.jsp");
         requestDispatcher.forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        int id = this.id;
-        Order order= DBManager.selectOrder(id);
-
+        int idOrder = Integer.parseInt(req.getParameter("idOrder"));
         int idRoute = Integer.parseInt(req.getParameter("idRoute"));
-        order.setIdRoute(idRoute);
-
-        String way = dbManager.selectWay(idRoute);
-        order.setWay(way);
-
         int weight = Integer.parseInt(req.getParameter("weight"));
-        order.setWeight(weight);
-
         int volume = Integer.parseInt(req.getParameter("volume"));
-        order.setVolume(volume);
-
-        String  date = req.getParameter("date");
-        order.setDate(date);
-
+        String way = orderService.selectWay(idRoute);
+        String date = req.getParameter("date");
         String type = req.getParameter("type");
-        order.setType(type);
-
-        order.setId(id);
-        try {
-            DBManager.updateOrder(order);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        orderService.updateOrder(new OrderDto(idRoute , way  , weight , volume , date , type , idOrder));
         resp.sendRedirect("/AllOrderServlet");
     }
-
 }
+

@@ -1,8 +1,7 @@
 package com.yaroslav.delivery.controller;
 
-import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.User;
-
+import com.yaroslav.delivery.dto.UserDto;
+import com.yaroslav.delivery.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,59 +10,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 @WebServlet("/EditUserManagerServlet")
 public class EditUserManagerServlet extends HttpServlet {
 
-    private Integer id ;
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String paramId = req.getParameter("id");
-        int id = Integer.parseInt(paramId);
-        setId(id);
-        List<User> list = new ArrayList<>();
-        list.add(DBManager.selectUser(id));
-        req.setAttribute("user", list);
-        resp.sendRedirect("userEditForm.jsp");
+
+        req.setAttribute("user", userService.selectUser(Integer.parseInt(req.getParameter("id"))));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userEditForm.jsp");
+        requestDispatcher.forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
 
-        int id = getId();
-
-        User user = DBManager.selectUser(id);
-
+        Integer id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("login");
-        user.setLogin(name);
-
         String password = req.getParameter("password");
-        user.setPassword(password);
-
         String number = req.getParameter("number");
-        user.setNumber(number);
-
         String email = req.getParameter("email");
-        user.setMail(email);
-
-        user.setId(id);
-        try {
-            DBManager.updateUser(user);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        userService.updateUser(new UserDto(name , password , number , email , id));
         resp.sendRedirect("/allUserServlet");
     }
 
-    public  Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }
