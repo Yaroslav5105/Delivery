@@ -1,9 +1,6 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.service.UserService;
-
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;

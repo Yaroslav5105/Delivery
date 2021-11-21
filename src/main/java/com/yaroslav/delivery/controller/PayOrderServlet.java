@@ -17,9 +17,8 @@ public class PayOrderServlet extends  HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        int iduser = AuthenticateServlet.getId();
         int id = Integer.parseInt(request.getParameter("id"));
-        orderServlet.payment(new OrderDto(id , iduser));
+        orderServlet.payment(new OrderDto(id));
         response.sendRedirect("/UserListOrderServlet");
     }
 }

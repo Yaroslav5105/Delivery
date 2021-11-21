@@ -102,7 +102,7 @@ public class OrderService {
     }
 
     public void payment(OrderDto orderDto) {
-        OrderModel orderModel = orderDAO.selectOrder(orderDto.getIdRoute());
+        OrderModel orderModel = orderDAO.selectOrder(orderDto.getId());
         orderModel.setId(orderDto.getId());
         orderModel.setPayment("successful payment");
 

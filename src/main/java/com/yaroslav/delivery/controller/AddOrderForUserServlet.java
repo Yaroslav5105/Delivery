@@ -23,6 +23,7 @@ public class AddOrderForUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("luggages", luggageService.findAllLuggage());
         req.setAttribute("routes", routeService.findAllRoute());
+        req.setAttribute("userId", Integer.parseInt(req.getParameter("userId")));
         req.getRequestDispatcher("/addOrderForUser.jsp").forward(req, resp);
     }
 
@@ -30,11 +31,12 @@ public class AddOrderForUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String date = request.getParameter("date");
         String type = request.getParameter("type");
+        int userId = Integer.parseInt(request.getParameter("userId"));
         int idRoute = Integer.parseInt(request.getParameter("idRoute"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));
 
-        orderService.createOrder(new OrderDto(AuthenticateServlet.getId(), idRoute, volume, weight, date, type));
+        orderService.createOrder(new OrderDto(userId, idRoute, volume, weight, date, type));
         response.sendRedirect("/UserListOrderServlet");
     }
 }

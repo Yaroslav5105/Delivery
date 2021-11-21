@@ -37,7 +37,7 @@
                             <td><c:out value="${Order.type}" /></td>
 							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
-
+                            <input type="hidden" name="userId" value="${userId}"/>
                             <td>
 							<a href="PayOrderServlet?id=${Order.id}">
                             <input type="submit" value="pay" /></a>

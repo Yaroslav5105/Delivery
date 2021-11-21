@@ -17,7 +17,7 @@ public class OrderDto {
     private String date ;
     private String type ;
 
-    public OrderDto(Integer id , Integer idRoute){
+    public OrderDto(Integer id ){
         setId(id);
         setIdRoute(idRoute);
     }

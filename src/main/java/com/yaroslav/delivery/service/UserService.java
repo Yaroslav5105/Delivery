@@ -3,6 +3,7 @@ package com.yaroslav.delivery.service;
 import com.yaroslav.delivery.dao.UserDAO;
 import com.yaroslav.delivery.dto.UserDto;
 import com.yaroslav.delivery.model.UserModel;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,8 @@ public class UserService {
         }
         return userDtos;
     }
-    public void updateUser(UserDto userDto){
+
+    public void updateUser(UserDto userDto) {
         UserModel userModel = userDAO.selectUser(userDto.getId());
 
         userModel.setLogin(userDto.getLogin());
@@ -57,7 +59,7 @@ public class UserService {
         }
     }
 
-    public UserDto selectUser(int id ){
+    public UserDto selectUser(int id) {
         UserDto userDto = new UserDto();
         UserModel userModel = userDAO.selectUser(id);
 
@@ -68,11 +70,43 @@ public class UserService {
         userDto.setId(userModel.getId());
         return userDto;
     }
-    public void delete (int id){
+
+    public void delete(int id) {
         try {
             userDAO.deleteUser(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public UserDto selectUserByEmail(String email) {
+        UserDto userDto = new UserDto();
+
+        UserModel userModel = userDAO.selectUserByEmail(email);
+
+        userDto.setId(userModel.getId());
+
+        return userDto;
+    }
+
+    public int authenticate(String email, String password) {
+        int userId = 0;
+        try {
+            userId = userDAO.authenticate(email, password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return userId;
+    }
+
+    public String page(int id, String email, String password) {
+
+        if (email.equals("admin@gmail.com")) {
+            if (password.equals("12345"))
+                return "maneger.jsp";
+        } else if (id != 0) {
+            return "IndexAuthenticateUser.jsp";
+        }
+        return "index.jsp";
     }
 }

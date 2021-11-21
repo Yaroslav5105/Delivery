@@ -17,6 +17,7 @@
         date :<input type="date"  name="date" max="2022-12-31"/><br/>
         volume: <input type="volume" name="volume"/> <br/>
         weight: <input type="weight" name="weight"/> <br/>
+        <input type="hidden" name="id" value="${user}"/>
         <input type="submit" value="order" />
         <br/><br/>
     </form>

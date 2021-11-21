@@ -3,12 +3,10 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.db.DBManager;
 import com.yaroslav.delivery.db.entity.User;
+import com.yaroslav.delivery.service.UserService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,40 +18,20 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthenticateServlet extends HttpServlet {
 
-    private static int id ;
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher  = getServletConfig().getServletContext().getRequestDispatcher("/maneger");
-        requestDispatcher.forward(req , resp);
-    }
+    private final UserService userService = new UserService();
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
-        DBManager dbManager = DBManager.getInstance("jdbc:mysql://localhost:3307/dbdelivery", "root", "19731968");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        String name = null;
+        int id = userService.authenticate(email, password);
 
-       User user = dbManager.selectUserByEmail(email);
-        try {
-            name = DBManager.authenticate(email, password);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        if (id != 0) {
+            req.setAttribute("user", userService.selectUserByEmail(req.getParameter("email")));
         }
-        if(email.equals("admin@gmail.com")){
-            if (password.equals("12345"))
-                response.sendRedirect("maneger.jsp");
-        }else if (name != null) {
-            response.sendRedirect("IndexAuthenticateUser.jsp");
-            setId(user.getId());
-        }else response.sendRedirect("index.jsp");
-
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(userService.page(id , email , password));
+        requestDispatcher.forward(req, resp);
     }
 
-    public static int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        AuthenticateServlet.id = id;
-    }
 }

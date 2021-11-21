@@ -12,12 +12,13 @@ import java.io.IOException;
 
 @WebServlet("/UserListOrderServlet")
 public class UserListOrderServlet extends HttpServlet {
+
     OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-
-        req.setAttribute("listOrder", orderService.findAllOrderByUserId(AuthenticateServlet.getId()));
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        req.setAttribute("listOrder", orderService.findAllOrderByUserId(userId));
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userListOrder.jsp");
         requestDispatcher.forward(req, response);
     }

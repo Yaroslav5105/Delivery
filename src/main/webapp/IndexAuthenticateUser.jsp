@@ -9,11 +9,15 @@
   </form>
 
   <form name="userListOrder.jsp" method="get" action="UserListOrderServlet">
+    <input type="hidden" name="userId" value="${user.id}"/>
     <input type="submit" value="pay" />
     </form>
 
-    <form name="AddOrderForUserServlet" method="get" action="AddOrderForUserServlet">
+    <form name="addOrderForUser.jsp" method="get" action="AddOrderForUserServlet">
+         <input type="hidden" name="userId" value="${user.id}"/>
         <input type="submit" value="Order" />
-        </form>
+
+
+</form>
  </body>
  </html>
