@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/EditOrderManagerServlet")
-public class EditOrderManagerServlet extends HttpServlet {
+@WebServlet("/EditOrderController")
+public class EditOrderController extends HttpServlet {
 
     private final LuggageService luggageService = new LuggageService();
     private final RouteService routeService = new RouteService();
@@ -24,8 +24,8 @@ public class EditOrderManagerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setAttribute("order", orderService.selectOrder(Integer.parseInt(req.getParameter("id"))));
-        req.setAttribute("luggages", luggageService.findAllLuggage());
-        req.setAttribute("routes", routeService.findAllRoute());
+        req.setAttribute("luggages", luggageService.findAllLuggages());
+        req.setAttribute("routes", routeService.findAllRoutes());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orderEditForm.jsp");
         requestDispatcher.forward(req, resp);
     }
@@ -33,15 +33,15 @@ public class EditOrderManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        int idOrder = Integer.parseInt(req.getParameter("idOrder"));
-        int idRoute = Integer.parseInt(req.getParameter("idRoute"));
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
+        int routeId = Integer.parseInt(req.getParameter("routeId"));
         int weight = Integer.parseInt(req.getParameter("weight"));
         int volume = Integer.parseInt(req.getParameter("volume"));
-        String way = orderService.selectWay(idRoute);
+        String way = routeService.selectWay(routeId);
         String date = req.getParameter("date");
         String type = req.getParameter("type");
-        orderService.updateOrder(new OrderDto(idRoute , way  , weight , volume , date , type , idOrder));
-        resp.sendRedirect("/AllOrderServlet");
+        orderService.updateOrder(new OrderDto(routeId , way  , weight , volume , date , type , orderId));
+        resp.sendRedirect("/ListOrdersManagerController");
     }
 }
 

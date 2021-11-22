@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/allUserServlet")
-public class allUserServlet extends HttpServlet {
+@WebServlet("/ListUsersManagerController")
+public class ListUsersManagerController extends HttpServlet {
 
     private final UserService findAllUsers = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-        req.setAttribute("listUser", findAllUsers.findAllUser());
+        req.setAttribute("listUsers", findAllUsers.findAllUsers());
         req.getRequestDispatcher("/managerListUser.jsp").forward(req, response);
     }
 }

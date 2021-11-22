@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/PayOrderServlet")
+@WebServlet("/PayOrderController")
 
-public class PayOrderServlet extends  HttpServlet{
+public class PayOrderController extends  HttpServlet{
 
-    OrderService orderServlet = new OrderService();
+    private final OrderService orderServlet = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
+
         orderServlet.payment(new OrderDto(id));
-        response.sendRedirect("/UserListOrderServlet");
+        request.setAttribute("userId " , Integer.parseInt(request.getParameter("userId")));
+        response.sendRedirect("/ListOrderUserController");
     }
 }

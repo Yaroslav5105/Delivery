@@ -27,7 +27,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="Order" items="${listOrder}">
+					<c:forEach var="Order" items="${listOrders}">
 
 						<tr>
 							<td><c:out value="${Order.way}" /></td>
@@ -37,9 +37,8 @@
                             <td><c:out value="${Order.type}" /></td>
 							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
-                            <input type="hidden" name="userId" value="${userId}"/>
                             <td>
-							<a href="PayOrderServlet?id=${Order.id}">
+							<a href="PayOrderController?id=${Order.id}&userId=${Order.idUser} ">
                             <input type="submit" value="pay" /></a>
 							 </td>
 						</tr>

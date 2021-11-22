@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/AllOrderServlet")
-public class AllOrderServlet extends HttpServlet {
+@WebServlet("/ListOrdersManagerController")
+public class ListOrdersManagerController extends HttpServlet {
 
-    OrderService findAllOrderService = new OrderService();
+    private final OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-        req.setAttribute("listOrder", findAllOrderService.findAllOrder());
+
+        req.setAttribute("listOrders", orderService.findAllOrders());
         req.getRequestDispatcher("/managerListOrder.jsp").forward(req, response);
     }
 }

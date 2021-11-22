@@ -1,17 +1,17 @@
 package com.yaroslav.delivery.service;
 
-import com.yaroslav.delivery.dao.OrderDAO;
+import com.yaroslav.delivery.converter.OrderConverter;
+import com.yaroslav.delivery.dao.OrderDao;
 import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.model.OrderModel;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class OrderService {
-    OrderDAO orderDAO = new OrderDAO();
-    OrderModel orderModel = new OrderModel();
+    private final OrderDao orderDao = new OrderDao();
+    private final OrderModel orderModel = new OrderModel();
+    private final OrderConverter converter = new OrderConverter();
 
     public void createOrder(OrderDto creatOrder) {
 
@@ -23,32 +23,14 @@ public class OrderService {
         int idUser = creatOrder.getIdUser();
         String payment = "not paid";
         try {
-            orderDAO.insertOrder(orderModel.creatOrder(idUser, idRoute, volume, weight, payment, date, type));
+            orderDao.insertOrder(orderModel.creatOrder(idUser, idRoute, volume, weight, payment, date, type));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-
-    public List<OrderDto> findAllOrder() {
-
-        List<OrderDto> orderDtos = new ArrayList<>();
-        List<OrderModel> orderModels = orderDAO.findAllOrder();
-        for (OrderModel orderModel : orderModels) {
-            OrderDto orderDto = new OrderDto();
-            orderDtos.add(orderDto);
-            orderDto.setId(orderModel.getId());
-            orderDto.setIdUser(orderModel.getIdUser());
-            orderDto.setIdRoute(orderModel.getIdRoute());
-            orderDto.setVolume(orderModel.getVolume());
-            orderDto.setWeight(orderModel.getWeight());
-            orderDto.setPrice(orderModel.getPrice());
-            orderDto.setWay(orderModel.getWay());
-            orderDto.setPayment(orderModel.getPayment());
-            orderDto.setDate(orderModel.getDate());
-            orderDto.setType(orderModel.getType());
-        }
-        return orderDtos;
+    public List<OrderDto> findAllOrders() {
+        return converter.convertList(orderDao.selectOrders());
     }
 
     public int countOrder(OrderDto orderDto) {
@@ -57,7 +39,7 @@ public class OrderService {
 
     public void delete(int delete) {
         try {
-            orderDAO.delete(delete);
+            orderDao.deleteOrder(delete);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -65,28 +47,13 @@ public class OrderService {
 
     public OrderDto selectOrder(int id) {
 
-        OrderDto orderDto = new OrderDto();
-        OrderModel selectorderModel = orderDAO.selectOrder(id);
-        orderDto.setId(selectorderModel.getId());
-        orderDto.setIdUser(selectorderModel.getIdUser());
-        orderDto.setIdRoute(selectorderModel.getIdRoute());
-        orderDto.setVolume(selectorderModel.getVolume());
-        orderDto.setWeight(selectorderModel.getWeight());
-        orderDto.setPrice(selectorderModel.getPrice());
-        orderDto.setWay(selectorderModel.getWay());
-        orderDto.setPayment(selectorderModel.getPayment());
-        orderDto.setDate(selectorderModel.getDate());
-        orderDto.setType(selectorderModel.getType());
-
-        return orderDto;
+        return converter.convert(orderDao.selectOrder(id));
     }
 
-    public String selectWay(int i) {
-        return orderDAO.selectWay(i);
-    }
 
     public void updateOrder(OrderDto orderDto) {
-        OrderModel orderModel = orderDAO.selectOrder(orderDto.getId());
+
+        OrderModel orderModel = orderDao.selectOrder(orderDto.getId());
         orderModel.setIdRoute(orderDto.getIdRoute());
         orderModel.setWay(orderDto.getWay());
         orderModel.setWeight(orderDto.getWeight());
@@ -95,40 +62,26 @@ public class OrderService {
         orderModel.setType(orderDto.getType());
         orderModel.setId(orderDto.getId());
         try {
-            orderDAO.updateOrder(orderModel);
+            orderDao.updateOrder(orderModel);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     public void payment(OrderDto orderDto) {
-        OrderModel orderModel = orderDAO.selectOrder(orderDto.getId());
+        OrderModel orderModel = orderDao.selectOrder(orderDto.getId());
         orderModel.setId(orderDto.getId());
         orderModel.setPayment("successful payment");
 
         try {
-            orderDAO.payment(orderModel);
+            orderDao.updatePayment(orderModel);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public List<OrderDto> findAllOrderByUserId(int iduser) {
-        List<OrderDto> orderDtos = new ArrayList<>();
-        List<OrderModel> orderModel = orderDAO.findAllOrderByUsers(iduser);
-        for (OrderModel order : orderModel) {
-            OrderDto orderDto = new OrderDto();
-            orderDtos.add(orderDto);
-            orderDto.setIdUser(iduser);
-            orderDto.setId(order.getId());
-            orderDto.setWay(order.getWay());
-            orderDto.setVolume(order.getVolume());
-            orderDto.setWeight(order.getWeight());
-            orderDto.setPrice(order.getPrice());
-            orderDto.setPayment(order.getPayment());
-            orderDto.setDate(order.getDate());
-            orderDto.setType(order.getType());
-        }
-        return orderDtos;
+    public List<OrderDto> findAllOrdersByUserId(int iduser) {
+        return converter.convertList(orderDao.selectOrdersByUser(iduser));
     }
+
 }

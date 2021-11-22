@@ -2,7 +2,7 @@ package com.yaroslav.delivery.service;
 
 import com.yaroslav.delivery.converter.Converter;
 import com.yaroslav.delivery.converter.LuggageConverter;
-import com.yaroslav.delivery.dao.LuggageDAO;
+import com.yaroslav.delivery.dao.LuggageDao;
 import com.yaroslav.delivery.dto.LuggageDto;
 import com.yaroslav.delivery.model.LuggageModel;
 
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LuggageService {
-    LuggageDAO luggageDAO = new LuggageDAO();
-    private Converter<LuggageModel, LuggageDto> luggageConverter = new LuggageConverter();
+    private final LuggageDao luggageDao = new LuggageDao();
+    private final Converter<LuggageModel, LuggageDto> luggageConverter = new LuggageConverter();
 
-    public List<LuggageDto> findAllLuggage() {
+    public List<LuggageDto> findAllLuggages() {
 
         List<LuggageDto> luggageDtos = new ArrayList<>();
 
-        List<LuggageModel> luggageModels = luggageDAO.findAllLuggage();
+        List<LuggageModel> luggageModels = luggageDao.selectLuggages();
         for (LuggageModel luggageModel : luggageModels) {
             luggageDtos.add(luggageConverter.convert(luggageModel));
         }

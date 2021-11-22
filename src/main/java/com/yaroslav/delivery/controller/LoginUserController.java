@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/LoginUserController")
+public class LoginUserController extends HttpServlet {
 
     private final UserService creatUserService = new UserService();
 
@@ -23,7 +23,8 @@ public class LoginServlet extends HttpServlet {
 
         creatUserService.createUser(new UserDto(username , password , number , email));
 
-        response.sendRedirect("/allUserServlet");
+        response.setCharacterEncoding("UTF-8");
+        response.sendRedirect("/ListUsersManagerController");
     }
 }
 

@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/OrderServlet")
-public class OrderServlet extends HttpServlet {
+@WebServlet("/OrderManagerController")
+public class OrderManagerController extends HttpServlet {
 
-    LuggageService luggageService = new LuggageService();
-    OrderService orderService = new OrderService();
-    RouteService routeService = new RouteService();
+    private final LuggageService luggageService = new LuggageService();
+    private final OrderService orderService = new OrderService();
+    private final RouteService routeService = new RouteService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user" , Integer.parseInt(req.getParameter("id")));
-        req.setAttribute("luggages", luggageService.findAllLuggage());
-        req.setAttribute("routes", routeService.findAllRoute());
+        req.setAttribute("luggages", luggageService.findAllLuggages());
+        req.setAttribute("routes", routeService.findAllRoutes());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
         requestDispatcher.forward(req, resp);
 
@@ -31,16 +31,17 @@ public class OrderServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+
         String date = request.getParameter("date");
         String type = request.getParameter("type");
         int id = Integer.parseInt(request.getParameter("id"));
-        int idRoute = Integer.parseInt(request.getParameter("idRoute"));
+        int routeId = Integer.parseInt(request.getParameter("routeId"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));
 
-        orderService.createOrder(new OrderDto(id, idRoute, volume, weight, date, type));
+        orderService.createOrder(new OrderDto(id, routeId, volume, weight, date, type));
 
-        response.sendRedirect("/AllOrderServlet");
+        response.sendRedirect("/ListOrdersManagerController");
     }
 }
 

@@ -1,7 +1,5 @@
 package com.yaroslav.delivery.model;
 
-import com.yaroslav.delivery.db.entity.Order;
-
 public class OrderModel {
     private Integer id;
     private Integer idUser;

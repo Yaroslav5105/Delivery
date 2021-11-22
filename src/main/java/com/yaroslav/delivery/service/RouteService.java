@@ -1,30 +1,20 @@
 package com.yaroslav.delivery.service;
 
 
-import com.yaroslav.delivery.dao.RouteDAO;
+import com.yaroslav.delivery.converter.RouteConverter;
+import com.yaroslav.delivery.dao.RouteDao;
 import com.yaroslav.delivery.dto.RouteDto;
-import com.yaroslav.delivery.model.RouteModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RouteService {
 
-    RouteDAO routeDAO = new RouteDAO();
+    private final RouteDao routeDao = new RouteDao();
+    private final RouteConverter routeConverter = new RouteConverter();
 
-    public List<RouteDto> findAllRoute() {
+    public List<RouteDto> findAllRoutes() { return routeConverter.convertList(routeDao.selectRoutes()); }
 
-        List<RouteDto> routeDtos = new ArrayList<>();
-
-        List<RouteModel> routeModels = routeDAO.findAllRoute();
-        for (RouteModel routeModel : routeModels) {
-            RouteDto routeDto = new RouteDto();
-            routeDtos.add(routeDto);
-            routeDto.setId(routeModel.getId());
-            routeDto.setWay(routeModel.getWay());
-            routeDto.setKilometers(routeModel.getKilometers());
-
-        }
-        return routeDtos;
+    public String selectWay(int i) {
+        return routeDao.selectWayById(i);
     }
 }

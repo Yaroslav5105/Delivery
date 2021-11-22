@@ -1,7 +1,7 @@
 <html>
 <body>
  <div><center>
-    <form name="AuthenticateServlet" method="post" action="AuthenticateServlet">
+    <form name="AuthenticateController" method="post" action="AuthenticateController">
          email: <input type="email" name="email"/></br>
          password: <input type="password" name="password"/></br>
         <input type="submit" value="Authenticate" />

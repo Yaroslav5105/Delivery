@@ -1,9 +1,5 @@
 package com.yaroslav.delivery.dto;
 
-import com.yaroslav.delivery.controller.OrderServlet;
-import com.yaroslav.delivery.db.entity.Order;
-import com.yaroslav.delivery.service.OrderService;
-
 public class OrderDto {
 
     private Integer id;

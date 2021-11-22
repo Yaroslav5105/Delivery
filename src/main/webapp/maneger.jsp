@@ -2,11 +2,11 @@
 <head>
 <div><center>
 </br></br>
-              <form name="managerListOrder.jsp" method="get" action="AllOrderServlet">
+              <form name="managerListOrder.jsp" method="get" action="ListOrdersManagerController">
               <input type="submit" value="managerListOrder" />
               </form>
 
-              <form name="allUserServlet" method="get" action="allUserServlet">
+              <form name="ListUsersManagerController" method="get" action="ListUsersManagerController">
               <input type="submit" value="managerListUser" />
               </form>
               </center></div>

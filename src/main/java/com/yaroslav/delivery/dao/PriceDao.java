@@ -1,7 +1,6 @@
 package com.yaroslav.delivery.dao;
 
 import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.Price;
 import com.yaroslav.delivery.model.PriceModel;
 
 import java.sql.Connection;
@@ -11,20 +10,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PriceDAO {
+public class PriceDao {
 
-    private static final String FIND_PRICE = "SELECT * FROM price";
-    private static final Connection connection;
+    private static final String SELECT_PRICES_SQL = "SELECT * FROM price";
+    private static final DBManager dbManager = new DBManager();
 
-    static {
-        new DBManager();
-        connection = DBManager.connection;
-    }
 
-    public List<PriceModel> findPrice() {
+    public List<PriceModel> selectPrices() {
         List<PriceModel> prices = new ArrayList<>();
-        try (Statement ps = connection.createStatement()) {
-            try (ResultSet rs = ps.executeQuery(FIND_PRICE)) {
+        try (Connection connection = dbManager.getConnection();
+             Statement ps = connection.createStatement()) {
+            try (ResultSet rs = ps.executeQuery(SELECT_PRICES_SQL)) {
                 while (rs.next()) {
                     PriceModel price = new PriceModel();
                     prices.add(price);

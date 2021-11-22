@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ViewPriceUserServlet")
+@WebServlet("/ViewPriceController")
 
-public class ViewPriceUserServlet extends HttpServlet {
+public class ViewPriceController extends HttpServlet {
 
-    PriceService priceService = new PriceService();
-    RouteService routeService = new RouteService();
+    private final PriceService priceService = new PriceService();
+    private final RouteService routeService = new RouteService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("routes", routeService.findAllRoute());
-        req.setAttribute("prices", priceService.findPrice());
+        req.setAttribute("routes", routeService.findAllRoutes());
+        req.setAttribute("prices", priceService.findPrices());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/price.jsp");
         requestDispatcher.forward(req, resp);
     }

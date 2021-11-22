@@ -1,7 +1,7 @@
 package com.yaroslav.delivery.dao;
 
 import com.yaroslav.delivery.db.DBManager;
-import com.yaroslav.delivery.db.entity.User;
+
 
 import com.yaroslav.delivery.model.UserModel;
 
@@ -10,37 +10,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UserDAO {
+public class UserDao {
 
-    private static final String AUTHENTICATE = "select * from user where email=? and password = ?";
-    private static final String SELECT_USER_BY_EMAIL = "select id,name,email,password,number from user where email =?";
-    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, password , number , email) VALUES " + " (?,?,?,?);";
-    private static final String FIND_ALL_USERS = "SELECT * FROM user";
-    private static final String UPDATE_USERS_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
-    private static final String SELECT_USER_BY_ID = "select id,name,email,password,number from user where id =?";
-    private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
-    private static final Connection connection;
+    private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from user where email=? and password = ?";
+    private static final String SELECT_USER_BY_EMAIL_SQL = "select id,name,email,password,number from user where email =?";
+    private static final String INSERT_USER_SQL = "INSERT INTO user (name, password , number , email) VALUES (?,?,?,?);";
+    private static final String SELECT_USERS_SQL = "SELECT * FROM user";
+    private static final String UPDATE_USER_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
+    private static final String SELECT_USER_BY_ID = "select name,email,password,number from user where id =?";
+    private static final String DELETE_USER_SQL = "delete from user where id = ?;";
+    private static final DBManager dbManager = new DBManager();
 
-    static {
-        new DBManager();
-        connection = DBManager.connection;
-    }
+    public void insertUser(UserModel user) throws SQLException {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
 
-    public void insertUser(User user) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getNumber());
             preparedStatement.setString(4, user.getMail());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public List<UserModel> findAllUsers() {
+
+    public List<UserModel> selectUsers() {
         List<UserModel> users = new ArrayList<>();
-        try (Statement ps = connection.createStatement()) {
-            try (ResultSet rs = ps.executeQuery(FIND_ALL_USERS)) {
+        try (Connection connection = dbManager.getConnection();
+             Statement ps = connection.createStatement()) {
+            try (ResultSet rs = ps.executeQuery(SELECT_USERS_SQL)) {
                 while (rs.next()) {
                     UserModel user = new UserModel();
                     users.add(user);
@@ -60,8 +60,9 @@ public class UserDAO {
         return users;
     }
 
-    public void  updateUser(UserModel user) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL)) {
+    public void updateUser(UserModel user) throws SQLException {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_SQL)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getNumber());
@@ -71,13 +72,15 @@ public class UserDAO {
             statement.executeUpdate();
         }
     }
+
     public UserModel selectUser(int id) {
         UserModel user = new UserModel();
-        try (
-                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
+
                 String login = rs.getString("name");
                 String password = rs.getString("password");
                 String number = rs.getString("number");
@@ -90,16 +93,20 @@ public class UserDAO {
         }
         return user;
     }
+
     public void deleteUser(int id) throws SQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_USER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         }
     }
+
     public UserModel selectUserByEmail(String email) {
         UserModel user = new UserModel();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_SQL)) {
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -115,8 +122,10 @@ public class UserDAO {
         }
         return user;
     }
-    public int authenticate(String name, String password) throws SQLException {
-        try (PreparedStatement st = connection.prepareStatement(AUTHENTICATE)) {
+
+    public int selectUserByEmailAndPassword(String name, String password) throws SQLException {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement st = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD)) {
             st.setString(1, name);
             st.setString(2, password);
             ResultSet result = st.executeQuery();
@@ -127,7 +136,7 @@ public class UserDAO {
                 } while (result.next());
             }
         } catch (SQLException e) {
-            System.out.println("Error :" + e.getMessage());
+            e.printStackTrace();
         }
         return 0;
     }

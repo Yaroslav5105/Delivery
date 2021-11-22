@@ -17,9 +17,14 @@
 
 			<div class="container text-left">
 
-            				<a href="allUserServlet" class="btn btn-success">Add New Order</a>
+            				<a href="ListUsersManagerController" class="btn btn-success">Add New Order</a>
+
             			</div>
 			<br>
+            <form action="FindOrdersByUserManagerController" method="get">
+			find id user <input type="volume" name="userId" required />
+			<input type="submit" value="find">
+			</form>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -36,11 +41,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="Order" items="${listOrder}">
+					<c:forEach var="Order" items="${listOrders}">
 
 						<tr>
 							<td><c:out value="${Order.id}" /></td>
-							<td><c:out value="${Order.idUser}" /></td>
+							<td><a href="FindOrdersByUserManagerController?userId=${Order.idUser}">
+                            <input type="submit" value="${Order.idUser}" /></a></td>
 							<td><c:out value="${Order.way}" /></td>
 							<td><c:out value="${Order.volume}" /></td>
 							<td><c:out value="${Order.weight}" /></td>
@@ -50,10 +56,10 @@
                             <td><c:out value="${Order.payment}" /></td>
 
 							<td>
-							<a href="EditOrderManagerServlet?id=${Order.id}">
+							<a href="EditOrderController?id=${Order.id}">
                             <input type="submit" value="edit" /></a>
 
-							<a href="DeleteOrderServlet?id=${Order.id}">
+							<a href="DeleteOrderController?id=${Order.id}">
                             <input type="submit" value="Delete" /></a> </td>
 						</tr>
 					</c:forEach>

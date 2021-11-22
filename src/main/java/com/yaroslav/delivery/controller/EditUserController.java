@@ -2,7 +2,6 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.dto.UserDto;
 import com.yaroslav.delivery.service.UserService;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,14 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebServlet("/EditUserManagerServlet")
-public class EditUserManagerServlet extends HttpServlet {
+@WebServlet("/EditUserController")
+public class EditUserController extends HttpServlet {
 
     private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.setAttribute("user", userService.selectUser(Integer.parseInt(req.getParameter("id"))));
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userEditForm.jsp");
         requestDispatcher.forward(req, resp);
@@ -32,7 +30,7 @@ public class EditUserManagerServlet extends HttpServlet {
         String number = req.getParameter("number");
         String email = req.getParameter("email");
         userService.updateUser(new UserDto(name , password , number , email , id));
-        resp.sendRedirect("/allUserServlet");
+        resp.sendRedirect("/ListUsersManagerController");
     }
 
 }

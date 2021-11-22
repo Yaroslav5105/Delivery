@@ -1,10 +1,9 @@
 package com.yaroslav.delivery.controller;
 
-import com.yaroslav.delivery.db.DBManager;
+
 import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.service.OrderService;
 import com.yaroslav.delivery.service.RouteService;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/CountOrderServlet")
-public class CountOrderServlet extends HttpServlet {
+@WebServlet("/CountOrderController")
+public class CountOrderController extends HttpServlet {
 
-    OrderService orderService = new OrderService();
-    RouteService routeService = new RouteService();
+    private final OrderService orderService = new OrderService();
+    private final RouteService routeService = new RouteService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("routes", routeService.findAllRoute());
+        req.setAttribute("routes", routeService.findAllRoutes());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/countOrder.jsp");
         requestDispatcher.forward(req, resp);
     }

@@ -1,8 +1,8 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <html>
  <body>
-<form name="AddOrderForUserServlet" method="post" action="AddOrderForUserServlet">
-        idRoute: <select name="idRoute">
+<form name="OrderUserController" method="post" action="OrderUserController">
+        idRoute: <select name="routeId">
                        <c:forEach var="route" items="${routes}">
                        <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
                        </c:forEach>
@@ -14,9 +14,9 @@
                                </c:forEach>
                                </select>
                 <br/>
-        date :<input type="date"  name="date" max="2022-12-31"/><br/>
-        volume: <input type="volume" name="volume"/> <br/>
-        weight: <input type="weight" name="weight"/> <br/>
+        date :<input type="date"  name="date" max="2022-12-31" required/><br/>
+        volume: <input type="volume" name="volume" required/> <br/>
+        weight: <input type="weight" name="weight" required/> <br/>
         <input type="hidden" name="userId" value="${userId}"/>
         <input type="submit" value="order" />
         <br/><br/>

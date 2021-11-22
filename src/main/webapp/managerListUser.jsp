@@ -26,27 +26,27 @@
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
-						<th>password</th>
+						<th>Number</th>
 						<th>Email</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="User" items="${listUser}">
+					<c:forEach var="User" items="${listUsers}">
 						<tr>
 							<td><c:out value="${User.id}" /></td>
 							<td><c:out value="${User.login}" /></td>
-							<td><c:out value="${User.password}" /></td>
+							<td><c:out value="${User.number}" /></td>
 							<td><c:out value="${User.email}" /></td>
 
 				            <td>
-				            <a href="EditUserManagerServlet?id=${User.id}">
+				            <a href="EditUserController?id=${User.id}">
 				            <input type="submit" value="edit" /></a>
 
-							<a href="MyServlet?id=${User.id}">
+							<a href="DeleteUserController?id=${User.id}">
 							<input type="submit" value="Delete" /></a>
 
-							<a href="OrderServlet?id=${User.id}">
+							<a href="OrderManagerController?id=${User.id}">
                             <input type="submit" value="add order" /></a>
                           	</td>
 						</tr>

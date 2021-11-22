@@ -1,16 +1,17 @@
 package com.yaroslav.delivery.service;
 
-import com.yaroslav.delivery.dao.UserDAO;
+import com.yaroslav.delivery.converter.UserConverter;
+import com.yaroslav.delivery.dao.UserDao;
 import com.yaroslav.delivery.dto.UserDto;
 import com.yaroslav.delivery.model.UserModel;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private final UserDAO userDAO = new UserDAO();
+    private final UserDao userDao = new UserDao();
     private final UserModel userModel = new UserModel();
+    private final UserConverter userConverter = new UserConverter();
 
     public void createUser(UserDto createUserDto) {
 
@@ -20,31 +21,18 @@ public class UserService {
         String mail = createUserDto.getEmail();
 
         try {
-            userDAO.insertUser(userModel.createUser(username, password, number, mail));
+            userDao.insertUser(userModel.createUser(username, password, number, mail));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public List<UserDto> findAllUser() {
-
-        List<UserDto> userDtos = new ArrayList<>();
-
-        List<UserModel> userModels = userDAO.findAllUsers();
-        for (UserModel userModel : userModels) {
-            UserDto userDto = new UserDto();
-            userDtos.add(userDto);
-            userDto.setId(userModel.getId());
-            userDto.setLogin(userModel.getLogin());
-            userDto.setPassword(userModel.getPassword());
-            userDto.setNumber(userModel.getNumber());
-            userDto.setEmail(userModel.getMail());
-        }
-        return userDtos;
+    public List<UserDto> findAllUsers() {
+        return userConverter.convertList(userDao.selectUsers());
     }
 
     public void updateUser(UserDto userDto) {
-        UserModel userModel = userDAO.selectUser(userDto.getId());
+        UserModel userModel = userDao.selectUser(userDto.getId());
 
         userModel.setLogin(userDto.getLogin());
         userModel.setMail(userDto.getEmail());
@@ -53,46 +41,35 @@ public class UserService {
         userModel.setId(userDto.getId());
 
         try {
-            userDAO.updateUser(userModel);
+            userDao.updateUser(userModel);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     public UserDto selectUser(int id) {
-        UserDto userDto = new UserDto();
-        UserModel userModel = userDAO.selectUser(id);
-
-        userDto.setEmail(userModel.getMail());
-        userDto.setNumber(userDto.getNumber());
-        userDto.setPassword(userModel.getPassword());
-        userDto.setLogin(userModel.getLogin());
-        userDto.setId(userModel.getId());
-        return userDto;
+        if (userDao.selectUser(id).getMail() != null) {
+            return userConverter.convert(userDao.selectUser(id));
+        }
+        return new UserDto();
     }
 
     public void delete(int id) {
         try {
-            userDAO.deleteUser(id);
+            userDao.deleteUser(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     public UserDto selectUserByEmail(String email) {
-        UserDto userDto = new UserDto();
-
-        UserModel userModel = userDAO.selectUserByEmail(email);
-
-        userDto.setId(userModel.getId());
-
-        return userDto;
+        return userConverter.convert(userDao.selectUserByEmail(email));
     }
 
     public int authenticate(String email, String password) {
         int userId = 0;
         try {
-            userId = userDAO.authenticate(email, password);
+            userId = userDao.selectUserByEmailAndPassword(email, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -108,5 +85,11 @@ public class UserService {
             return "IndexAuthenticateUser.jsp";
         }
         return "index.jsp";
+    }
+
+    public String pageDataUser(int id) {
+        if (selectUser(id).getEmail() != null) {
+            return "/findOrdersByUserId.jsp";
+        } else return "error.jsp";
     }
 }

@@ -1,15 +1,15 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body>
-<form name="CountOrderServlet" method="post" action="CountOrderServlet">
+<form name="CountOrderController" method="post" action="CountOrderController">
        idRoute: <select name="idRoute">
                <c:forEach var="route" items="${routes}">
                <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
                </c:forEach>
                </select>
             <br/>
-        volume: <input type="number" name="volume" />  <br/>
-        weight: <input type="number" name="weight"/> <br/>
+        volume: <input type="number" name="volume" required/>  <br/>
+        weight: <input type="number" name="weight" required/> <br/>
         <input type="submit" value="order" />
         <br/><br/>
     </form>

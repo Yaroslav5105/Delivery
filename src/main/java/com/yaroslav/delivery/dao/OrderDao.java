@@ -8,27 +8,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class OrderDAO {
+public class OrderDao {
 
-    private static final String FIND_ALL_ORDERS_BY_USER = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
+    private static final String SELECT_ORDERS_BY_USER_SQL = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? ,date=? , type = ? where id = ?;";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price , payment ,date ,type) VALUES  (?,?,?,?,?,?,?,?);";
-    private static final String SELECT_ROUTE_BY_ID = "select way from route where kilometers =?";
-    private static final String FIND_ALL_ORDERS = "SELECT * FROM orderuser";
+    private static final String SELECT_ORDERS_SQL = "SELECT * FROM orderuser";
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight , date ,type from orderuser where id =?";
-    private static final String UPDATE_ORDERPAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
-    private static final Connection connection;
+    private static final String UPDATE_ORDER_PAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
+    private static final DBManager dbManager = new DBManager();
 
-    static {
-        new DBManager();
-        connection = DBManager.connection;
-    }
 
     public void insertOrder(OrderModel orderModel) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
+        RouteDao routeDao = new RouteDao();
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
             int price;
-            String way = selectWay(orderModel.getIdRoute());
+            String way = routeDao.selectWayById(orderModel.getIdRoute());
             preparedStatement.setInt(1, orderModel.getIdUser());
             preparedStatement.setString(2, way);
             preparedStatement.setInt(3, orderModel.getVolume());
@@ -45,25 +42,12 @@ public class OrderDAO {
         }
     }
 
-    public String selectWay(int id) {
-        String idUser = "";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROUTE_BY_ID)) {
-            preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                idUser = rs.getString("way");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return idUser;
-    }
-
-    public List<OrderModel> findAllOrder() {
+    public List<OrderModel> selectOrders() {
         List<OrderModel> orders = new ArrayList<>();
-        try (Statement ps = connection.createStatement()) {
+        try (Connection connection = dbManager.getConnection();
+             Statement ps = connection.createStatement()) {
 
-            try (ResultSet rs = ps.executeQuery(FIND_ALL_ORDERS)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL)) {
                 while (rs.next()) {
                     OrderModel order = new OrderModel();
                     orders.add(order);
@@ -85,8 +69,9 @@ public class OrderDAO {
         return orders;
     }
 
-    public void delete(int id) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
+    public void deleteOrder(int id) throws SQLException {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         }
@@ -94,7 +79,8 @@ public class OrderDAO {
 
     public OrderModel selectOrder(int id) {
         OrderModel orderModel = new OrderModel();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -113,7 +99,8 @@ public class OrderDAO {
     }
 
     public void updateOrder(OrderModel orderModel) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, orderModel.getIdUser());
             statement.setString(2, orderModel.getWay());
             statement.setInt(3, orderModel.getVolume());
@@ -133,17 +120,19 @@ public class OrderDAO {
         }
     }
 
-    public void payment(OrderModel order) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_ORDERPAYMENT_SQL)) {
+    public void updatePayment(OrderModel order) throws SQLException {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_PAYMENT_SQL)) {
             statement.setString(1, order.getPayment());
             statement.setInt(2, order.getId());
             statement.executeUpdate();
         }
     }
 
-    public List<OrderModel> findAllOrderByUsers(int idUser) {
+    public List<OrderModel> selectOrdersByUser(int idUser) {
         List<OrderModel> orderModels = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_ORDERS_BY_USER)) {
+        try (Connection connection = dbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDERS_BY_USER_SQL)) {
             preparedStatement.setInt(1, idUser);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -166,5 +155,4 @@ public class OrderDAO {
         }
         return orderModels;
     }
-
 }

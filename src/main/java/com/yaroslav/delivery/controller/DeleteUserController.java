@@ -8,15 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/MyServlet")
-public class MyServlet extends HttpServlet {
+@WebServlet("/DeleteUserController")
+public class DeleteUserController extends HttpServlet {
 
     private final UserService userService = new UserService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
-        int delete = Integer.parseInt(req.getParameter("id"));
-
-        userService.delete(delete);
-        response.sendRedirect("/allUserServlet");
+        int id = Integer.parseInt(req.getParameter("id"));
+        userService.delete(id);
+        response.sendRedirect("/ListUsersManagerController");
     }
 }

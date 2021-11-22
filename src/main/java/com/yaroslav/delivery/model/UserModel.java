@@ -1,6 +1,5 @@
 package com.yaroslav.delivery.model;
 
-import com.yaroslav.delivery.db.entity.User;
 
 public class UserModel {
 
@@ -41,8 +40,8 @@ public class UserModel {
         this.login = login;
     }
 
-    public User createUser(String login , String password  , String number , String mail) {
-        User user = new User();
+    public UserModel createUser(String login , String password  , String number , String mail) {
+        UserModel user = new UserModel();
         user.setLogin(login);
         user.setPassword(password);
         user.setMail(mail);
@@ -50,19 +49,10 @@ public class UserModel {
         return user;
     }
 
-    public  UserModel (String login , String password  , String number , String email) {
-        super();
-        this.login = login;
-        this.email = email;
-        this.number = number;
-        this.password = password;
-
-    }
-
     public UserModel(){}
 
     public UserModel  (int id , String login , String password  , String number , String email) {
-        super();
+
         this.id = id;
         this.login = login;
         this.email = email;
@@ -77,10 +67,6 @@ public class UserModel {
         this.password  = paaword;
     }
 
-    @Override
-    public String toString() {
-        return login;
-    }
 
 }
 
