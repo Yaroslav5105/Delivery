@@ -123,17 +123,15 @@ public class UserDao {
         return user;
     }
 
-    public int selectUserByEmailAndPassword(String name, String password) throws SQLException {
+    public int selectUserAuthenticate(String name, String password) throws SQLException {
         try (Connection connection = dbManager.getConnection();
              PreparedStatement st = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD)) {
             st.setString(1, name);
             st.setString(2, password);
             ResultSet result = st.executeQuery();
             if (result.next()) {
-                do {
-                    return result.getInt("id");
 
-                } while (result.next());
+                    return result.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();

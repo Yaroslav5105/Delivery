@@ -21,7 +21,9 @@ public class RouteManagerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String way = req.getParameter("way");
+        String startingPoint = req.getParameter("a");
+        String endPoint = req.getParameter("b");
+        String way = startingPoint+" - "+endPoint;
         Integer kilometers = Integer.parseInt(req.getParameter("kilometers"));
         routeService.insertRoute(new RouteDto(way , kilometers));
         resp.sendRedirect("/ListRouteManagerController");

@@ -29,9 +29,7 @@ public class OrderService {
         }
     }
 
-    public int countOrder(OrderDto orderDto) {
-        return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4;
-    }
+    public int countOrder(OrderDto orderDto) { return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4; }
 
     public void delete(int delete) {
         try {
@@ -41,10 +39,7 @@ public class OrderService {
         }
     }
 
-    public OrderDto selectOrder(int id) {
-
-        return converter.convert(orderDao.selectOrder(id));
-    }
+    public OrderDto selectOrder(int id) { return converter.convert(orderDao.selectOrder(id)); }
 
 
     public void updateOrder(OrderDto orderDto) {
@@ -76,9 +71,8 @@ public class OrderService {
         }
     }
 
-    public List<OrderDto> findAllOrdersByUserId(int iduser) {
-        return converter.convertList(orderDao.selectOrdersByUser(iduser));
-    }
+    public List<OrderDto> findAllOrdersByUserId(int iduser) { return converter.convertList(orderDao.selectOrdersByUser(iduser)); }
+
     public List<OrderDto> findAllOrders(int start) {
 
         int total=5;

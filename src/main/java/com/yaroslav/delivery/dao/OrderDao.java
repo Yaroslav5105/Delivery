@@ -13,7 +13,7 @@ public class OrderDao {
     private static final String SELECT_ORDERS_BY_USER_SQL = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? ,date=? , type = ? where id = ?;";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price , payment ,date ,type) VALUES  (?,?,?,?,?,?,?,?);";
-    private static final String SELECT_ORDERS_LIMIT_SQL = "SELECT * FROM orderuser limit ";
+    private static final String SELECT_ORDERS_SQL = "SELECT * FROM orderuser limit ";
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight , date ,type from orderuser where id =?";
     private static final String UPDATE_ORDER_PAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
@@ -134,7 +134,7 @@ public class OrderDao {
         try (Connection connection = dbManager.getConnection();
              Statement ps = connection.createStatement()) {
 
-            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_LIMIT_SQL +(start-1)+","+total)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL +(start-1)+","+total)) {
                 while (rs.next()) {
                     OrderModel order = new OrderModel();
                     orders.add(order);

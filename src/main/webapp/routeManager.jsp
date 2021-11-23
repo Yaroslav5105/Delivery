@@ -2,7 +2,9 @@
 <html>
 <body>
 	<form action="RouteManagerController" method="post">
-		Way : <input name="way"  required><br>
+		starting point: <input name="a"  required><br>
+		end point	: <input name="b"  required><br>
+
         distance :<input name="kilometers" required><br>
 
 		<input type="submit" value="Save">

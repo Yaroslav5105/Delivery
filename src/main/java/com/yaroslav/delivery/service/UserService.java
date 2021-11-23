@@ -74,7 +74,7 @@ public class UserService {
     public int authenticate(String email, String password) {
         int userId = 0;
         try {
-            userId = userDao.selectUserByEmailAndPassword(email, password);
+            userId = userDao.selectUserAuthenticate(email, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
