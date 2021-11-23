@@ -14,8 +14,9 @@ public class DeleteUserController extends HttpServlet {
     private final UserService userService = new UserService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
+        int pageId = Integer.parseInt(req.getParameter("idpage"));
         int id = Integer.parseInt(req.getParameter("id"));
         userService.delete(id);
-        response.sendRedirect("/ListUsersManagerController");
+        response.sendRedirect("/ListUsersManagerController?page="+pageId);
     }
 }

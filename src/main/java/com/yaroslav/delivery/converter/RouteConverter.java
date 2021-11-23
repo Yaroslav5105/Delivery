@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RouteConverter implements ConverterList<RouteModel , RouteDto>{
+public class RouteConverter implements ConverterList<RouteModel , RouteDto> , Converter<RouteModel , RouteDto>{
 
     @Override
     public List<RouteDto> convertList(List<RouteModel> source) {
@@ -20,5 +20,16 @@ public class RouteConverter implements ConverterList<RouteModel , RouteDto>{
             routeDto.setKilometers(routeModel.getKilometers());
         }
         return routeDtos;
+    }
+
+    @Override
+    public RouteDto convert(RouteModel source) {
+        RouteDto routeDto = new RouteDto();
+
+        routeDto.setId(source.getId());
+        routeDto.setWay(source.getWay());
+        routeDto.setKilometers(source.getKilometers());
+
+        return routeDto;
     }
 }

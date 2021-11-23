@@ -6,6 +6,13 @@ public class RouteModel {
     private String way ;
     private Integer kilometers ;
 
+    public RouteModel(){}
+    public RouteModel(Integer id, String way, Integer kilometers) {
+        this.id = id;
+        this.way = way;
+        this.kilometers = kilometers;
+    }
+
     public String getWay() {
         return way;
     }

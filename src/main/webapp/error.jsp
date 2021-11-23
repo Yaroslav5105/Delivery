@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<div><center>      <h1>Упс , праверь !!!!! где-то ошибку сделал !!! </h1>         </center></div>
+<div><center>      <h1>  this person is blocked or DELETED !!!  or he is not in the database </h1>         </center></div>
 
 </body>
 </html>

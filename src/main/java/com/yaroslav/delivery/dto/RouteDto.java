@@ -2,9 +2,23 @@ package com.yaroslav.delivery.dto;
 
 public class RouteDto {
 
-    private Integer id ;
-    private String way ;
-    private Integer kilometers ;
+    private Integer id;
+    private String way;
+    private Integer kilometers;
+
+    public RouteDto() {
+    }
+
+    public RouteDto(Integer id, String way, Integer kilometers) {
+        this.id = id;
+        this.way = way;
+        this.kilometers = kilometers;
+    }
+
+    public RouteDto(String way, Integer kilometers) {
+        this.way = way;
+        this.kilometers = kilometers;
+    }
 
     public String getWay() {
         return way;

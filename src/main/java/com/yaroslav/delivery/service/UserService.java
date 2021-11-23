@@ -27,8 +27,13 @@ public class UserService {
         }
     }
 
-    public List<UserDto> findAllUsers() {
-        return userConverter.convertList(userDao.selectUsers());
+    public List<UserDto> findAllUsers(int start ) {
+        int total=5;
+        if(start!=1) {
+            start = start - 1;
+            start = start * total + 1;
+        }
+        return userConverter.convertList(userDao.selectUsers(start, total));
     }
 
     public void updateUser(UserDto userDto) {

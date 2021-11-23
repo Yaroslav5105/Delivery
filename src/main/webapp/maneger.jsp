@@ -2,14 +2,10 @@
 <head>
 <div><center>
 </br></br>
-              <form name="managerListOrder.jsp" method="get" action="ListOrdersManagerController">
-              <input type="submit" value="managerListOrder" />
-              </form>
-
-              <form name="ListUsersManagerController" method="get" action="ListUsersManagerController">
-              <input type="submit" value="managerListUser" />
-              </form>
-              </center></div>
+               <a href="ListOrdersManagerController?page=1">View manager List Order</a></br></br>
+               <a href="ListUsersManagerController?page=1">View manager List User</a></br></br>
+               <a href="ListRouteManagerController">View manager List Route</a></br></br>
+</center></div>
 
 </body>
 </html>

@@ -16,6 +16,7 @@ public class EditUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageId" ,Integer.parseInt(req.getParameter("idpage")))  ;
         req.setAttribute("user", userService.selectUser(Integer.parseInt(req.getParameter("id"))));
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userEditForm.jsp");
         requestDispatcher.forward(req, resp);
@@ -23,14 +24,14 @@ public class EditUserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
-
+        int pageId = Integer.parseInt(req.getParameter("page"));
         Integer id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("login");
         String password = req.getParameter("password");
         String number = req.getParameter("number");
         String email = req.getParameter("email");
         userService.updateUser(new UserDto(name , password , number , email , id));
-        resp.sendRedirect("/ListUsersManagerController");
+        resp.sendRedirect("/ListUsersManagerController?page="+pageId);
     }
 
 }

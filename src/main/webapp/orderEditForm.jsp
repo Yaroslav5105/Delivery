@@ -20,6 +20,8 @@
  		User volume:<input type="volume" name="volume" value="${order.volume}" required/> <br/>
 		User weight:<input type="weight" name="weight"  value="${order.weight}" required><br>
 		<input type="hidden" name="orderId" value="${order.id}"/>
+		<input type="hidden" name="page" value="${pageId}"/>
+
 		<input type="submit" value="Save">
 	</form>
 </body>

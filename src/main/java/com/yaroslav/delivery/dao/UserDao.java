@@ -15,7 +15,7 @@ public class UserDao {
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from user where email=? and password = ?";
     private static final String SELECT_USER_BY_EMAIL_SQL = "select id,name,email,password,number from user where email =?";
     private static final String INSERT_USER_SQL = "INSERT INTO user (name, password , number , email) VALUES (?,?,?,?);";
-    private static final String SELECT_USERS_SQL = "SELECT * FROM user";
+    private static final String SELECT_USERS_SQL = "SELECT * FROM user limit ";
     private static final String UPDATE_USER_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
     private static final String SELECT_USER_BY_ID = "select name,email,password,number from user where id =?";
     private static final String DELETE_USER_SQL = "delete from user where id = ?;";
@@ -36,11 +36,11 @@ public class UserDao {
         }
     }
 
-    public List<UserModel> selectUsers() {
+    public List<UserModel> selectUsers(int start, int total) {
         List<UserModel> users = new ArrayList<>();
         try (Connection connection = dbManager.getConnection();
              Statement ps = connection.createStatement()) {
-            try (ResultSet rs = ps.executeQuery(SELECT_USERS_SQL)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_USERS_SQL+(start-1)+","+total)) {
                 while (rs.next()) {
                     UserModel user = new UserModel();
                     users.add(user);

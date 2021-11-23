@@ -29,10 +29,6 @@ public class OrderService {
         }
     }
 
-    public List<OrderDto> findAllOrders() {
-        return converter.convertList(orderDao.selectOrders());
-    }
-
     public int countOrder(OrderDto orderDto) {
         return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4;
     }
@@ -82,6 +78,15 @@ public class OrderService {
 
     public List<OrderDto> findAllOrdersByUserId(int iduser) {
         return converter.convertList(orderDao.selectOrdersByUser(iduser));
+    }
+    public List<OrderDto> findAllOrders(int start) {
+
+        int total=5;
+        if(start!=1) {
+            start = start - 1;
+            start = start * total + 1;
+        }
+        return converter.convertList(orderDao.selectOrders( start, total));
     }
 
 }

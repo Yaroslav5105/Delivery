@@ -9,15 +9,13 @@
 </head>
 <body>
 	<div class="row">
-		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
-
 		<div class="container">
-			<h3 class="text-center">List of Order</h3>
+			<h3 class="text-center">List of Order ${page}</h3>
 			<hr>
 
 			<div class="container text-left">
 
-            				<a href="ListUsersManagerController" class="btn btn-success">Add New Order</a>
+            				<a href="ListUsersManagerController?page=1" class="btn btn-success">Add New Order</a>
 
             			</div>
 			<br>
@@ -42,7 +40,6 @@
 				</thead>
 				<tbody>
 					<c:forEach var="Order" items="${listOrders}">
-
 						<tr>
 							<td><c:out value="${Order.id}" /></td>
 							<td><a href="FindOrdersByUserManagerController?userId=${Order.idUser}">
@@ -54,16 +51,18 @@
                             <td><c:out value="${Order.type}" /></td>
                             <td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
-
 							<td>
-							<a href="EditOrderController?id=${Order.id}">
+							<a href="EditOrderController?id=${Order.id}&idpage=${page}">
                             <input type="submit" value="edit" /></a>
 
-							<a href="DeleteOrderController?id=${Order.id}">
+							<a href="DeleteOrderController?id=${Order.id}&idpage=${page}">
                             <input type="submit" value="Delete" /></a> </td>
 						</tr>
 					</c:forEach>
 				</tbody>
+				        <a href='ListOrdersManagerController?page=1'><h5>1 </a>
+                        <a href='ListOrdersManagerController?page=2'>2     </a>
+                        <a href='ListOrdersManagerController?page=3'>3</h5> </a>
 			</table>
 		</div>
 	</div>

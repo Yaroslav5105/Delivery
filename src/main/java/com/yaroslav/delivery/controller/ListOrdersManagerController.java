@@ -1,6 +1,5 @@
 package com.yaroslav.delivery.controller;
 
-
 import com.yaroslav.delivery.service.OrderService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +16,9 @@ public class ListOrdersManagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-
-        req.setAttribute("listOrders", orderService.findAllOrders());
+        int pageid= Integer.parseInt(req.getParameter("page"));
+        req.setAttribute("page" , pageid);
+        req.setAttribute("listOrders", orderService.findAllOrders(pageid));
         req.getRequestDispatcher("/managerListOrder.jsp").forward(req, response);
     }
 }

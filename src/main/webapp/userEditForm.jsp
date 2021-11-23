@@ -7,6 +7,7 @@
 		User password: <input name="password" value="${user.password}" required><br>
 		User email:<input name="email" value="${user.email}" readonly><br>
 		<input type="hidden" name="id" value="${user.id}"/>
+		<input type="hidden" name="page" value="${pageId}"/>
 		<input type="submit" value="Save">
 	</form>
 </body>

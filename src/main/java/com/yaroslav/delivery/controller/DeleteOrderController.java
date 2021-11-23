@@ -1,6 +1,5 @@
 package com.yaroslav.delivery.controller;
 
-
 import com.yaroslav.delivery.service.OrderService;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +13,9 @@ public class DeleteOrderController extends HttpServlet {
     private final OrderService orderService = new OrderService();
 
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
-
+        int pageId = Integer.parseInt(req.getParameter("idpage"));
         orderService.delete(Integer.parseInt(req.getParameter("id")));
-        response.sendRedirect("/ListOrdersManagerController");
+        response.sendRedirect("/ListOrdersManagerController?page="+pageId);
 
     }
 }

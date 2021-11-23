@@ -13,7 +13,7 @@ public class OrderDao {
     private static final String SELECT_ORDERS_BY_USER_SQL = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? ,date=? , type = ? where id = ?;";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price , payment ,date ,type) VALUES  (?,?,?,?,?,?,?,?);";
-    private static final String SELECT_ORDERS_SQL = "SELECT * FROM orderuser";
+    private static final String SELECT_ORDERS_LIMIT_SQL = "SELECT * FROM orderuser limit ";
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight , date ,type from orderuser where id =?";
     private static final String UPDATE_ORDER_PAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
@@ -40,33 +40,6 @@ public class OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<OrderModel> selectOrders() {
-        List<OrderModel> orders = new ArrayList<>();
-        try (Connection connection = dbManager.getConnection();
-             Statement ps = connection.createStatement()) {
-
-            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL)) {
-                while (rs.next()) {
-                    OrderModel order = new OrderModel();
-                    orders.add(order);
-                    order.setId(rs.getInt(1));
-                    order.setIdUser(rs.getInt(2));
-                    order.setWay(rs.getString(3));
-                    order.setVolume(rs.getInt(4));
-                    order.setWeight(rs.getInt(5));
-                    order.setPrice(rs.getInt(6));
-                    order.setPayment(rs.getString(7));
-                    order.setDate(rs.getString(8));
-                    order.setType(rs.getString(9));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-        return orders;
     }
 
     public void deleteOrder(int id) throws SQLException {
@@ -154,5 +127,32 @@ public class OrderDao {
             return Collections.emptyList();
         }
         return orderModels;
+    }
+
+    public List<OrderModel> selectOrders(int start, int total) {
+        List<OrderModel> orders = new ArrayList<>();
+        try (Connection connection = dbManager.getConnection();
+             Statement ps = connection.createStatement()) {
+
+            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_LIMIT_SQL +(start-1)+","+total)) {
+                while (rs.next()) {
+                    OrderModel order = new OrderModel();
+                    orders.add(order);
+                    order.setId(rs.getInt(1));
+                    order.setIdUser(rs.getInt(2));
+                    order.setWay(rs.getString(3));
+                    order.setVolume(rs.getInt(4));
+                    order.setWeight(rs.getInt(5));
+                    order.setPrice(rs.getInt(6));
+                    order.setPayment(rs.getString(7));
+                    order.setDate(rs.getString(8));
+                    order.setType(rs.getString(9));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+        return orders;
     }
 }

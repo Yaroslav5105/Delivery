@@ -15,8 +15,8 @@
                                </select>
                 <br/>
         date :<input type="date"  name="date" max="2022-12-31" required/><br/>
-        volume: <input type="volume" name="volume" required/> <br/>
-        weight: <input type="weight" name="weight" required/> <br/>
+        volume: <input type="volume" name="volume"  placeholder="Volume" required/> <br/>
+        weight: <input type="weight" name="weight" placeholder="Weight" required/> <br/>
         <input type="hidden" name="userId" value="${userId}"/>
         <input type="submit" value="order" />
         <br/><br/>

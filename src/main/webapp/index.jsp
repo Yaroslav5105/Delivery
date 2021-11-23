@@ -1,14 +1,12 @@
 <html>
 <body>
  <div><center>
-    <form name="AuthenticateController" method="post" action="AuthenticateController">
-         email: <input type="email" name="email"/></br>
-         password: <input type="password" name="password"/></br>
-        <input type="submit" value="Authenticate" />
-        </form></br>
+    <form name="LogIn.jsp" method="get" action="LogIn.jsp">
+                <input type="submit" value="Authenticate" />
+                </form>
 
 
-            <form name="register.jsp" method="get" action="register.jsp">
+            <form name="signUp.jsp" method="get" action="signUp.jsp">
             <input type="submit" value="register" />
             </form>
 

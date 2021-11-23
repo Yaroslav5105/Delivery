@@ -10,11 +10,11 @@
 <body>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of Users ${page}</h3>
+			<h3 class="text-center">List of Routes</h3>
 			<hr>
 			<div class="container text-left">
 
-				<a href="LoginUserController?idpage=${page}" class="btn btn-success">Add New User</a>
+				<a href="routeManager.jsp" class="btn btn-success">Add New Route </a>
 			</div>
 			<br/>
 
@@ -23,39 +23,31 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Name</th>
-						<th>Number</th>
-						<th>Email</th>
+						<th>Way</th>
+						<th>Kilometers</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="User" items="${listUsers}">
+					<c:forEach var="Route" items="${Routes}">
 						<tr>
-							<td><a href="FindOrdersByUserManagerController?userId=${User.id}">
-                             <input type="submit" value="${User.id}" /></a></td>
-							<td><c:out value="${User.login}" /></td>
-							<td><c:out value="${User.number}" /></td>
-							<td><c:out value="${User.email}" /></td>
+							<td><c:out value="${Route.id}" /></td>
+							<td><c:out value="${Route.way}" /></td>
+							<td><c:out value="${Route.kilometers}" /></td>
 
 				            <td>
-				            <a href="EditUserController?id=${User.id}&idpage=${page}">
+				            <a href="EditRouteController?id=${Route.id}">
 				            <input type="submit" value="edit" /></a>
 
-							<a href="DeleteUserController?id=${User.id}&idpage=${page}">
+							<a href="DeleteRouteController?id=${Route.id}">
 							<input type="submit" value="Delete" /></a>
 
-							<a href="OrderManagerController?id=${User.id}">
-                            <input type="submit" value="add order" /></a>
                           	</td>
 						</tr>
 					</c:forEach>
 
 				</tbody>
 
-				        <a href='ListUsersManagerController?page=1'><h5>1 </a>
-                        <a href='ListUsersManagerController?page=2'>2     </a>
-                        <a href='ListUsersManagerController?page=3'>3</h5> </a>
 			</table>
 		</div>
 	</div>

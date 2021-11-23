@@ -38,7 +38,7 @@
 							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
                             <td>
-							<a href="PayOrderController?id=${Order.id}&userId=${Order.idUser} ">
+							<a href="PayOrderController?id=${Order.id} ">
                             <input type="submit" value="pay" /></a>
 							 </td>
 						</tr>

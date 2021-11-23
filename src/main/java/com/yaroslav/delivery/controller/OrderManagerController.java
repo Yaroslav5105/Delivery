@@ -41,7 +41,7 @@ public class OrderManagerController extends HttpServlet {
 
         orderService.createOrder(new OrderDto(id, routeId, volume, weight, date, type));
 
-        response.sendRedirect("/ListOrdersManagerController");
+        response.sendRedirect("/ListOrdersManagerController?page=1");
     }
 }
 
