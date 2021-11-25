@@ -1,6 +1,6 @@
 <html>
 <body>
- <div><center>
+ <div><center></br></br></br></br></br></br>
     <form name="LogIn.jsp" method="get" action="LogIn.jsp">
                 <input type="submit" value="Authenticate" />
                 </form>

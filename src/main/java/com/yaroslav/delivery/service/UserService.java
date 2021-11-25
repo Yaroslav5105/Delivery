@@ -73,11 +73,7 @@ public class UserService {
 
     public int authenticate(String email, String password) {
         int userId = 0;
-        try {
-            userId = userDao.selectUserAuthenticate(email, password);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        userId = userDao.selectUserAuthenticate(email, password);
         return userId;
     }
 

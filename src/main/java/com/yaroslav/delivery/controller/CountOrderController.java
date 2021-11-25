@@ -4,6 +4,7 @@ package com.yaroslav.delivery.controller;
 import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.service.OrderService;
 import com.yaroslav.delivery.service.RouteService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,22 +22,31 @@ public class CountOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setAttribute("routes", routeService.findAllRoutes());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/countOrder.jsp");
-        requestDispatcher.forward(req, resp);
+        try {
+            req.setAttribute("routes", routeService.findAllRoutes());
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/countOrder.jsp");
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error find all routes");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException, ServletException {
 
-
         int idRoute = Integer.parseInt(req.getParameter("idRoute"));
         int volume = Integer.parseInt(req.getParameter("volume"));
         int weight = Integer.parseInt(req.getParameter("weight"));
-
-        req.setAttribute("count", orderService.countOrder(new OrderDto(idRoute, volume, weight)));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/countOrder.jsp");
-        requestDispatcher.forward(req, response);
+        try {
+            req.setAttribute("count", orderService.countOrder(new OrderDto(idRoute, volume, weight)));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/countOrder.jsp");
+            requestDispatcher.forward(req, response);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error count order");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, response);
+        }
     }
 }

@@ -2,13 +2,15 @@ package com.yaroslav.delivery.dao;
 
 import com.yaroslav.delivery.db.DBManager;
 import com.yaroslav.delivery.model.OrderModel;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class OrderDao {
+
+    private static final Logger LOG = Logger.getLogger(OrderDao.class);
 
     private static final String SELECT_ORDERS_BY_USER_SQL = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? ,date=? , type = ? where id = ?;";
@@ -38,7 +40,8 @@ public class OrderDao {
             preparedStatement.setString(8, orderModel.getType());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Can not insert order" , e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -47,6 +50,9 @@ public class OrderDao {
              PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        }catch (Exception e){
+            LOG.error("Can not delete order" , e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -66,7 +72,8 @@ public class OrderDao {
                 orderModel = new OrderModel(id, idUser, way, volume, weight, date, type);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Can not find a order by id" , e);
+            throw new RuntimeException(e);
         }
         return orderModel;
     }
@@ -90,6 +97,9 @@ public class OrderDao {
             statement.setInt(8, orderModel.getId());
 
             statement.executeUpdate();
+        }catch (Exception e){
+            LOG.error("Can not update order" , e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -99,6 +109,9 @@ public class OrderDao {
             statement.setString(1, order.getPayment());
             statement.setInt(2, order.getId());
             statement.executeUpdate();
+        }catch (Exception e){
+            LOG.error("Can not pay order" , e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -123,8 +136,9 @@ public class OrderDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+            LOG.error("Can not select order by id" , e);
+
+            throw new RuntimeException(e);
         }
         return orderModels;
     }
@@ -150,8 +164,8 @@ public class OrderDao {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+            LOG.error("Can not find all orders " , e);
+            throw new RuntimeException(e);
         }
         return orders;
     }

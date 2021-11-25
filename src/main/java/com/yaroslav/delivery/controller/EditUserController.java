@@ -2,6 +2,7 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.dto.UserDto;
 import com.yaroslav.delivery.service.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @WebServlet("/EditUserController")
 public class EditUserController extends HttpServlet {
 
@@ -16,22 +18,35 @@ public class EditUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageId" ,Integer.parseInt(req.getParameter("idpage")))  ;
-        req.setAttribute("user", userService.selectUser(Integer.parseInt(req.getParameter("id"))));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userEditForm.jsp");
-        requestDispatcher.forward(req, resp);
+        try {
+            req.setAttribute("pageId", Integer.parseInt(req.getParameter("idpage")));
+            req.setAttribute("user", userService.selectUser(Integer.parseInt(req.getParameter("id"))));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userEditForm.jsp");
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error select user");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, resp);
+        }
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int pageId = Integer.parseInt(req.getParameter("page"));
         Integer id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("login");
         String password = req.getParameter("password");
         String number = req.getParameter("number");
         String email = req.getParameter("email");
-        userService.updateUser(new UserDto(name , password , number , email , id));
-        resp.sendRedirect("/ListUsersManagerController?page="+pageId);
+        try {
+            userService.updateUser(new UserDto(name, password, number, email, id));
+            resp.sendRedirect("/ListUsersManagerController?page=" + pageId);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error update user");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, resp);
+        }
     }
 
 }

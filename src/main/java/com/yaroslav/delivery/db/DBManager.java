@@ -15,5 +15,4 @@ public class DBManager {
             throw new RuntimeException(e);
         }
     }
-
 }

@@ -5,12 +5,16 @@ import com.yaroslav.delivery.db.DBManager;
 
 import com.yaroslav.delivery.model.UserModel;
 
+import java.security.MessageDigest;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserDao {
+
+    private static final Logger LOG = Logger.getLogger(UserDao.class.getName());
 
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from user where email=? and password = ?";
     private static final String SELECT_USER_BY_EMAIL_SQL = "select id,name,email,password,number from user where email =?";
@@ -26,13 +30,14 @@ public class UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
 
             preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, getHash(user.getPassword()));
             preparedStatement.setString(3, user.getNumber());
             preparedStatement.setString(4, user.getMail());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -40,7 +45,7 @@ public class UserDao {
         List<UserModel> users = new ArrayList<>();
         try (Connection connection = dbManager.getConnection();
              Statement ps = connection.createStatement()) {
-            try (ResultSet rs = ps.executeQuery(SELECT_USERS_SQL+(start-1)+","+total)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_USERS_SQL + (start - 1) + "," + total)) {
                 while (rs.next()) {
                     UserModel user = new UserModel();
                     users.add(user);
@@ -53,10 +58,9 @@ public class UserDao {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
-
         return users;
     }
 
@@ -64,12 +68,15 @@ public class UserDao {
         try (Connection connection = dbManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_USER_SQL)) {
             statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
+            statement.setString(2, getHash(user.getPassword()));
             statement.setString(3, user.getNumber());
             statement.setString(4, user.getMail());
             statement.setInt(5, user.getId());
 
             statement.executeUpdate();
+        }catch (SQLException e){
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -89,7 +96,8 @@ public class UserDao {
                 user = new UserModel(id, login, password, number, email);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
         return user;
     }
@@ -100,6 +108,9 @@ public class UserDao {
              PreparedStatement statement = connection.prepareStatement(DELETE_USER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        }catch (SQLException e){
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -118,24 +129,42 @@ public class UserDao {
                 user = new UserModel(id, login, password, number, email);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
         return user;
     }
 
-    public int selectUserAuthenticate(String name, String password) throws SQLException {
+    public int selectUserAuthenticate(String name, String password) {
         try (Connection connection = dbManager.getConnection();
              PreparedStatement st = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD)) {
             st.setString(1, name);
-            st.setString(2, password);
+            st.setString(2, getHash(password));
             ResultSet result = st.executeQuery();
             if (result.next()) {
-
-                    return result.getInt("id");
+                return result.getInt("id");
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(e.getMessage());
+            throw new RuntimeException(e);
         }
         return 0;
+    }
+
+    public String getHash(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] byteDate = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : byteDate) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        } catch (Exception ex) {
+            LOG.info(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
     }
 }

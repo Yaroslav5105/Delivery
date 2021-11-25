@@ -1,6 +1,8 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.service.UserService;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +17,15 @@ public class ListUsersManagerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-
-        int pageid= Integer.parseInt(req.getParameter("page"));
-        req.setAttribute("page" , pageid);
-        req.setAttribute("listUsers", findAllUsers.findAllUsers(pageid));
-        req.getRequestDispatcher("/managerListUser.jsp").forward(req, response);
+        try {
+            int pageid = Integer.parseInt(req.getParameter("page"));
+            req.setAttribute("page", pageid);
+            req.setAttribute("listUsers", findAllUsers.findAllUsers(pageid));
+            req.getRequestDispatcher("/managerListUser.jsp").forward(req, response);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error list users");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, response);
+        }
     }
 }

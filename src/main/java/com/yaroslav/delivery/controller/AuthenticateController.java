@@ -2,6 +2,7 @@ package com.yaroslav.delivery.controller;
 
 
 import com.yaroslav.delivery.service.UserService;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,15 +23,20 @@ public class AuthenticateController extends HttpServlet {
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        int id = userService.authenticate(email, password);
-        if (id != 0) {
-            req.setAttribute("user", userService.selectUserByEmail(req.getParameter("email")));
+        try {
+            int id = userService.authenticate(email, password);
+            if (id != 0) {
+                req.setAttribute("user", userService.selectUserByEmail(req.getParameter("email")));
+            }
+            HttpSession session = req.getSession();
+            session.setAttribute("userId", id);
 
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher(userService.page(id, email, password));
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error authenticate user");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, resp);
         }
-        HttpSession session = req.getSession();
-        session.setAttribute("userId", id);
-
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(userService.page(id , email , password));
-        requestDispatcher.forward(req, resp);
     }
 }

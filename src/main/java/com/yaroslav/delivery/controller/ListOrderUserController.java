@@ -18,12 +18,17 @@ public class ListOrderUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            HttpSession session = req.getSession();
+            int userId = (int) session.getAttribute("userId");
 
-        HttpSession session = req.getSession();
-        int userId = (int) session.getAttribute("userId");
-
-        req.setAttribute("listOrders", orderService.findAllOrdersByUserId(userId));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userListOrder.jsp");
-        requestDispatcher.forward(req, response);
+            req.setAttribute("listOrders", orderService.findAllOrdersByUserId(userId));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userListOrder.jsp");
+            requestDispatcher.forward(req, response);
+        }catch (Exception e){
+            req.setAttribute("message", "Error list orders user");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, response);
+        }
     }
 }

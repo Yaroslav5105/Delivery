@@ -4,6 +4,7 @@ import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.service.LuggageService;
 import com.yaroslav.delivery.service.OrderService;
 import com.yaroslav.delivery.service.RouteService;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,16 +22,20 @@ public class OrderManagerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user" , Integer.parseInt(req.getParameter("id")));
-        req.setAttribute("luggages", luggageService.findAllLuggages());
-        req.setAttribute("routes", routeService.findAllRoutes());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
-        requestDispatcher.forward(req, resp);
-
+        try {
+            req.setAttribute("user", Integer.parseInt(req.getParameter("id")));
+            req.setAttribute("luggages", luggageService.findAllLuggages());
+            req.setAttribute("routes", routeService.findAllRoutes());
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/addorder.jsp");
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error find all routes or luggage ");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, resp);
+        }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String date = request.getParameter("date");
         String type = request.getParameter("type");
@@ -38,10 +43,14 @@ public class OrderManagerController extends HttpServlet {
         int routeId = Integer.parseInt(request.getParameter("routeId"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));
-
-        orderService.createOrder(new OrderDto(id, routeId, volume, weight, date, type));
-
-        response.sendRedirect("/ListOrdersManagerController?page=1");
+        try {
+            orderService.createOrder(new OrderDto(id, routeId, volume, weight, date, type));
+            response.sendRedirect("/ListOrdersManagerController?page=1");
+        } catch (Exception e) {
+            request.setAttribute("message", "Error create order");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(request, response);
+        }
     }
 }
 

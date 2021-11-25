@@ -2,6 +2,8 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.service.RouteService;
 import com.yaroslav.delivery.service.UserService;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +18,13 @@ public class ListRouteManagerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-
-        req.setAttribute("Routes", routeService.findAllRoutes());
-        req.getRequestDispatcher("/managerListPriceLullageRoute.jsp").forward(req, response);
+        try {
+            req.setAttribute("Routes", routeService.findAllRoutes());
+            req.getRequestDispatcher("/managerListPriceLullageRoute.jsp").forward(req, response);
+        } catch (Exception e) {
+            req.setAttribute("message", "Error list routes");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/error.jsp");
+            requestDispatcher.forward(req, response);
+        }
     }
 }
