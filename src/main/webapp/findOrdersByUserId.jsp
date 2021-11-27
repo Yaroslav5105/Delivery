@@ -22,6 +22,7 @@
       			<table class="table table-bordered">
       				<thead>
       					<tr>
+      					    <th>Id User</th>
       						<th>Name</th>
       						<th>Number</th>
       						<th>Email</th>
@@ -29,13 +30,11 @@
       				</thead>
       				<tbody>
       						<tr>
+      						    <td><c:out value="${user.id}" /></td>
       							<td><c:out value="${user.login}" /></td>
       							<td><c:out value="${user.number}" /></td>
       							<td><c:out value="${user.email}" /></td>
-
-
       						</tr>
-
       				</tbody>
 
       			</table>

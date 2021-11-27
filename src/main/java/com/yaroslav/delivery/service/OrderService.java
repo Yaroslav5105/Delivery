@@ -82,5 +82,8 @@ public class OrderService {
         }
         return converter.convertList(orderDao.selectOrders( start, total));
     }
+    public OrderDto findUserByIdOrder (int idOrder){
+        return converter.convert(orderDao.selectUserByIdOrder(idOrder));
+    }
 
 }

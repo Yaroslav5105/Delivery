@@ -14,10 +14,14 @@
 			<hr>
 			<div class="container text-left">
 
-				<a href="LoginUserController?idpage=${page}" class="btn btn-success">Add New User</a>
+				<a href="/controller?command=dateForInsertUser&idpage=${page}" class="btn btn-success">Add New User</a>
 			</div>
 			<br/>
-
+            <form  method="get" action="/controller">
+                    <input type="hidden" name="command" value="findUser"/>
+			find id user <input type="volume" name="userId" required />
+			<input type="submit" value="find">
+			</form>
 			<br>
 			<table class="table table-bordered">
 				<thead>
@@ -32,20 +36,20 @@
 				<tbody>
 					<c:forEach var="User" items="${listUsers}">
 						<tr>
-							<td><a href="FindOrdersByUserManagerController?userId=${User.id}">
+							<td><a href="/controller?command=findUser&userId=${User.id}">
                              <input type="submit" value="${User.id}" /></a></td>
 							<td><c:out value="${User.login}" /></td>
 							<td><c:out value="${User.number}" /></td>
 							<td><c:out value="${User.email}" /></td>
 
 				            <td>
-				            <a href="EditUserController?id=${User.id}&idpage=${page}">
+				            <a href="/controller?command=dateForEditUser&id=${User.id}&idpage=${page}">
 				            <input type="submit" value="edit" /></a>
 
-							<a href="DeleteUserController?id=${User.id}&idpage=${page}">
+							<a href="/controller?command=deleteUser&id=${User.id}&idpage=${page}">
 							<input type="submit" value="Delete" /></a>
 
-							<a href="OrderManagerController?id=${User.id}">
+							<a href="/controller?command=dateOrderManager&id=${User.id}">
                             <input type="submit" value="add order" /></a>
                           	</td>
 						</tr>
@@ -53,9 +57,11 @@
 
 				</tbody>
 
-				        <a href='ListUsersManagerController?page=1'><h5>1 </a>
-                        <a href='ListUsersManagerController?page=2'>2     </a>
-                        <a href='ListUsersManagerController?page=3'>3</h5> </a>
+				        <a href='/controller?command=ListUserManager&page=1'><h5>1 </a>
+                        <a href='/controller?command=ListUserManager&page=2'>2     </a>
+                        <a href='/controller?command=ListUserManager&page=3'>3     </a>
+                        <a href='/controller?command=ListUserManager&page=4'>4      </a>
+                        <a href='/controller?command=ListUserManager&page=5'>5</h5> </a>
 			</table>
 		</div>
 	</div>

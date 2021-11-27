@@ -1,24 +1,25 @@
 package com.yaroslav.delivery.dao;
 
-import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.db.ConnectionPool;
 import com.yaroslav.delivery.model.PriceModel;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class PriceDao {
     private static final Logger LOG = Logger.getLogger(PriceDao.class.getName());
     private static final String SELECT_PRICES_SQL = "SELECT * FROM price";
-    private static final DBManager dbManager = new DBManager();
+
 
 
     public List<PriceModel> selectPrices() {
         List<PriceModel> prices = new ArrayList<>();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
             try (ResultSet rs = ps.executeQuery(SELECT_PRICES_SQL)) {
                 while (rs.next()) {
@@ -30,8 +31,8 @@ public class PriceDao {
                     price.setWeight(rs.getInt(4));
                 }
             }
-        } catch (Exception e) {
-            LOG.info(e.getMessage());
+        } catch (SQLException e) {
+            LOG.error("Can not select price", e);
             throw new RuntimeException(e);
         }
         return prices;

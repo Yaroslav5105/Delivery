@@ -27,9 +27,9 @@ public class UserService {
         }
     }
 
-    public List<UserDto> findAllUsers(int start ) {
-        int total=5;
-        if(start!=1) {
+    public List<UserDto> findAllUsers(int start) {
+        int total = 5;
+        if (start != 1) {
             start = start - 1;
             start = start * total + 1;
         }
@@ -58,6 +58,7 @@ public class UserService {
         }
         return new UserDto();
     }
+
 
     public void delete(int id) {
         try {
@@ -91,6 +92,13 @@ public class UserService {
     public String pageDataUser(int id) {
         if (selectUser(id).getEmail() != null) {
             return "/findOrdersByUserId.jsp";
-        } else return "error.jsp";
+        } else return "errorNotFoundUser.jsp";
+    }
+
+    public String pageDataOrder(int id) {
+
+        if (selectUser(id).getId() != null) {
+            return "/findOrder.jsp";
+        } else return "errorNotFoundUser.jsp";
     }
 }

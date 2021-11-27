@@ -16,6 +16,7 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
+					    <th>Id</th>
 						<th>Route</th>
 						<th>Volume</th>
 						<th>Weight</th>
@@ -30,6 +31,7 @@
 					<c:forEach var="Order" items="${listOrders}">
 
 						<tr>
+						    <td><c:out value="${Order.id}" /></td>
 							<td><c:out value="${Order.way}" /></td>
 							<td><c:out value="${Order.volume}" /></td>
 							<td><c:out value="${Order.weight}" /></td>
@@ -38,7 +40,7 @@
 							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
                             <td>
-							<a href="PayOrderController?id=${Order.id} ">
+							<a href="/controller?command=dataPayment&id=${Order.id} ">
                             <input type="submit" value="pay" /></a>
 							 </td>
 						</tr>

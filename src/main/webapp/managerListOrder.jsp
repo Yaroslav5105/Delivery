@@ -15,11 +15,12 @@
 
 			<div class="container text-left">
 
-            				<a href="ListUsersManagerController?page=1" class="btn btn-success">Add New Order</a>
+            				<a href="/controller?command=ListUserManager&page=1"" class="btn btn-success">Add New Order</a>
 
             			</div>
 			<br>
-            <form action="FindOrdersByUserManagerController" method="get">
+            <form  method="get" action="/controller">
+                    <input type="hidden" name="command" value="findOrderforIdOrder"/>
 			find id user <input type="volume" name="userId" required />
 			<input type="submit" value="find">
 			</form>
@@ -41,9 +42,10 @@
 				<tbody>
 					<c:forEach var="Order" items="${listOrders}">
 						<tr>
-							<td><c:out value="${Order.id}" /></td>
-							<td><a href="FindOrdersByUserManagerController?userId=${Order.idUser}">
-                            <input type="submit" value="${Order.idUser}" /></a></td>
+						    <td><a href="/controller?command=findOrderforIdOrder&userId=${Order.id}">
+                            <input type="submit" value="${Order.id}" /></a></td>
+
+							<td><c:out value="${Order.idUser}" /></td>
 							<td><c:out value="${Order.way}" /></td>
 							<td><c:out value="${Order.volume}" /></td>
 							<td><c:out value="${Order.weight}" /></td>
@@ -52,18 +54,18 @@
                             <td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
 							<td>
-							<a href="EditOrderController?id=${Order.id}&idpage=${page}">
+							<a href="/controller?command=dateEditOrder&id=${Order.id}&idpage=${page}">
                             <input type="submit" value="edit" /></a>
 
-							<a href="DeleteOrderController?id=${Order.id}&idpage=${page}">
+							<a href="/controller?command=deleteOrder&id=${Order.id}&idpage=${page}">
                             <input type="submit" value="Delete" /></a> </td>
 						</tr>
 					</c:forEach>
 				</tbody>
-				        <a href='ListOrdersManagerController?page=1'><h5>1 </a>
-                        <a href='ListOrdersManagerController?page=2'>2     </a>
-                        <a href='ListOrdersManagerController?page=3'>3     </a>
-                        <a href='ListOrdersManagerController?page=4'>4</h5> </a>
+				        <a href='/controller?command=listOrderManager&page=1'><h5>1 </a>
+                        <a href='/controller?command=listOrderManager&page=2'>2     </a>
+                        <a href='/controller?command=listOrderManager&page=3'>3     </a>
+                        <a href='/controller?command=listOrderManager&page=4'>4</h5> </a>
 			</table>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 package com.yaroslav.delivery.dao;
 
-import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.db.ConnectionPool;
 import com.yaroslav.delivery.model.OrderModel;
 import org.apache.log4j.Logger;
 
@@ -13,18 +13,19 @@ public class OrderDao {
     private static final Logger LOG = Logger.getLogger(OrderDao.class);
 
     private static final String SELECT_ORDERS_BY_USER_SQL = "select id,route,volume,weight,price,payment,date,type from orderuser where user =?";
+    private static final String SELECT_USER_BY_ID_ORDER_SQL = "select user,route,volume,weight,price,payment,date,type from orderuser where id =?";
     private static final String UPDATE_ORDER_SQL = "update orderuser set user = ? , route = ?, volume =? , weight= ? ,price= ? ,date=? , type = ? where id = ?;";
     private static final String INSERT_ORDER_SQL = "INSERT INTO orderuser (user, route , volume , weight , price , payment ,date ,type) VALUES  (?,?,?,?,?,?,?,?);";
     private static final String SELECT_ORDERS_SQL = "SELECT * FROM orderuser limit ";
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight , date ,type from orderuser where id =?";
     private static final String UPDATE_ORDER_PAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
-    private static final DBManager dbManager = new DBManager();
+
 
 
     public void insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
             int price;
             String way = routeDao.selectWayById(orderModel.getIdRoute());
@@ -46,11 +47,11 @@ public class OrderDao {
     }
 
     public void deleteOrder(int id) throws SQLException {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-        }catch (Exception e){
+        }catch (SQLException e){
             LOG.error("Can not delete order" , e);
             throw new RuntimeException(e);
         }
@@ -58,7 +59,7 @@ public class OrderDao {
 
     public OrderModel selectOrder(int id) {
         OrderModel orderModel = new OrderModel();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -79,7 +80,7 @@ public class OrderDao {
     }
 
     public void updateOrder(OrderModel orderModel) throws SQLException {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, orderModel.getIdUser());
             statement.setString(2, orderModel.getWay());
@@ -97,19 +98,19 @@ public class OrderDao {
             statement.setInt(8, orderModel.getId());
 
             statement.executeUpdate();
-        }catch (Exception e){
+        }catch (SQLException e){
             LOG.error("Can not update order" , e);
             throw new RuntimeException(e);
         }
     }
 
     public void updatePayment(OrderModel order) throws SQLException {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_PAYMENT_SQL)) {
             statement.setString(1, order.getPayment());
             statement.setInt(2, order.getId());
             statement.executeUpdate();
-        }catch (Exception e){
+        }catch (SQLException e){
             LOG.error("Can not pay order" , e);
             throw new RuntimeException(e);
         }
@@ -117,7 +118,7 @@ public class OrderDao {
 
     public List<OrderModel> selectOrdersByUser(int idUser) {
         List<OrderModel> orderModels = new ArrayList<>();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDERS_BY_USER_SQL)) {
             preparedStatement.setInt(1, idUser);
             ResultSet rs = preparedStatement.executeQuery();
@@ -135,7 +136,7 @@ public class OrderDao {
                 orderModel.setType(rs.getString("type"));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOG.error("Can not select order by id" , e);
 
             throw new RuntimeException(e);
@@ -145,7 +146,7 @@ public class OrderDao {
 
     public List<OrderModel> selectOrders(int start, int total) {
         List<OrderModel> orders = new ArrayList<>();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
 
             try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL +(start-1)+","+total)) {
@@ -163,10 +164,39 @@ public class OrderDao {
                     order.setType(rs.getString(9));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOG.error("Can not find all orders " , e);
             throw new RuntimeException(e);
         }
         return orders;
     }
+
+    public OrderModel selectUserByIdOrder(int idOrder) {
+        OrderModel orderModel = new OrderModel();
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID_ORDER_SQL)) {
+            preparedStatement.setInt(1, idOrder);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                orderModel.setId(idOrder);
+                orderModel.setIdUser(rs.getInt("user"));
+                orderModel.setWay(rs.getString("route"));
+                orderModel.setVolume(rs.getInt("volume"));
+                orderModel.setWeight(rs.getInt("weight"));
+                orderModel.setPrice(rs.getInt("price"));
+                orderModel.setPayment(rs.getString("payment"));
+                orderModel.setDate(rs.getString("date"));
+                orderModel.setType(rs.getString("type"));
+
+            }
+
+        } catch (SQLException e) {
+            LOG.error("Can not select order by id" , e);
+
+            throw new RuntimeException(e);
+        }
+        return orderModel;
+    }
+
 }

@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <Context>
     <Resource name="jdbc/dbdelivery" auth="Container" type="javax.sql.DataSource"
-              maxActive="100" maxIdle="30" maxWait="10000" username="root" password="19731968"
+              maxActive="10" maxIdle="4" maxWait="20" username="root" password="19731968"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:8899/dbdelivery?useEncoding=true&amp;characterEncoding=UTF-8" />
+              url="jdbc:mysql://localhost:3307/dbdelivery?useEncoding=true&amp;characterEncoding=cp1251" />
 </Context>

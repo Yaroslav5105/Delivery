@@ -16,8 +16,7 @@ public class LuggageService {
     public List<LuggageDto> findAllLuggages() {
 
         List<LuggageDto> luggageDtos = new ArrayList<>();
-
-        List<LuggageModel> luggageModels = luggageDao.selectLuggages();
+        List<LuggageModel> luggageModels = luggageDao.selectLuggage();
         for (LuggageModel luggageModel : luggageModels) {
             luggageDtos.add(luggageConverter.convert(luggageModel));
         }

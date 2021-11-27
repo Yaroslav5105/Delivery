@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
-<form name="loginForm" method="post" action="LoginUserController" accept-charset="utf-8">
+<form  method="post" action="/controller" accept-charset="utf-8">
+         <input type="hidden" name="command" value="insertUser"/>
     Username: <input type="text" name="name"  placeholder="Name" required/> <br/>
     Password: <input type="password" name="password" placeholder="Password" required/> <br/>
     Number: <input type="number" name="number" placeholder="Number" required/> <br/>

@@ -1,7 +1,9 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <html>
+ <title>Delivery</title>
  <body>
-<form name="OrderManagerController" method="post" action="OrderManagerController">
+<form  method="post" action="/controller">
+        <input type="hidden" name="command" value="orderManager"/>
         idRoute: <select name="routeId">
                        <c:forEach var="route" items="${routes}">
                        <option value=<c:out value="${route.kilometers}" />>${route.way} </option>

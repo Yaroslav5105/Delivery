@@ -1,12 +1,13 @@
 package com.yaroslav.delivery.db;
 
+import org.apache.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class ConnectionPool {
     private static DataSource dataSource;
@@ -15,8 +16,7 @@ public class ConnectionPool {
         ConnectionPool.dataSource = dataSource;
     }
 
-    private final static Logger LOG = Logger.getLogger(ConnectionPool.class.getName());
-
+    private final static Logger LOG = Logger.getLogger(ConnectionPool.class);
 
     public static synchronized Connection getConnection() {
         if (dataSource == null) {
@@ -25,14 +25,15 @@ public class ConnectionPool {
                 Context envContext = (Context) initContext.lookup("java:/comp/env");
                 dataSource = (DataSource) envContext.lookup("jdbc/dbdelivery");
             } catch (NamingException e) {
-                e.printStackTrace();
+                LOG.error("Cannot find the data source");
             }
         }
 
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            return null;
+            LOG.error("Cannot establish connection");
+            throw new RuntimeException(e);
         }
     }
 

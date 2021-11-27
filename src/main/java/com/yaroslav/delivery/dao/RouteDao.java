@@ -1,13 +1,13 @@
 package com.yaroslav.delivery.dao;
 
-import com.yaroslav.delivery.db.DBManager;
+import com.yaroslav.delivery.db.ConnectionPool;
 import com.yaroslav.delivery.model.RouteModel;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 public class RouteDao {
 
@@ -19,11 +19,11 @@ public class RouteDao {
     private static final String UPDATE_ROUTE_SQL = "update route set way = ?, kilometers =?  where id = ?;";
     private static final String SELECT_ROUTE_BY_ID = "select way,kilometers from route where id =?";
     private static final String INSERT_ROUTE_SQL = "INSERT INTO route (way, kilometers) VALUES (?,?);";
-    private static final DBManager dbManager = new DBManager();
+
 
     public List<RouteModel> selectRoutes() {
         List<RouteModel> routeModels = new ArrayList<>();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
             try (ResultSet rs = ps.executeQuery(SELECT_ROUTES_SQL)) {
                 while (rs.next()) {
@@ -34,9 +34,8 @@ public class RouteDao {
                     route.setWay(rs.getString(3));
                 }
             }
-
-        } catch (Exception e) {
-            LOG.info(e.getMessage());
+        } catch (SQLException e) {
+            LOG.error("Can not select routes" , e);
             throw new RuntimeException(e);
         }
         return routeModels;
@@ -44,7 +43,7 @@ public class RouteDao {
 
     public String selectWayById(int id) {
         String idUser = "";
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_WAY_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -53,32 +52,33 @@ public class RouteDao {
 
             }
         } catch (SQLException e) {
-            LOG.info(e.getMessage());
+            LOG.error("Can not select way by id" , e);
             throw new RuntimeException(e);
         }
         return idUser;
     }
 
     public void deleteRoute(int id) throws SQLException {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ROUTE_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         }catch (SQLException e){
-            LOG.info(e.getMessage());
+            LOG.error("Can not delete route" , e);
             throw new RuntimeException(e);
         }
     }
 
     public void updateRoute(RouteModel route) {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ROUTE_SQL)) {
             statement.setString(1, route.getWay());
             statement.setInt(2, route.getKilometers());
             statement.setInt(3, route.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.info(e.getMessage());
+            LOG.error("Can not update route" , e);
+
             throw new RuntimeException(e);
         }
     }
@@ -86,7 +86,7 @@ public class RouteDao {
 
     public RouteModel selectRoute(int id) {
         RouteModel user = new RouteModel();
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROUTE_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -98,14 +98,14 @@ public class RouteDao {
 
             }
         } catch (SQLException e) {
-            LOG.info(e.getMessage());
+            LOG.error("Can not select route" , e);
             throw new RuntimeException(e);
         }
         return user;
     }
 
     public RouteModel insertRoute(RouteModel routeModel) {
-        try (Connection connection = dbManager.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ROUTE_SQL)) {
 
             preparedStatement.setString(1, routeModel.getWay());
@@ -114,7 +114,7 @@ public class RouteDao {
 
             return routeModel;
         } catch (SQLException e) {
-            LOG.info(e.getMessage());
+            LOG.error("Can not insert route" , e);
             throw new RuntimeException(e);
         }
     }

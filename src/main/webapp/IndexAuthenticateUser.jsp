@@ -1,21 +1,22 @@
  <html>
  <body>
- <form name="countOrder.jsp" method="get" action="CountOrderController">
- <input type="submit" value="count order" />
- </form>
+     <a href="/controller?command=dataCountOrder">
+     <input type="submit" value="Count" /></href>
+<br>
 
- <form name="price.jsp" method="get" action="ViewPriceController">
-  <input type="submit" value="price and way" />
-  </form>
+ <a href="/controller?command=price">
+     <input type="submit" value="Price" /></href>
+</br >
+    <a href="/controller?command=listOrder">
+    <input type="submit" value="My order" /></href>
+</br>
+        <a href="/controller?command=dataForOrder">
+     <input type="submit" value="Order" /></href>
 
-  <form name="userListOrder.jsp" method="get" action="ListOrderUserController">
-    <input type="submit" value="pay" />
-    </form>
+</br>
 
-    <form name="addOrderForUser.jsp" method="get" action="OrderUserController">
-        <input type="submit" value="Order" />
+     <a href="/controller?command=personAccount">
+        <input type="submit" value="Person Account" /></href>
 
-
-</form>
  </body>
  </html>

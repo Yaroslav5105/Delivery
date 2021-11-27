@@ -2,9 +2,15 @@
 <head>
 <div><center>
 </br></br>
-               <a href="ListOrdersManagerController?page=1">View manager List Order</a></br></br>
-               <a href="ListUsersManagerController?page=1">View manager List User</a></br></br>
-               <a href="ListRouteManagerController">View manager List Route</a></br></br>
+
+               <a  href="/controller?command=listOrderManager&page=1">
+               <input type="submit" value="View manager List Order" /></href></br></br>
+
+               <a  href="/controller?command=ListUserManager&page=1">
+               <input type="submit" value="View manager List User" /></href></br></br>
+
+               <a  href="/controller?command=ListRoute">
+               <input type="submit" value="View manager List User" /></href></br></br>
 </center></div>
 
 </body>

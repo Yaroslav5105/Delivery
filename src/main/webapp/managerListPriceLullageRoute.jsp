@@ -36,10 +36,10 @@
 							<td><c:out value="${Route.kilometers}" /></td>
 
 				            <td>
-				            <a href="EditRouteController?id=${Route.id}">
+				            <a href="/controller?command=dataEditRoute&id=${Route.id}">
 				            <input type="submit" value="edit" /></a>
 
-							<a href="DeleteRouteController?id=${Route.id}">
+							<a href="/controller?command=deleteRoute&id=${Route.id}">
 							<input type="submit" value="Delete" /></a>
 
                           	</td>
