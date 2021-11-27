@@ -2,24 +2,29 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.command.Command;
 import com.yaroslav.delivery.service.OrderService;
+import org.apache.log4j.Logger;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ListOrdersManagerController")
 public class ListOrdersManagerCommand implements Command {
+    private static final Logger LOG = Logger.getLogger(ListOrdersManagerCommand.class);
 
     private final OrderService orderService = new OrderService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("Start executing Command");
+
         try {
             int pageid = Integer.parseInt(request.getParameter("page"));
             request.setAttribute("page", pageid);
             request.setAttribute("listOrders", orderService.findAllOrders(pageid));
+            LOG.debug("Finished executing Command");
             return "/managerListOrder.jsp" ;
         } catch (Exception e) {
+            LOG.error("Error in class ListOrdersManagerCommand = "  , e);
+
             return "error.html";
         }
     }

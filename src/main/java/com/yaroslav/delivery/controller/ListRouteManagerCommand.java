@@ -2,24 +2,29 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.command.Command;
 import com.yaroslav.delivery.service.RouteService;
+import org.apache.log4j.Logger;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ListRouteManagerController")
 public class ListRouteManagerCommand implements Command {
 
     private final RouteService routeService = new RouteService();
+    private static final Logger LOG = Logger.getLogger(ListRouteManagerCommand.class);
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("Start executing Command");
+
         try {
             request.setAttribute("Routes", routeService.findAllRoutes());
+            LOG.debug("Finished executing Command");
             return "/managerListPriceLullageRoute.jsp" ;
         } catch (Exception e) {
-           return "error.html";
+            LOG.error("Error in class ListRouteManagerCommand = "  , e);
+
+            return "error.html";
         }
     }
 }

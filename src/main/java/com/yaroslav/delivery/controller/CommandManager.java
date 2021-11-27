@@ -1,14 +1,15 @@
 package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.command.Command;
+import com.yaroslav.delivery.controller.Date.*;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class CommandManager  {
 
-    private static final java.util.logging.Logger LOG = Logger.getLogger(CommandManager.class.getName());
+    private static final Logger LOG = Logger.getLogger(CommandManager.class);
     private static Map<String, Command> commands = new HashMap<String, Command>();
 
     static {
@@ -24,7 +25,8 @@ public class CommandManager  {
         commands.put("dataPayment" , new dataPaymentCommand());
         commands.put("PayOrder" , new PayOrderCommand());
         commands.put("price" , new ViewPriceCommand());
-        commands.put("personAccount" , new PersonalAccountCommand());
+        commands.put("dataPersonAccount" , new dataEditPersonAccountCommand());
+        commands.put("editPersonAccount" , new PersonalAccountCommand());
 
         commands.put("listOrderManager" , new ListOrdersManagerCommand());
         commands.put("dateEditOrder" , new dataForEditOrderCommand());

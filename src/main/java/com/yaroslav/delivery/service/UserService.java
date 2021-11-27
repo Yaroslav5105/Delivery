@@ -89,16 +89,4 @@ public class UserService {
         return "index.jsp";
     }
 
-    public String pageDataUser(int id) {
-        if (selectUser(id).getEmail() != null) {
-            return "/findOrdersByUserId.jsp";
-        } else return "errorNotFoundUser.jsp";
-    }
-
-    public String pageDataOrder(int id) {
-
-        if (selectUser(id).getId() != null) {
-            return "/findOrder.jsp";
-        } else return "errorNotFoundUser.jsp";
-    }
 }

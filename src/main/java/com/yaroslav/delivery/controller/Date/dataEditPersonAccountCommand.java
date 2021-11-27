@@ -1,4 +1,4 @@
-package com.yaroslav.delivery.controller;
+package com.yaroslav.delivery.controller.Date;
 
 import com.yaroslav.delivery.command.Command;
 import com.yaroslav.delivery.service.UserService;
@@ -6,26 +6,23 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
-public class DeleteUserCommand implements Command {
-    private static final Logger LOG = Logger.getLogger(DeleteUserCommand.class);
-
+public class dataEditPersonAccountCommand implements Command {
     private final UserService userService = new UserService();
+    private static final Logger LOG = Logger.getLogger(dataEditPersonAccountCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
-
-        int pageId = Integer.parseInt(request.getParameter("idpage"));
-        int id = Integer.parseInt(request.getParameter("id"));
         try {
-            userService.delete(id);
+            HttpSession session = request.getSession();
+            int userId = (int) session.getAttribute("userId");
+            request.setAttribute("user", userService.selectUser(userId));
             LOG.debug("Finished executing Command");
-            return "/controller?command=ListUserManager&page=" + pageId;
+            return "personalAccountController.jsp";
         } catch (Exception e) {
-            LOG.error("Error in class DeleteUserCommand = "  , e);
-
+            LOG.error("Error in class dataEditPersonAccountCommand = "  , e);
             return "error.html";
         }
     }

@@ -15,7 +15,7 @@
 
 </br>
 
-     <a href="/controller?command=personAccount">
+     <a href="/controller?command=dataPersonAccount">
         <input type="submit" value="Person Account" /></href>
 
  </body>

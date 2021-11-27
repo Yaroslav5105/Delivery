@@ -1,9 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=cp1251"
-         pageEncoding="cp1251" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <html>
-<head>
-    <meta charset="cp1251">
-</head>
 <body>
  <div><center>
     <form  method="post" action="/controller">
@@ -14,7 +10,7 @@
         Email: <input type="email" name="mail"  placeholder="Email" required/> <br/>
         <input type="submit" value="Login" />
     </form>
-
+<div><center>      <h1>  Привет </h1>         </center></div>
         <form name="index.jsp" method="get" action="index.jsp">
         <input type="submit" value="back" />
         </form>
