@@ -14,7 +14,10 @@
         <form name="maneger.jsp" method="get" action="maneger.jsp">
         <input type="submit" value="manager" />
         </form>
+
 </center></div>
+
+
 
 </body>
 </html>

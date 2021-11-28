@@ -20,9 +20,10 @@ public class OrderDao {
     private static final String DELETE_ORDER_SQL = "delete from orderuser where id = ?;";
     private static final String SELECT_ORDER_BY_ID = "select id,user,route,volume,weight , date ,type from orderuser where id =?";
     private static final String UPDATE_ORDER_PAYMENT_SQL = "update orderuser set payment= ? where id = ?;";
+    private static final String SELECT_SORT_ORDER_BY_FROM_SMALLER = "SELECT * FROM orderuser ORDER BY date limit ";
+    private static final String SELECT_SORT_ORDER_BY_FROM_LARGER = "SELECT * FROM orderuser ORDER BY date DESC limit ";
 
-
-
+    
     public void insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
         try (Connection connection = ConnectionPool.getConnection();
@@ -199,4 +200,56 @@ public class OrderDao {
         return orderModel;
     }
 
+    public List<OrderModel> selectOrderSortFromSmaller(int start, int total) {
+        List<OrderModel> orders = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection();
+             Statement ps = connection.createStatement()) {
+
+            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_SMALLER +(start-1)+","+total)) {
+                while (rs.next()) {
+                    OrderModel order = new OrderModel();
+                    orders.add(order);
+                    order.setId(rs.getInt(1));
+                    order.setIdUser(rs.getInt(2));
+                    order.setWay(rs.getString(3));
+                    order.setVolume(rs.getInt(4));
+                    order.setWeight(rs.getInt(5));
+                    order.setPrice(rs.getInt(6));
+                    order.setPayment(rs.getString(7));
+                    order.setDate(rs.getString(8));
+                    order.setType(rs.getString(9));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Can not find all orders " , e);
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
+    public List<OrderModel> selectOrderSortFromLarger(int start, int total) {
+        List<OrderModel> orders = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection();
+             Statement ps = connection.createStatement()) {
+
+            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_LARGER +(start-1)+","+total)) {
+                while (rs.next()) {
+                    OrderModel order = new OrderModel();
+                    orders.add(order);
+                    order.setId(rs.getInt(1));
+                    order.setIdUser(rs.getInt(2));
+                    order.setWay(rs.getString(3));
+                    order.setVolume(rs.getInt(4));
+                    order.setWeight(rs.getInt(5));
+                    order.setPrice(rs.getInt(6));
+                    order.setPayment(rs.getString(7));
+                    order.setDate(rs.getString(8));
+                    order.setType(rs.getString(9));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Can not find all orders " , e);
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
 }

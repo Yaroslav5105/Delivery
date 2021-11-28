@@ -12,7 +12,7 @@
 <body>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of Users id for smaller , page = ${page}</h3>
+			<h3 class="text-center">List of Users id for larger , page = ${page}</h3>
 			<hr>
 			<div class="container text-left">
 
@@ -27,7 +27,7 @@
 			<br>
 
             <form  method="get" action="/controller">
-            <input type="hidden" name="command" value="sortIdUserForLarger"/>
+            <input type="hidden" name="command" value="ListUserManager"/>
             <input type="hidden" name="page" value="1"/>
             <input type="submit" value="sort for id for smaller">
             </form>
@@ -43,7 +43,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="User" items="${listUsers}">
+					<c:forEach var="User" items="${sort}">
 						<tr>
 							<td><a href="/controller?command=findUser&userId=${User.id}">
                              <input type="submit" value="${User.id}" /></a></td>
@@ -66,18 +66,16 @@
 
 				</tbody>
 
-				        <a href='/controller?command=ListUserManager&page=1'><h5>1 </a>
-                        <a href='/controller?command=ListUserManager&page=2'>2     </a>
-                        <a href='/controller?command=ListUserManager&page=3'>3     </a>
-                        <a href='/controller?command=ListUserManager&page=4'>4      </a>
-                        <a href='/controller?command=ListUserManager&page=5'>5</h5> </a>
+				        <a href='/controller?command=sortIdUserForLarger&page=1'><h5>1 </a>
+                        <a href='/controller?command=sortIdUserForLarger&page=2'>2     </a>
+                        <a href='/controller?command=sortIdUserForLarger&page=3'>3     </a>
+                        <a href='/controller?command=sortIdUserForLarger&page=4'>4      </a>
+                        <a href='/controller?command=sortIdUserForLarger&page=5'>5</h5> </a>
 			</table>
 		</div>
 	</div>
         <form name="maneger.jsp" method="post" action="maneger.jsp">
-                            <input type="submit" value="menu" />
-                        </form>
-
-
+        <input type="submit" value="menu" />
+        </form>
 </body>
 </html>

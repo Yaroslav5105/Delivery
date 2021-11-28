@@ -4,6 +4,7 @@ import com.yaroslav.delivery.converter.OrderConverter;
 import com.yaroslav.delivery.dao.OrderDao;
 import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.model.OrderModel;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +30,9 @@ public class OrderService {
         }
     }
 
-    public int countOrder(OrderDto orderDto) { return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4; }
+    public int countOrder(OrderDto orderDto) {
+        return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4;
+    }
 
     public void delete(int delete) {
         try {
@@ -39,7 +42,9 @@ public class OrderService {
         }
     }
 
-    public OrderDto selectOrder(int id) { return converter.convert(orderDao.selectOrder(id)); }
+    public OrderDto selectOrder(int id) {
+        return converter.convert(orderDao.selectOrder(id));
+    }
 
 
     public void updateOrder(OrderDto orderDto) {
@@ -71,19 +76,38 @@ public class OrderService {
         }
     }
 
-    public List<OrderDto> findAllOrdersByUserId(int iduser) { return converter.convertList(orderDao.selectOrdersByUser(iduser)); }
+    public List<OrderDto> findAllOrdersByUserId(int iduser) {
+        return converter.convertList(orderDao.selectOrdersByUser(iduser));
+    }
 
     public List<OrderDto> findAllOrders(int start) {
 
-        int total=5;
-        if(start!=1) {
+        int total = 5;
+        if (start != 1) {
             start = start - 1;
             start = start * total + 1;
         }
-        return converter.convertList(orderDao.selectOrders( start, total));
+        return converter.convertList(orderDao.selectOrders(start, total));
     }
-    public OrderDto findUserByIdOrder (int idOrder){
+
+    public OrderDto findUserByIdOrder(int idOrder) {
         return converter.convert(orderDao.selectUserByIdOrder(idOrder));
     }
 
+    public List<OrderDto> findOrderFromSmallerSort(int start) {
+        int total = 5;
+        if (start != 1) {
+            start = start - 1;
+            start = start * total + 1;
+        }
+        return converter.convertList(orderDao.selectOrderSortFromSmaller(start, total));
+    }
+    public List<OrderDto> findOrderFromLargerSort(int start) {
+        int total = 5;
+        if (start != 1) {
+            start = start - 1;
+            start = start * total + 1;
+        }
+        return converter.convertList(orderDao.selectOrderSortFromLarger(start, total));
+    }
 }

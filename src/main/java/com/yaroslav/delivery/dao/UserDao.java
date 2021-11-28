@@ -19,7 +19,7 @@ public class UserDao {
     private static final String UPDATE_USER_SQL = "update user set name = ?, password =? , number= ? ,email= ? where id = ?;";
     private static final String SELECT_USER_BY_ID = "select name,email,password,number from user where id =?";
     private static final String DELETE_USER_SQL = "delete from user where id = ?;";
-
+    private static final String SELECT_SORT_ID_USER_BY_FROM_LARGER = "SELECT * FROM user ORDER BY id DESC limit ";
 
     public void insertUser(UserModel user) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
@@ -162,5 +162,27 @@ public class UserDao {
             LOG.error("Can not get hash " , ex);
             throw new RuntimeException(ex);
         }
+    }
+
+    public List<UserModel> sortIdUserForLarger(int start, int total) {
+        List<UserModel> users = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection();
+             Statement ps = connection.createStatement()) {
+            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ID_USER_BY_FROM_LARGER + (start - 1) + "," + total)) {
+                while (rs.next()) {
+                    UserModel user = new UserModel();
+                    users.add(user);
+                    user.setId(rs.getInt(1));
+                    user.setLogin(rs.getString(2));
+                    user.setPassword(rs.getString(3));
+                    user.setNumber(rs.getString(4));
+                    user.setMail(rs.getString(5));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Can not select users" , e);
+            throw new RuntimeException(e);
+        }
+        return users;
     }
 }

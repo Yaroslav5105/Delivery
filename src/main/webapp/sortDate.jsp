@@ -11,7 +11,7 @@
 <body>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of order sort id , page = ${page}</h3>
+			<h3 class="text-center">List of order sort date , page =     ${page}</h3>
 			<hr>
 
 			<div class="container text-left">
@@ -26,15 +26,15 @@
 			</form>
 
 			<form  method="get" action="/controller">
-             <input type="hidden" name="command" value="sortDate"/>
-             <input type="hidden" name="page" value="1"/>
-            <input type="submit" value="sort for date for smaller">
-			</form>
+            <input type="hidden" name="command" value="listOrderManager"/>
+            <input type="hidden" name="page" value="1"/>
+            <input type="submit" value="sort for id">
+            </form>
 
-			<form  method="get" action="/controller">
+            <form  method="get" action="/controller">
             <input type="hidden" name="command" value="sortDateForLarge"/>
             <input type="hidden" name="page" value="1"/>
-            <input type="submit" value="sort for date for larger">
+            <input type="submit" value="sort for date for Larger">
             </form>
 
 			<table class="table table-bordered">
@@ -53,7 +53,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="Order" items="${listOrders}">
+					<c:forEach var="Order" items="${sort}">
 						<tr>
 						    <td><a href="/controller?command=findOrderforIdOrder&userId=${Order.id}">
                             <input type="submit" value="${Order.id}" /></a></td>
@@ -75,10 +75,10 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				        <a href='/controller?command=listOrderManager&page=1'><h5>1 </a>
-                        <a href='/controller?command=listOrderManager&page=2'>2     </a>
-                        <a href='/controller?command=listOrderManager&page=3'>3     </a>
-                        <a href='/controller?command=listOrderManager&page=4'>4</h5> </a>
+				        <a href='/controller?command=sortDate&page=1'><h5>1 </a>
+                        <a href='/controller?command=sortDate&page=2'>2     </a>
+                        <a href='/controller?command=sortDate&page=3'>3     </a>
+                        <a href='/controller?command=sortDate&page=4'>4</h5> </a>
 			</table>
 		</div>
 	</div>

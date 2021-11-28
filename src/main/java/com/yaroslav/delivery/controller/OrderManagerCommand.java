@@ -15,11 +15,7 @@ public class OrderManagerCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-//        java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date"));
-//        Date selectedDate = new Date(date1.getTime());
         LOG.debug("Start executing Command");
-
         String date = request.getParameter("date");
         String type = request.getParameter("type");
         int id = Integer.parseInt(request.getParameter("id"));

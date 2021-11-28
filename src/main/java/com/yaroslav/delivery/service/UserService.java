@@ -89,4 +89,12 @@ public class UserService {
         return "index.jsp";
     }
 
+    public List<UserDto> sortIdUserforLarger(int start) {
+        int total = 5;
+        if (start != 1) {
+            start = start - 1;
+            start = start * total + 1;
+        }
+        return userConverter.convertList(userDao.sortIdUserForLarger(start, total));
+    }
 }

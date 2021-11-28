@@ -5,10 +5,11 @@
 <form  method="post" action="/controller">
         <input type="hidden" name="command" value="editOrder"/>
            idRoute: <select name="routeId">
-               <c:forEach var="route" items="${routes}">
+               <c:forEach var="route" items="${routes}" >
                <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
                </c:forEach>
                </select>
+
                 previous idRoute :<input  value="${order.way}" readonly/><br/>
 
          luggage: <select name="type">
@@ -16,6 +17,7 @@
          <option value=<c:out value="${luggage.type}" />>${luggage.type}</option>
          </c:forEach>
          </select>
+
          previous idRoute :<input  value="${order.type}" readonly/><br/>
 
         date :<input type="date"  name="date" max="2022-12-31" value="${order.date}" required/><br/>
