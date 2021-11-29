@@ -2,13 +2,14 @@
 <html>
 <body>
  <div><center></br></br></br></br></br></br>
-    <form name="LogIn.jsp" method="get" action="LogIn.jsp">
-                <input type="submit" value="Authenticate" />
+    <form  method="post" action="/controller">
+                <input type="hidden" name="command" value="dataForAuthenticate"/>
+                <input type="submit" value="Авторизация" />
                 </form>
 
-
-            <form name="signUp.jsp" method="get" action="signUp.jsp">
-            <input type="submit" value="register" />
+            <form  method="post" action="/controller">
+            <input type="hidden" name="command" value="dataFotCrearteUser"/>
+            <input type="submit" value="Регистрация" />
             </form>
 
         <form name="maneger.jsp" method="get" action="maneger.jsp">

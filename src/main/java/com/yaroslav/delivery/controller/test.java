@@ -2,6 +2,7 @@ package com.yaroslav.delivery.controller;
 
 import com.yaroslav.delivery.service.OrderService;
 import com.yaroslav.delivery.service.UserService;
+import com.yaroslav.delivery.validation.Validation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ public class test extends HttpServlet {
 
     OrderService orderService = new OrderService();
     UserService userService = new UserService();
+    Validation validation = new Validation();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        List<OrderDto> orderDtos = orderService.findOrderSort();
@@ -23,6 +25,9 @@ public class test extends HttpServlet {
 //            System.out.println(orderDto.getDate());
 //        }
 //        System.out.println("------------------------------------");
+
+
+        System.out.println(validation.isCorrectEmail("erer@g"));
 
     }
 }

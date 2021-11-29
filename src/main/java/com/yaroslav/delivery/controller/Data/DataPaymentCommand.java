@@ -1,4 +1,4 @@
-package com.yaroslav.delivery.controller.Date;
+package com.yaroslav.delivery.controller.Data;
 
 import com.yaroslav.delivery.command.Command;
 import org.apache.log4j.Logger;
@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class dataPaymentCommand implements Command {
-    private static final Logger LOG = Logger.getLogger(dataPaymentCommand.class);
+public class DataPaymentCommand implements Command {
+    private static final Logger LOG = Logger.getLogger(DataPaymentCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

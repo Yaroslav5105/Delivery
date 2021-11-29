@@ -78,17 +78,6 @@ public class UserService {
         return userId;
     }
 
-    public String page(int id, String email, String password) {
-
-        if (email.equals("admin@gmail.com")) {
-            if (password.equals("12345"))
-                return "maneger.jsp";
-        } else if (id != 0) {
-            return "IndexAuthenticateUser.jsp";
-        }
-        return "index.jsp";
-    }
-
     public List<UserDto> sortIdUserforLarger(int start) {
         int total = 5;
         if (start != 1) {
