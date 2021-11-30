@@ -1,5 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}" />
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
 <title>User Management Application</title>
@@ -9,47 +11,48 @@
 	crossorigin="anonymous">
 </head>
 <body>
+
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of order sort date , page =     ${page}</h3>
+			<h3 class="text-center"><fmt:message key="list.sort" />  ${page}</h3>
 			<hr>
 
 			<div class="container text-left">
-            <a href="/controller?command=ListUserManager&page=1"" class="btn btn-success">Add New Order</a>
+            <a href="/controller?command=ListUserManager&page=1"" class="btn btn-success"><fmt:message key="manager.List.Order.Add.User" /></a>
             </div>
 			<br>
 
             <form  method="get" action="/controller">
             <input type="hidden" name="command" value="findOrderforIdOrder"/>
 			find id user <input type="volume" name="userId" required />
-			<input type="submit" value="find">
+			<input type="submit" value=<fmt:message key="manager.List.Order.find" /> >
 			</form>
 
 			<form  method="get" action="/controller">
             <input type="hidden" name="command" value="listOrderManager"/>
             <input type="hidden" name="page" value="1"/>
-            <input type="submit" value="sort for id">
+            <input type="submit" value=<fmt:message key="list.sort.id" /> >
             </form>
 
             <form  method="get" action="/controller">
             <input type="hidden" name="command" value="sortDateForLarge"/>
             <input type="hidden" name="page" value="1"/>
-            <input type="submit" value="sort for date for Larger">
+            <input type="submit" value=<fmt:message key="list.sort.larger" /> >
             </form>
 
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>ID Name</th>
-						<th>Route</th>
-						<th>Volume</th>
-						<th>Weight</th>
-						<th>Date</th>
-						<th>type of luggage</th>
-						<th>Price</th>
-						<th>Pay</th>
-						<th>Actions</th>
+						<th><fmt:message key="manager.List.Order.Id" /></th>
+                        <th><fmt:message key="manager.List.Order.Id.Name" /></th>
+                        <th><fmt:message key="manager.List.Order.Route" /></th>
+                        <th><fmt:message key="manager.List.Order.Volume" /></th>
+                        <th><fmt:message key="manager.List.Order.Weight" /></th>
+                        <th><fmt:message key="manager.List.Order.Date" /></th>
+                        <th><fmt:message key="manager.List.Order.Type" /></th>
+                        <th><fmt:message key="manager.List.Order.price" /></th>
+                        <th><fmt:message key="manager.List.Order.Pay" /></th>
+                        <th><fmt:message key="manager.List.Order.Actions" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,11 +70,15 @@
                             <td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
 							<td>
+							<c:if test="${Order.payment eq 'not paid'}">
 							<a href="/controller?command=dateEditOrder&id=${Order.id}&idpage=${page}">
-                            <input type="submit" value="edit" /></a>
+                            <input type="submit" value=<fmt:message key="manager.List.Order.edit" /> /></a>
 
-							<a href="/controller?command=deleteOrder&id=${Order.id}&idpage=${page}">
-                            <input type="submit" value="Delete" /></a> </td>
+
+                            <a href="/controller?command=deleteOrder&id=${Order.id}&idpage=${page}">
+                             <input type="submit" value=<fmt:message key="manager.List.Order.delete" /> /></a> </td>
+                             </c:if>
+                             </td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -83,9 +90,9 @@
 		</div>
 	</div>
 
-	<form name="maneger.jsp" method="post" action="maneger.jsp">
-            <input type="submit" value="menu" />
-        </form>
+    <form name="maneger.jsp" method="post" action="maneger.jsp">
+    <input type="submit" value=<fmt:message key="manager.List.Order.menu" /> />
+    </form>
 
 </body>
 </html>

@@ -11,9 +11,6 @@ public class Validation {
     }
 
     public boolean isCorrectEmail(String email) {
-        if (!email.matches(emailRegex)) {
-            return false;
-        }
-        return true;
+        return email.matches(emailRegex);
     }
 }

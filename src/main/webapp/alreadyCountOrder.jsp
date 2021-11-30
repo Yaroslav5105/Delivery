@@ -1,9 +1,15 @@
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ page contentType="text/html; charset=UTF-8" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <fmt:setLocale value="${sessionScope.locale}" />
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body>
-                        Way:<input name="way" value="${way}" readonly><br>
-                		Weight:<input name="weight" value="${weight}" required><br>
-                        Volume :<input name="volume" value="${volume}" required><br>
+
+ <div><center></br></br></br></br></br></br>
+
+                        <fmt:message key="manager.List.Route.way" /><input name="way" value="${way}" readonly><br>
+                		<fmt:message key="manager.List.Order.Weight" /><input name="weight" value="${weight}" required><br>
+                        <fmt:message key="manager.List.Order.Volume" /><input name="volume" value="${volume}" required><br>
 
    <table border="3"
        style="border-color: black;">
@@ -11,9 +17,11 @@
 </table>
 </br>
         <a href="/controller?command=dataCountOrder">
-        <input type="submit" value="count yet" /></href>
+        <input type="submit" value=<fmt:message key="count.yet" /> /></href>
 
             <a href="/controller?command=dataForOrder">
-            <input type="submit" value="Order" /></href>
+            <input type="submit" value=<fmt:message key="indexAuthenticateUser.order" /> /></href>
+            </center></div>
+
     </body>
     </html>

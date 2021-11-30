@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<div><center>      <h1>  Request failed due to error: ${errorMessage} </h1>         </center></div>
+<div><center>      <h1>  Request failed due to error ${errorMessage} </h1>         </center></div>
 
 </body>
 </html>

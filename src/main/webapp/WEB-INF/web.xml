@@ -12,7 +12,7 @@
     </resource-ref>
     <servlet>
         <servlet-name>MyServlet</servlet-name>
-        <servlet-class>com.yaroslav.delivery.controller.DeleteUserCommand</servlet-class>
+        <servlet-class>com.yaroslav.delivery.controller.impl.DeleteUserCommand</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
@@ -59,11 +59,11 @@
 
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
-        <param-value>ru</param-value>
+        <param-value>ua</param-value>
     </context-param>
 
     <context-param>
         <param-name>locales</param-name>
-        <param-value>ru en</param-value>
+        <param-value>ua en</param-value>
     </context-param>
 </web-app>

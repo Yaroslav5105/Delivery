@@ -2,6 +2,7 @@ package com.yaroslav.delivery;
 
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class CharsetFilter implements Filter {
@@ -21,6 +22,8 @@ public class CharsetFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         servletRequest.setCharacterEncoding(defaultEncoding);
         servletResponse.setCharacterEncoding(defaultEncoding);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        httpServletRequest.getSession();
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

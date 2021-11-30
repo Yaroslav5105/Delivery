@@ -4,7 +4,7 @@ public class UserValidator  {
 
     private final Validation validation = new Validation();
 
-    public boolean validateUserParametrs(String number) {
+    public boolean validateUserNumber(String number) {
         return validation.isCorrectNumber(number);
     }
 
