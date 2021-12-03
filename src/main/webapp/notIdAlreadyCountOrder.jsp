@@ -6,22 +6,14 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
-}
-.btnn{
-            background: #1dabb8; /* фон */
-            border-radius: 5px; /* закругленные углы */
-            color: #fff; /* цвет текста */
-            font-weight: bold; /* жирный текст */
-            margin: 10px; /* отступы */
-            padding: 12px 20px; /* оступы для текста */
+            background: #fffacd; /* цвет фона страницы */
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 225px; /* высота блока */
+            height: 470px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
-            margin: 10% auto; /* отступ сверху и выравнивание по середине */
+            margin: 5% auto; /* отступ сверху и выравнивание по середине */
             box-shadow: 2px 2px 4px 0px #000000; /* тень блока */
 }
 .Myform h1 {
@@ -49,7 +41,24 @@ body{
             width: 260px; /* ширина */
             border-radius: 0px 0px 5px 5px; /* закругленные углы снизу */
 }
+.btnn{
+            background: #1dabb8; /* фон */
+            border-radius: 5px; /* закругленные углы */
+            color: #fff; /* цвет текста */
+            font-weight: bold; /* жирный текст */
+            margin: 10px; /* отступы */
+            padding: 12px 20px; /* оступы для текста */
+}
 .btn{
+            background: #1dabb8; /* фон */
+            border-radius: 5px; /* закругленные углы */
+            color: #fff; /* цвет текста */
+            float: right; /* выравнивание справа */
+            font-weight: bold; /* жирный текст */
+            margin: 10px; /* отступы */
+            padding: 12px 37px; /* оступы для текста */
+}
+.bbtn{
             background: #1dabb8; /* фон */
             border-radius: 5px; /* закругленные углы */
             color: #fff; /* цвет текста */
@@ -59,7 +68,7 @@ body{
             padding: 12px 20px; /* оступы для текста */
 }
 .info{
-            width:130px; /* ширина */
+            width:1301px; /* ширина */
             float: left; /* выравнивание слева */
             padding-top: 20px; /* оступ сверху для текста */
 a{
@@ -79,25 +88,26 @@ a:hover{
             <h1><fmt:message key="calculete" /></h1>
             <div class="inp">
                          <form  method="get" action="/controller">
-                                   <input type="hidden" name="command" value="countOrder"/>
-                                   <input type="hidden" name="page" value="alreadyCountOrder.jsp"/>
-                                   <fmt:message key="manager.List.Edit.way" /> <select name="idRoute">
-                                                  <c:forEach var="route" items="${routes}">
-                                                  <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
-                                                  </c:forEach>
-                                                  </select>
-                                               <br/>
-                                   <input class="log" type="text" name="volume" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Volume" /> required>
-                                   <input class="pass" type="text" name="weight" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Weight" /> required>
+                                   <input type="hidden" name="command" value="dataCountOrder"/>
+                                   <input type="hidden" name="page" value="notIdCountOrder.jsp"/>
+
+                                   <fmt:message key="manager.List.Route.way" /><input class="log" name="way" value="${way}" readonly >
+                                   <fmt:message key="manager.List.Order.Weight" /><input class="pass" name="weight" value="${weight}" readonly>
+                                   <fmt:message key="manager.List.Order.Volume" /><input class="log" name="volume" value="${volume}" readonly >
+                                   <fmt:message key="indexAuthenticateUser.price" /><input class="log" name="volume" value="${count}" readonly   >
                                    <div class="info">
 
                                    </div>
-                                   <input class="btn" type="submit" value=<fmt:message key="calculete" /> >
+                                   <input class="bbtn" type="submit" value=<fmt:message key="count.yet" /> >
                         </form>
+                         <form  method="get" action="/controller">
+                                 <input type="hidden" name="command" value="dataForAuthenticate"/>
+                                  <input class="btn" type="submit" value=<fmt:message key="indexAuthenticateUser.order" /> >
+
+</form>
             </div>
 </div>
-
-<form name="IndexAuthenticateUser.jsp" method="post" action="IndexAuthenticateUser.jsp">
+<form name="index.jsp" method="post" action="index.jsp">
                <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
            </form>
 </body>

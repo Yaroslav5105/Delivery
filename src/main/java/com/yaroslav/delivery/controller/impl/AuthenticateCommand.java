@@ -23,13 +23,14 @@ public class AuthenticateCommand implements Command {
             if (password.equals("12345"))
                 return "maneger.jsp";
         }
-
         try {
             int id = userService.authenticate(email, password);
             if (id != 0) {
+                HttpSession session = request.getSession();
+
+                session.setAttribute("name" , userService.selectUser(id).getLogin());
                 request.setAttribute("user", userService.selectUserByEmail(request.getParameter("email")));
 
-                HttpSession session = request.getSession();
                 session.setAttribute("userId", id);
                 LOG.debug("Finished executing Command");
                 return "IndexAuthenticateUser.jsp" ;

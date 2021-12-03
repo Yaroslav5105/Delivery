@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class EditPersonAccountFormCommand implements Command {
+
     private final UserService userService = new UserService();
     private static final Logger LOG = Logger.getLogger(EditPersonAccountFormCommand.class);
 
@@ -18,6 +19,10 @@ public class EditPersonAccountFormCommand implements Command {
         try {
             HttpSession session = request.getSession();
             int userId = (int) session.getAttribute("userId");
+            if(userId == 0){
+                userId = Integer.parseInt(request.getParameter("id"));
+            }
+            System.out.println(" Person"+userId);
             request.setAttribute("user", userService.selectUser(userId));
             LOG.debug("Finished executing Command");
             return "personalAccountController.jsp";

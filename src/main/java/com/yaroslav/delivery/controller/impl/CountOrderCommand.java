@@ -21,7 +21,7 @@ public class CountOrderCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("Start executing Command");
-
+        String page = request.getParameter("page");
         int idRoute = Integer.parseInt(request.getParameter("idRoute"));
         int volume = Integer.parseInt(request.getParameter("volume"));
         int weight = Integer.parseInt(request.getParameter("weight"));
@@ -31,7 +31,7 @@ public class CountOrderCommand implements Command {
             request.setAttribute("way", routeService.selectWay(idRoute));
             request.setAttribute("count", orderService.countOrder(new OrderDto(idRoute, volume, weight)));
             LOG.debug("Finished executing Command");
-            return "alreadyCountOrder.jsp";
+            return page;
         } catch (Exception e) {
             LOG.error("Error in class CountOrderCommand = "  , e);
 

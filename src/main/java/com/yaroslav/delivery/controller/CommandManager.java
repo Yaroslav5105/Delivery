@@ -29,6 +29,7 @@ public class CommandManager {
         commands.put("editPersonAccount", new PersonalAccountCommand());
         commands.put("dataFotCrearteUser", new CreatUserFormCommand());
         commands.put("dataForAuthenticate", new AuthenticateFormCommand());
+        commands.put("goOut", new GoOutCommand());
 
         commands.put("sortDate", new SortDateFromSmallerCommand());
         commands.put("sortDateForLarge", new SortDateFromLargerCommand());
@@ -37,6 +38,7 @@ public class CommandManager {
         commands.put("deleteOrder", new DeleteOrderCommand());
         commands.put("editOrder", new EditOrderCommand());
         commands.put("findOrderforIdOrder", new FindOrderByIdOrderManagerCommand());
+        commands.put("sort" , new  SortCommand());
 
         commands.put("ListUserManager", new ListUsersManagerCommand());
         commands.put("deleteUser", new DeleteUserCommand());
@@ -48,6 +50,7 @@ public class CommandManager {
         commands.put("insertUser", new LoginUserCommand());
         commands.put("findUser", new FindUserByIdUserManagerCommand());
         commands.put("sortIdUserForLarger", new SortIdUserforlargerCommand());
+
 
         commands.put("ListRoute", new ListRouteManagerCommand());
         commands.put("dataEditRoute", new EditRouteFormCommand());

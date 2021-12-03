@@ -80,7 +80,7 @@ a:hover{
             <div class="inp">
                          <form  method="get" action="/controller">
                                    <input type="hidden" name="command" value="countOrder"/>
-                                   <input type="hidden" name="page" value="alreadyCountOrder.jsp"/>
+                                   <input type="hidden" name="page" value="notIdAlreadyCountOrder.jsp"/>
                                    <fmt:message key="manager.List.Edit.way" /> <select name="idRoute">
                                                   <c:forEach var="route" items="${routes}">
                                                   <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
@@ -96,8 +96,7 @@ a:hover{
                         </form>
             </div>
 </div>
-
-<form name="IndexAuthenticateUser.jsp" method="post" action="IndexAuthenticateUser.jsp">
+<form name="index.jsp" method="post" action="index.jsp">
                <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
            </form>
 </body>

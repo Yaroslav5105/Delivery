@@ -13,21 +13,23 @@ public class ListOrderUserCommand implements Command {
     private final OrderService orderService = new OrderService();
     private static final Logger LOG = Logger.getLogger(ListOrderUserCommand.class);
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
 
         try {
             HttpSession session = request.getSession();
-            int userId = (int) session.getAttribute("userId");
+            int id = (int) session.getAttribute("userId");
 
-            request.setAttribute("listOrders", orderService.findAllOrdersByUserId(userId));
+            if(id == 0){
+                id = Integer.parseInt(request.getParameter("id"));
+            }
+            System.out.println(id);
+            request.setAttribute("listOrders", orderService.findAllOrdersByUserId(id));
             LOG.debug("Finished executing Command");
             return "/userListOrder.jsp";
         }catch (Exception e){
             LOG.error("Error in class ListOrderUserCommand = "  , e);
-
             return "error.html";
         }
     }

@@ -23,6 +23,7 @@ public class PersonalAccountCommand implements Command {
         String password = request.getParameter("password");
         String number = request.getParameter("number");
         String email = request.getParameter("email");
+
         try {
             userService.updateUser(new UserDto(name, password, number, email, id));
             LOG.debug("Finished executing Command");

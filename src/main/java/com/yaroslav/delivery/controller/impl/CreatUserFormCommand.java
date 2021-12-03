@@ -16,14 +16,11 @@ public class CreatUserFormCommand implements Command {
             if (request.getParameter("error") != null) {
                 String error = request.getParameter("error");
 
-                    if (error.equals("dublicateLogin")) {
-                        request.setAttribute("errorMessage", "This login is already in use");
-                    }
                     if (error.equals("wrongNumber")) {
-                        request.setAttribute("Message", "Incorrect number, try again");
+                        request.setAttribute("errorMessage", "Incorrect number, try again");
                     }
                     if (error.equals("wrongEmail")) {
-                        request.setAttribute("error", "Incorrect email, try again");
+                        request.setAttribute("errorMessage", "Incorrect email, try again");
                     }
             }
             return "signUp.jsp";

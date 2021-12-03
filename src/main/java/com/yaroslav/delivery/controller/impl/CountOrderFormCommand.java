@@ -14,11 +14,11 @@ public class CountOrderFormCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
-
+        String page = request.getParameter("page");
         try {
             request.setAttribute("routes", routeService.findAllRoutes());
             LOG.debug("Finished executing Command");
-            return "/countOrder.jsp";
+            return page;
         } catch (Exception e) {
             LOG.error("Error in class dataForCountOrderCommand = "  , e);
             return "error.html";

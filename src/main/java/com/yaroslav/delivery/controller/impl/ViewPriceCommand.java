@@ -17,12 +17,14 @@ public class ViewPriceCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String page = request.getParameter("page");
         LOG.debug("Start executing Command");
         try {
             request.setAttribute("routes", routeService.findAllRoutes());
             request.setAttribute("prices", priceService.findPrices());
             LOG.debug("Finished executing Command");
-            return "/price.jsp" ;
+            return page;
         } catch (Exception e) {
             LOG.error("Error in class ViewPriceCommand = "  , e);
             return "error.html";

@@ -78,17 +78,14 @@ a:hover{
 <div class="Myform">
             <h1><fmt:message key="calculete" /></h1>
             <div class="inp">
-                         <form  method="get" action="/controller">
-                                   <input type="hidden" name="command" value="countOrder"/>
-                                   <input type="hidden" name="page" value="alreadyCountOrder.jsp"/>
-                                   <fmt:message key="manager.List.Edit.way" /> <select name="idRoute">
-                                                  <c:forEach var="route" items="${routes}">
-                                                  <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
-                                                  </c:forEach>
-                                                  </select>
-                                               <br/>
-                                   <input class="log" type="text" name="volume" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Volume" /> required>
-                                   <input class="pass" type="text" name="weight" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Weight" /> required>
+                         <form  method="post" action="/controller">
+                                   <input type="hidden" name="command" value="editPersonAccount"/>
+            		               <input type="hidden" name="password" value="user.password"/>
+
+                                   <fmt:message key="person.Account.id" /><input class="log" name="id" value="${user.id}" readonly>
+                                   <fmt:message key="person.Account.Name" />><input class="log" name="login" value="${user.login}" required>
+                                   <fmt:message key="person.Account.Number" />><input class="log" name="number" value="${user.number}" required>
+                                   <fmt:message key="person.Account.Email" /><input class="log" name="email" value="${user.email}" readonly >
                                    <div class="info">
 
                                    </div>
@@ -96,8 +93,7 @@ a:hover{
                         </form>
             </div>
 </div>
-
-<form name="IndexAuthenticateUser.jsp" method="post" action="IndexAuthenticateUser.jsp">
+<form name="index.jsp" method="post" action="index.jsp">
                <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
            </form>
 </body>

@@ -31,8 +31,8 @@
    }
   </style>
 
-<form name="IndexAuthenticateUser.jsp" method="get" action="IndexAuthenticateUser.jsp">
-<input class="btnn" type="submit" value=<fmt:message key="person.Account.user" />>
+  <form name="index.jsp" method="get" action="index.jsp">
+  <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" />>
 
   <div><center></br></br></br>
 

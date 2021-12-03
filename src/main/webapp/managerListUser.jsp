@@ -22,7 +22,7 @@
 			<br/>
             <form  method="get" action="/controller">
             <input type="hidden" name="command" value="findUser"/>
-			find id user <input type="volume" name="userId" required />
+			<fmt:message key="find.user" /><input type="volume" name="userId" required />
 			<input type="submit" value=<fmt:message key="manager.List.Order.find" /> >
 			</form>
 			<br>

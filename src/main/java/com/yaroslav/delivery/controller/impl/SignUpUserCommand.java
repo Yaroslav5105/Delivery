@@ -28,7 +28,6 @@ public class SignUpUserCommand implements Command {
         String password = "";
         String number = "";
 
-        UserDto userDto = new UserDto(username, password, number, email);
 
         if (request.getParameter("number") != null && request.getParameter("password") != null && request.getParameter("name") != null && request.getParameter("mail") != null) {
             email = request.getParameter("mail");
@@ -36,18 +35,15 @@ public class SignUpUserCommand implements Command {
             password = request.getParameter("password");
             number = request.getParameter("number");
         }
-//        if (userService.selectUserByEmail(email).getId() != 0) {
-//            return "controller?command=dataFotCrearteUser&error=dublicateLogin"; <----------!!!!!!!
-//        }
+
         if (!userValidator.validateUserNumber(number)) {
             return "controller?command=dataFotCrearteUser&error=wrongNumber";
         }
 
-
         try {
             if (!email.equals("")) {
                 if (userValidator.validateEmail(email)) {
-
+                    UserDto userDto = new UserDto(username, password, number, email);
                     int id = createUser(userDto);
                     HttpSession session = request.getSession();
                     session.setAttribute("userId", id);
