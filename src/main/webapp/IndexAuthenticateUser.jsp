@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" />
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html>
-<html locale="ua" class="desktop-view"><head>
+<html locale="en" locale="ua" class="desktop-view"><head>
 
 <link rel="stylesheet" id="pp-normalize-css" href="https://pinkpointmedia.com/wp-content/themes/pp/css/normalize.css" type="text/css" media="all">
 <link rel="stylesheet" id="pp-styles-css" href="https://pinkpointmedia.com/wp-content/themes/pp/css/styles.css" type="text/css" media="all">
