@@ -1,56 +1,143 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" />
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+       body {
+       	background-color: #2c3338;
+       	color: #606468;
+       	font-family: 'Open Sans', Arial, sans-serif;
+       	font-size: 14px;
+       	line-height: 1.5em;
+       }
 
-<link rel="stylesheet" id="pp-normalize-css" href="https://pinkpointmedia.com/wp-content/themes/pp/css/normalize.css" type="text/css" media="all">
-<link rel="stylesheet" id="pp-styles-css" href="https://pinkpointmedia.com/wp-content/themes/pp/css/styles.css" type="text/css" media="all">
-<div class="col width1-2">
-<div class="contact-form">
- <div><center>
+       a {
+       	color: #eee;
+       	text-decoration: none;
+       }
 
-<div class="row fieldset first">
+       a:hover {
+       	text-decoration: underline;
+       }
 
- <c:if test="${not empty errorMessage}">
-        <p><c:out value="${errorMessage}" /></p>
-        </c:if> </br>
-<form  method="post" action="/controller">
-        <input type="hidden" name="command" value="creatUser"/>
-	<div class="col width1-2">
-		<span class="wpcf7-form-control-wrap first-name"><input type="text" name="name" value="" size="40" placeholder=<fmt:message key="user.name" /> class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="form-first-name" aria-required="true" aria-invalid="false"></span>
-		<label for="form-first-name"><fmt:message key="user.name" /><span class="required">*</span></label>
-	</div>
-	</div>
- <div class="row fieldset">
-	<div class="col width1-2">
-		<span class="wpcf7-form-control-wrap last-name"><input type="text" name="password" value="" size="40" placeholder=<fmt:message key="login.password" /> class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="form-last-name" aria-required="true" aria-invalid="false"></span>
-		<label for="form-last-name"><fmt:message key="login.password" /><span class="required">*</span></label>
-	</div>
-</div>
+       input {
+       	border: none;
+       	font-family: 'Open Sans', Arial, sans-serif;
+       	font-size: 14px;
+       	line-height: 1.5em;
+       	padding: 0;
+       	-webkit-appearance: none;
+       }
 
-<div class="row fieldset">
-	<div class="col width1-2">
-		<span class="wpcf7-form-control-wrap phone"><input type="text" name="number" value="" size="40" placeholder=<fmt:message key="user.number" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
-		<label for="form-phone"><fmt:message key="user.number" /> </label>
-	</div>
-</div>
+       p {
+       	line-height: 1.5em;
+       }
 
-<div class="row fieldset">
-	<div class="col width1-2">
-		<span class="wpcf7-form-control-wrap email"><input type="email" name="mail" value="" size="40" placeholder=<fmt:message key="user.email" /> class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="form-email" aria-required="true" aria-invalid="false"></span>
-		<label for="form-email"><fmt:message key="user.email" /><span class="required">*</span></label>
-	</div>
-	</div>
- <input type="submit" value=<fmt:message key="index.registration" /> />
-  </form>
-</center></div>
+       .clearfix { *zoom: 1; } /* For IE 6/7 */
+       .clearfix:before, .clearfix:after {
+       	display: table;
+       	content: "";
+       }
+       .clearfix:after { clear: both; }
 
-<div class="wpcf7-response-output" aria-hidden="true"></div></form></div>
+       /* ---------- LOGIN ---------- */
 
+       #login {
+       	margin: 150px auto;
+       	width: 280px;
+       }
+
+       #login form span {
+       	background-color: #363b41;
+       	border-radius: 3px 0px 0px 3px;
+       	-moz-border-radius: 3px 0px 0px 3px;
+       	-webkit-border-radius: 3px 0px 0px 3px;
+       	color: #606468;
+       	display: block;
+       	float: left;
+       	height: 50px;
+       	line-height: 50px;
+       	text-align: center;
+       	width: 50px;
+       }
+
+       #login form input {
+       	height: 50px;
+       	outline:none;
+       }
+
+       #login form input[type="text"], input[type="password"] {
+       	background-color: #3b4148;
+       	border-radius: 0px 3px 3px 0px;
+       	-moz-border-radius: 0px 3px 3px 0px;
+       	-webkit-border-radius: 0px 3px 3px 0px;
+       	color: #606468;
+       	margin-bottom: 1em;
+       	padding: 0 16px;
+       	width: 198px;
+       }
+
+       #login form input:focus {
+       	color:#fff;
+       }
+
+       #login form input[type="submit"] {
+       	border-radius: 3px;
+       	-moz-border-radius: 3px;
+       	-webkit-border-radius: 3px;
+       	background-color: #ea4c88;
+       	color: #eee;
+       	font-weight: bold;
+       	margin-bottom: 2em;
+       	text-transform: uppercase;
+       	cursor:pointer;
+       	width: 280px;
+       }
+.btnn{
+               background: #1dabb8; /* фон */
+               border-radius: 5px; /* закругленные углы */
+               color: #fff; /* цвет текста */
+               font-weight: bold; /* жирный текст */
+               margin: 10px; /* отступы */
+               padding: 12px 20px; /* оступы для текста */
+   }
+       #login form input[type="submit"]:hover {
+       	background-color: #d44179;
+       }
+
+       #login > p {
+       	text-align: center;
+       }
+
+       #login > p span {
+       	padding-left: 5px;
+       }
+
+       </style>
+	<meta charset="UTF-8">
+
+</head>
+<body>
 <form name="index.jsp" method="get" action="index.jsp">
-        <input type="submit" value=<fmt:message key="person.Account.user" /> />
+<input class="btnn" type="submit" value=<fmt:message key="person.Account.user" />> </form>
+    <div id="login">
+     <c:if test="${not empty errorMessage}">
+            <p><c:out value="${errorMessage}" /></p>
+            </c:if> </br>
+        <form method="post" action="/controller">
+        <input type="hidden" name="command" value="creatUser"/>
+            <fieldset class="clearfix">
+
+                <p><span class="fontawesome-user"></span><input type="text" name="name" value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
+                <p><span class="fontawesome-lock"></span><input type="password"  name="password" value="" size="40" placeholder=<fmt:message key="login.password" /> required></p>
+                <p><span class="fontawesome-user"></span><input type="text" name="number" value="" size="40" placeholder=<fmt:message key="user.number" />  required></p>
+                <p><span class="fontawesome-user"></span><input type="text" name="mail" value="" size="40" placeholder=<fmt:message key="user.email" />  required></p>
+                <p><input type="submit" value=<fmt:message key="index.authorization" />  ></p>
+            </fieldset>
         </form>
-			</div>
-				</div>
+    </div>
 </body>
 </html>

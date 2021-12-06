@@ -6,7 +6,7 @@
 <head>
 <style>
 body{
-            background: #fffacd; /* цвет фона страницы */
+            background: #FF0000; /* цвет фона страницы */
 }
 .bttn{
             background: #FF0000; /* фон */
@@ -33,13 +33,15 @@ body{
             padding: 12px 20px; /* оступы для текста */
 }
 .btnnn{
-            background: #2E8B57	; /* фон */
+            background: #1dabb8; /* фон */
             border-radius: 5px; /* закругленные углы */
             color: #fff; /* цвет текста */
             font-weight: bold; /* жирный текст */
             width: 5 px;
             margin: 10px; /* отступы */
             padding: 12px 10px; /* оступы для текста */
+            margin-right: 600px;
+
 }
    TABLE {
     width: 650px; /* Ширина таблицы */
@@ -63,7 +65,6 @@ body{
 </head>
 <body>
 
- <div><center></br>
 	<div class="row">
 		<div class="container">
 			<h3 class="text-center"><fmt:message key="manager.List.Order" /> ${page}</h3>
@@ -138,7 +139,6 @@ body{
 
 		</div>
 	</div>
-</center>
 	<form name="maneger.jsp" method="post" action="maneger.jsp">
     <input class="btnn" type="submit" value=<fmt:message key="manager.List.Order.menu" /> />
     </form>

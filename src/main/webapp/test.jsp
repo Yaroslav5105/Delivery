@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 225px; /* высота блока */
+            height: 325px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -76,25 +76,26 @@ a:hover{
 <body>
 
 <div class="Myform">
-            <h1><fmt:message key="calculete" /></h1>
+            <h1><fmt:message key="makeOrder" /></h1>
             <div class="inp">
-                         <form  method="post" action="/controller">
-                                   <input type="hidden" name="command" value="editPersonAccount"/>
-            		               <input type="hidden" name="password" value="user.password"/>
 
-                                   <fmt:message key="person.Account.id" /><input class="log" name="id" value="${user.id}" readonly>
-                                   <fmt:message key="person.Account.Name" />><input class="log" name="login" value="${user.login}" required>
-                                   <fmt:message key="person.Account.Number" />><input class="log" name="number" value="${user.number}" required>
-                                   <fmt:message key="person.Account.Email" /><input class="log" name="email" value="${user.email}" readonly >
+                         <form  method="post" action="/controller">
+                         <input type="hidden" name="command" value="insertRoute"/>
+
+
+                                   <input class="pass" name="a" placeholder=<fmt:message key="starting.point" /> required>
+                                   <input class="pass" name="b" placeholder=<fmt:message key="end.point" />required>
+                                   <input class="pass" name="kilometers"  placeholder=<fmt:message key="manager.List.Edit.kilo" />required>
+
                                    <div class="info">
 
                                    </div>
-                                   <input class="btn" type="submit" value=<fmt:message key="calculete" /> >
+                                   <input class="btn" type="submit" value=<fmt:message key="save" />  >
                         </form>
             </div>
 </div>
-<form name="index.jsp" method="post" action="index.jsp">
-               <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
-           </form>
+     <form name="maneger.jsp" method="get" action="maneger.jsp">
+                    <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
+     </form>
 </body>
 </html>

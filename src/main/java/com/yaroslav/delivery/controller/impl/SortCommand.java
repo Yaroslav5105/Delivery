@@ -21,6 +21,12 @@ public class SortCommand implements Command {
             if (page.equals("list")) {
                 return "/controller?command=listOrderManager&page=1";
             }
+            if (page.equals("sortMin")) {
+                return "/controller?command=sortIdUserForLarger&page=1";
+            }
+            if (page.equals("sortMax")) {
+                return "//controller?command=ListUserManager&page=1";
+            }
             return "error.html";
         }catch (Exception e){
             return "error.html";

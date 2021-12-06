@@ -3,6 +3,30 @@
 <fmt:setLocale value="${sessionScope.locale}" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<head>
+<style>
+.btnn{
+            background: #1dabb8; /* фон */
+            border-radius: 5px; /* закругленные углы */
+            color: #fff; /* цвет текста */
+            font-weight: bold; /* жирный текст */
+            margin: 10px; /* отступы */
+            padding: 12px 20px; /* оступы для текста */
+}
+TABLE {
+    width: 650px; /* Ширина таблицы */
+    border-bottom: 2px solid maroon; /* Линия внизу таблицы */
+    background: #fffacd; /* Цвет фона таблицы */
+   }
+   TH {
+    background: #1dabb8; /* Цвет фона заголовка */
+    color: white; /* Цвет текста */
+    text-align: left; /* Выравнивание по левому краю */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг текста */
+   }
+   </style>
       <link rel="stylesheet"
       	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -75,10 +99,10 @@
 </br></br>
 
                <a  href="/controller?command=listOrderManager&page=1">
-               <input type="submit" value=<fmt:message key="View.Order" /> /></href></br></br>
+               <input class="btnn" type="submit" value=<fmt:message key="View.Order" /> /></href></br></br>
 
                <a  href="/controller?command=ListUserManager&page=1">
-               <input type="submit" value=<fmt:message key="Veiw.User" /> /></href></br></br>
+               <input class="btnn" type="submit" value=<fmt:message key="Veiw.User" /> /></href></br></br>
 </center></div>
 
 </body>

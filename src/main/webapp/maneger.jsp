@@ -21,7 +21,8 @@
           <a href="/controller?command=ListUserManager&page=1"><fmt:message key="manager.ListUserManager" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
           <a href="/controller?command=ListRoute"><fmt:message key="manager.ListRoute" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
           <a href="/controller?command=locale&Locale=en&adress=maneger.jsp">EN</a></li><li id="menu-item-399" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-399">
-          <a href="/controller?command=locale&Locale=ua&adress=maneger.jsp">UA</a></li></ul>
+          <a href="/controller?command=locale&Locale=ua&adress=maneger.jsp">UA</a></li><li id="menu-item-399" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-399">
+          <a href="index.jsp"><fmt:message key="to.the.main" /></a></li></ul>
        </nav>
    </div>
 </header>
