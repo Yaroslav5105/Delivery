@@ -6,8 +6,12 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
+            background: #2c3338	; /* цвет фона страницы */
 }
+
+
+
+
 .btnn{
             background: #1dabb8; /* фон */
             border-radius: 5px; /* закругленные углы */
@@ -38,13 +42,13 @@ body{
             padding:20px; /* отступы */
 }
 .log{
-            border: 1px solid #dcdcdc; /* рамка */
+            border: 1px solid #C4C4C4; /* рамка */
             padding: 12px 10px; /* отступы текста */
             width: 260px; /* ширина */
             border-radius: 5px 5px 0 0; /* закругленные углы сверху */
 }
 .pass{
-            border: 1px solid #dcdcdc; /* рамка */
+            border: 1px solid #C4C4C4; /* рамка */
             padding: 12px 10px; /* отступы текста */
             width: 260px; /* ширина */
             border-radius: 0px 0px 5px 5px; /* закругленные углы снизу */

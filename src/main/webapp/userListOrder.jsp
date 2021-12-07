@@ -5,9 +5,7 @@
 <html>
 <head>
 <style>
-body{
-            background: #fffacd; /* цвет фона страницы */
-}
+
 .bttn{
             background: #1dabb8; /* фон */
             border-radius: 5px; /* закругленные углы */
@@ -28,11 +26,11 @@ TABLE {
 
     width: 600px; /* Ширина таблицы */
     border-bottom: 2px solid maroon; /* Линия внизу таблицы */
-    background: #fffacd; /* Цвет фона таблицы */
+    background: #2c3338; /* Цвет фона таблицы */
    }
-   TH {
-    background: #1dabb8; /* Цвет фона заголовка */
-    color: white; /* Цвет текста */
+   TD, TH{
+    background: #2c3338; /* Цвет фона заголовка */
+    color: #F4F4F4; /* Цвет текста */
     text-align: left; /* Выравнивание по левому краю */
    }
    TD, TH {
@@ -41,15 +39,20 @@ TABLE {
    </style>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
 </head>
-<body><br>
+<body>
+
+<style>
+body{
+            background: #2c3338	; /* цвет фона страницы */
+}
+
+</style><br>
 
 	<div class="row">
 
 		<div class="container">
-			<h3 class="text-center"><fmt:message key="my.Order" /></h3>
+			<h3 class="text-center" style="color:#23C1C5 " ><fmt:message key="my.Order" /></h3>
 			<hr>
 			<table class="table table-bordered">
 				<thead>

@@ -5,21 +5,21 @@
 <html>
 <head></br></br>
 
- <body bgcolor="#AFEEEE">
-  <style type="text/css">
+ <body bgcolor="#2c3338">
+  <style>
    TABLE {
-    width: 550px; /* Ширина таблицы */
-    border-bottom: 2px solid maroon; /* Линия внизу таблицы */
-    background: #fffacd; /* Цвет фона таблицы */
-   }
-   TH {
-    background: maroon; /* Цвет фона заголовка */
-    color: white; /* Цвет текста */
-    text-align: left; /* Выравнивание по левому краю */
-   }
-   TD, TH {
-    padding: 3px; /* Поля вокруг текста */
-   }
+       width: 550px; /* Ширина таблицы */
+       border-bottom: 2px solid maroon; /* Линия внизу таблицы */
+       background: #2c3338; /* Цвет фона таблицы */
+      }
+      TD {
+       background: #2c3338; /* Цвет фона заголовка */
+       color: #E6E6E6; /* Цвет текста */
+       text-align: left; /* Выравнивание по левому краю */
+      }
+      TD, TH {
+       padding: 3px; /* Поля вокруг текста */
+      }
 
    .btnn{
                background: #1dabb8; /* фон */
@@ -38,7 +38,7 @@
 
              <form name="ViewPriceController" method="post" action="ViewPriceController">
                      <table border="3"
-                     style="border-color: black;">
+                     style="border-color: #D0D0D0;">
                             <tr>
                             <td><fmt:message key="manager.List.Route.way" /></td>
                             <td><fmt:message key="manager.List.Route.Kilometers" /></td>
@@ -51,7 +51,7 @@
              </form>
             <form name="ViewPriceController" method="post" action="ViewPriceController">
                 <table border="3"
-                style="border-color: black;">
+                style="border-color: #D0D0D0;">
                 <tr>
                  <td><fmt:message key="price.kilometer" /></td>
                  <td><fmt:message key="price.volume" /></td>

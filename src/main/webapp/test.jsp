@@ -5,8 +5,14 @@
 <html>
 <head>
 <style>
-body{
-            background: #fffacd	; /* цвет фона страницы */
+
+.bttn{
+            background: #1dabb8; /* фон */
+            border-radius: 5px; /* закругленные углы */
+            color: #fff; /* цвет текста */
+            font-weight: bold; /* жирный текст */
+            margin: 10px; /* отступы */
+            padding: 5px 8px; /* оступы для текста */
 }
 .btnn{
             background: #1dabb8; /* фон */
@@ -16,86 +22,78 @@ body{
             margin: 10px; /* отступы */
             padding: 12px 20px; /* оступы для текста */
 }
-.Myform{
-            width:300px; /* ширина блока */
-            height: 325px; /* высота блока */
-            background: #fff; /* фон блока */
-            border-radius: 10px; /* закругленные углы блока */
-            margin: 10% auto; /* отступ сверху и выравнивание по середине */
-            box-shadow: 2px 2px 4px 0px #000000; /* тень блока */
-}
-.Myform h1 {
-            margin: 0; /* убираем отступы */
-            background-color: #282830; /* фон заголовка */
-            border-radius: 10px 10px 0 0; /* закругляем углы сверху */
-            color: #fff; /* цвет текста */
-            font-size: 14px; /* размер шрифта */
-            padding: 20px; /* отступы */
-            text-align: center; /* выравниваем текст по центру */
-            text-transform: uppercase; /* все символы заглавные */
-}
-.inp{
-            padding:20px; /* отступы */
-}
-.log{
-            border: 1px solid #dcdcdc; /* рамка */
-            padding: 12px 10px; /* отступы текста */
-            width: 260px; /* ширина */
-            border-radius: 5px 5px 0 0; /* закругленные углы сверху */
-}
-.pass{
-            border: 1px solid #dcdcdc; /* рамка */
-            padding: 12px 10px; /* отступы текста */
-            width: 260px; /* ширина */
-            border-radius: 0px 0px 5px 5px; /* закругленные углы снизу */
-}
-.btn{
-            background: #1dabb8; /* фон */
-            border-radius: 5px; /* закругленные углы */
-            color: #fff; /* цвет текста */
-            float: right; /* выравнивание справа */
-            font-weight: bold; /* жирный текст */
-            margin: 10px; /* отступы */
-            padding: 12px 20px; /* оступы для текста */
-}
-.info{
-            width:130px; /* ширина */
-            float: left; /* выравнивание слева */
-            padding-top: 20px; /* оступ сверху для текста */
-a{
-            color:#999; /* цвет ссылки */
-            text-decoration: none; /* убираем подчеркивание */
+TABLE {
 
-}
-a:hover{
-            color: #1dabb8; /* цвет ссылки при наведении */
-
-}
-</style>
+    width: 600px; /* Ширина таблицы */
+    border-bottom: 2px solid maroon; /* Линия внизу таблицы */
+    background: #868686; /* Цвет фона таблицы */
+   }
+   TH {
+    background: #1dabb8; /* Цвет фона заголовка */
+    color: white; /* Цвет текста */
+    text-align: left; /* Выравнивание по левому краю */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг текста */
+   }
+   </style>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 </head>
 <body>
 
-<div class="Myform">
-            <h1><fmt:message key="makeOrder" /></h1>
-            <div class="inp">
+<style>
+body{
+            background: #2c3338	; /* цвет фона страницы */
+}
 
-                         <form  method="post" action="/controller">
-                         <input type="hidden" name="command" value="insertRoute"/>
+</style><br>
 
+	<div class="row">
 
-                                   <input class="pass" name="a" placeholder=<fmt:message key="starting.point" /> required>
-                                   <input class="pass" name="b" placeholder=<fmt:message key="end.point" />required>
-                                   <input class="pass" name="kilometers"  placeholder=<fmt:message key="manager.List.Edit.kilo" />required>
+		<div class="container">
+			<h3 class="text-center" style="color:#31C630" ><fmt:message key="my.Order" /></h3>
+			<hr>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+					    <th><fmt:message key="manager.List.Order.Id" /></th>
+                        <th><fmt:message key="manager.List.Order.Route" /></th>
+                        <th><fmt:message key="manager.List.Order.Volume" /></th>
+						<th><fmt:message key="manager.List.Order.Weight" /></th>
+                        <th><fmt:message key="manager.List.Order.Date" /></th>
+                        <th><fmt:message key="manager.List.Order.Type" /></th>
+						<th><fmt:message key="manager.List.Order.price" /></th>
+                        <th><fmt:message key="manager.List.Order.Pay" /></th>
+                        <th><fmt:message key="manager.List.Order.Actions" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="Order" items="${listOrders}">
 
-                                   <div class="info">
+						<tr>
+						    <td><c:out value="${Order.id}" /></td>
+							<td><c:out value="${Order.way}" /></td>
+							<td><c:out value="${Order.volume}" /></td>
+							<td><c:out value="${Order.weight}" /></td>
+                            <td><c:out value="${Order.date}" /></td>
+                            <td><c:out value="${Order.type}" /></td>
+							<td><c:out value="${Order.price}" /></td>
+                            <td><c:out value="${Order.payment}" /></td>
+                            <td>
+							<a href="/controller?command=dataPayment&id=${Order.id} ">
+            		        <input class="bttn"  type="submit" value=<fmt:message key="pay.Order" />>
+							 </td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<form name="IndexAuthenticateUser.jsp" method="post" action="IndexAuthenticateUser.jsp">
+<input class="btnn" type="submit" value=<fmt:message key="person.Account.user" />>
 
-                                   </div>
-                                   <input class="btn" type="submit" value=<fmt:message key="save" />  >
-                        </form>
-            </div>
-</div>
-     <form name="maneger.jsp" method="get" action="maneger.jsp">
-                    <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
-     </form>
 </body>
 </html>

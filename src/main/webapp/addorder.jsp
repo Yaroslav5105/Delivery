@@ -6,7 +6,7 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
+            background: #2c3338	; /* цвет фона страницы */
 }
 .btnn{
             background: #1dabb8; /* фон */

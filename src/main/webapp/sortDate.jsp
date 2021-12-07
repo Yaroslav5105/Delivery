@@ -4,7 +4,6 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
 <style>
 .btnn{
             background: #1dabb8; /* фон */
@@ -15,7 +14,7 @@
             padding: 12px 20px; /* оступы для текста */
 }
 .bbtn{
-            background: #FFD700; /* фон */
+            background: #D3D033; /* фон */
             border-radius: 5px; /* закругленные углы */
             color: #fff; /* цвет текста */
             font-weight: bold; /* жирный текст */
@@ -23,7 +22,7 @@
             padding: 5px 10px; /* оступы для текста */
 }
 .bttn{
-            background: #FF0000; /* фон */
+            background: #D15656; /* фон */
             border-radius: 5px; /* закругленные углы */
             color: #fff; /* цвет текста */
             font-weight: bold; /* жирный текст */
@@ -31,7 +30,7 @@
             padding: 5px 10px; /* оступы для текста */
 }
 .btnnn{
-            background: #1dabb8	; /* фон */
+            background: #2c3338	; /* фон */
             border-radius: 5px; /* закругленные углы */
             color: #fff; /* цвет текста */
             font-weight: bold; /* жирный текст */
@@ -42,11 +41,11 @@
 TABLE {
     width: 650px; /* Ширина таблицы */
     border-bottom: 2px solid maroon; /* Линия внизу таблицы */
-    background: #fffacd; /* Цвет фона таблицы */
+    background: #2c3338; /* Цвет фона таблицы */
    }
-   TH {
-    background: #1dabb8; /* Цвет фона заголовка */
-    color: white; /* Цвет текста */
+   TD, TH {
+    background: #2c3338; /* Цвет фона заголовка */
+    color: FFFFFF; /* Цвет текста */
     text-align: left; /* Выравнивание по левому краю */
    }
    TD, TH {
@@ -55,14 +54,18 @@ TABLE {
    </style>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+
 </head>
 <body>
+<style>
+body{
+            background: #2c3338	; /* цвет фона страницы */
+}
 
+</style><br>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center"><fmt:message key="list.sort" />  ${page}</h3>
+			<h3 class="text-center"  style="color:#23C1C5 "><fmt:message key="manager.List.Order" />  ${page}</h3>
 			<hr>
 
 			<div class="container text-left">
@@ -72,7 +75,7 @@ TABLE {
 
             <form class="btnnn" method="get" action="/controller">
             <input type="hidden" name="command" value="findOrderforIdOrder"/>
-			<fmt:message key="find.user" /> <input type="volume" name="userId" required />
+			<fmt:message key="findOrder" /> <input type="volume" name="userId" required />
 			<input type="submit" value=<fmt:message key="manager.List.Order.find" /> >
 			</form>
 

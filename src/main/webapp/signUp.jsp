@@ -85,17 +85,21 @@
        }
 
        #login form input[type="submit"] {
-       	border-radius: 3px;
-       	-moz-border-radius: 3px;
-       	-webkit-border-radius: 3px;
-       	background-color: #ea4c88;
-       	color: #eee;
-       	font-weight: bold;
-       	margin-bottom: 2em;
-       	text-transform: uppercase;
-       	cursor:pointer;
-       	width: 280px;
-       }
+              	border-radius: 3px;
+              	-moz-border-radius: 3px;
+              	-webkit-border-radius: 3px;
+              	background-color: #1dabb8;
+              	color: #eee;
+              	font-weight: bold;
+              	margin-bottom: 2em;
+              	text-transform: uppercase;
+              	cursor:pointer;
+              	width: 280px;
+              }
+
+              #login form input[type="submit"]:hover {
+              	background-color: #31C630;
+              }
 .btnn{
                background: #1dabb8; /* фон */
                border-radius: 5px; /* закругленные углы */
@@ -104,9 +108,7 @@
                margin: 10px; /* отступы */
                padding: 12px 20px; /* оступы для текста */
    }
-       #login form input[type="submit"]:hover {
-       	background-color: #d44179;
-       }
+
 
        #login > p {
        	text-align: center;

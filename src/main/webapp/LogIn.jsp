@@ -94,7 +94,7 @@
        	border-radius: 3px;
        	-moz-border-radius: 3px;
        	-webkit-border-radius: 3px;
-       	background-color: #ea4c88;
+       	background-color: #1dabb8;
        	color: #eee;
        	font-weight: bold;
        	margin-bottom: 2em;
@@ -104,7 +104,7 @@
        }
 
        #login form input[type="submit"]:hover {
-       	background-color: #1dabb8;
+       	background-color: #31C630;
        }
 
        #login > p {

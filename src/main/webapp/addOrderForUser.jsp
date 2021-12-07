@@ -6,7 +6,7 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
+            background: #2c3338	; /* цвет фона страницы */
 }
 .btnn{
             background: #1dabb8; /* фон */
@@ -35,7 +35,7 @@ body{
             text-transform: uppercase; /* все символы заглавные */
 }
 .inp{
-            padding:20px; /* отступы */
+            padding:30px; /* отступы */
 }
 .log{
             border: 1px solid #dcdcdc; /* рамка */

@@ -6,7 +6,7 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
+            background: #2c3338	; /* цвет фона страницы */
 }
 .btnn{
             background: #1dabb8; /* фон */
@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 355px; /* высота блока */
+            height: 230px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -40,7 +40,7 @@ body{
 .log{
             border: 1px solid #dcdcdc; /* рамка */
             padding: 12px 10px; /* отступы текста */
-            width: 260px; /* ширина */
+            width: 250px; /* ширина */
             border-radius: 5px 5px 0 0; /* закругленные углы сверху */
 }
 .pass{

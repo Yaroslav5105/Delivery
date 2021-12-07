@@ -9,7 +9,7 @@
 <head>
 <style>
 body{
-            background: #fffacd	; /* цвет фона страницы */
+            background: #2c3338	; /* цвет фона страницы */
 }
 .btnn{
             background: #1dabb8; /* фон */
@@ -21,7 +21,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 325px; /* высота блока */
+            height: 300px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
