@@ -1,7 +1,6 @@
 package com.yaroslav.delivery.controller.impl;
 
 
-
 import com.yaroslav.delivery.command.Command;
 import com.yaroslav.delivery.dto.OrderDto;
 import com.yaroslav.delivery.service.OrderService;
@@ -26,13 +25,16 @@ public class FindOrderByIdOrderManagerCommand implements Command {
 
         try {
             OrderDto orderDto = orderService.findUserByIdOrder(Integer.parseInt(request.getParameter("userId")));
-            request.setAttribute("order", orderDto);
-            request.setAttribute("user", userService.selectUser(orderDto.getIdUser()));
-            LOG.debug("Finished executing Command");
-            return "/findOrder.jsp";
-
+            if (orderDto.getId() != null) {
+                request.setAttribute("order", orderDto);
+                request.setAttribute("user", userService.selectUser(orderDto.getIdUser()));
+                LOG.debug("Finished executing Command");
+                return "/findOrder.jsp";
+            } else return "/controller?command=listOrderManager&page=1&error=notId";
+        } catch (NumberFormatException e) {
+            return "/controller?command=listOrderManager&page=1&error=number";
         } catch (Exception e) {
-            LOG.error("Error in class dataForEditUserCommand = "  , e);
+            LOG.error("Error in class dataForEditUserCommand = ", e);
             return "errorNotFoundUser.jsp";
         }
     }

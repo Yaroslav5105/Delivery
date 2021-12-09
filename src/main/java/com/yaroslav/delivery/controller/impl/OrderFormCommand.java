@@ -19,6 +19,15 @@ public class OrderFormCommand implements Command {
         LOG.debug("Start executing Command");
 
         try {
+
+            if (request.getParameter("error") != null) {
+                String error = request.getParameter("error");
+
+                if (error.equals("wrongNumber")) {
+                    request.setAttribute("errorMessage", "a warning ! only numbers");
+                }
+            }
+
             request.setAttribute("luggages", luggageService.findAllLuggages());
             request.setAttribute("routes", routeService.findAllRoutes());
             LOG.debug("Finished executing Command");

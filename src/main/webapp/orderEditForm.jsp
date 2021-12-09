@@ -18,10 +18,10 @@ body{
 }
 .Myform{
             width:330px; /* ширина блока */
-            height: 450px; /* высота блока */
+            height: 510px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
-            margin: 10% auto; /* отступ сверху и выравнивание по середине */
+            margin: 3% auto; /* отступ сверху и выравнивание по середине */
             box-shadow: 2px 2px 4px 0px #000000; /* тень блока */
 }
 .Myform h1 {
@@ -101,7 +101,9 @@ a:hover{
                                    <fmt:message key="data.volume" /><input class="log" type="volume" name="volume" value="${order.volume}" required>
                                    <fmt:message key="data.weight" /><input class="log" type="weight" name="weight"  value="${order.weight}" required>
                                    <div class="info">
-
+<c:if  test="${not empty errorMessage}">
+<p>  <c:out  value="${errorMessage}" /></p>
+</c:if>
                                    <fmt:message key="previous.way" /><input  value="${order.way}" readonly/><br/>
                         		   <fmt:message key="previous.luggage" /><input  value="${order.type}" readonly/>
                                    </div>

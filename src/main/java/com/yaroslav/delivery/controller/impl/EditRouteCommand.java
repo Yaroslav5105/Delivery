@@ -13,20 +13,26 @@ public class EditRouteCommand implements Command {
     private static final Logger LOG = Logger.getLogger(EditRouteCommand.class);
 
     private final RouteService routeService = new RouteService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
 
-        String way = request.getParameter("way");
-        int kilometers = Integer.parseInt(request.getParameter("kilometers"));
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = 0 ;
+
         try {
+            id = Integer.parseInt(request.getParameter("id"));
+            String way = request.getParameter("way");
+            int kilometers = Integer.parseInt(request.getParameter("kilometers"));
+
             routeService.update(new RouteDto(id, way, kilometers));
             LOG.debug("Finished executing Command");
             return "/controller?command=ListRoute";
 
-        } catch (Exception e) {
+        }catch (NumberFormatException t ){
+            return "/controller?command=dataEditRoute&id="+id+"&error=kilometer";
+        }
+
+        catch (Exception e) {
             LOG.error("Error in class EditRouteCommand = "  , e);
 
             return "error.html";

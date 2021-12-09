@@ -30,7 +30,7 @@ public class ListOrderUserCommand implements Command {
             return "/userListOrder.jsp";
         }catch (Exception e){
             LOG.error("Error in class ListOrderUserCommand = "  , e);
-            return "error.html";
+            return "error.jsp";
         }
     }
 }

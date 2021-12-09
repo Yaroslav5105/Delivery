@@ -62,7 +62,7 @@ body{
 			<hr>
 			<div class="container text-left">
 
-				<a href="routeManager.jsp" class="btn btn-success"><fmt:message key="manager.List.Add.Route" /></a>
+				<a href="/controller?command=addRoute" class="btn btn-success"><fmt:message key="manager.List.Add.Route" /></a>
 			</div>
 			<br/>
 

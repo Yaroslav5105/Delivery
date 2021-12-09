@@ -17,6 +17,14 @@ public class EditUserFormCommand implements Command {
         LOG.debug("Start executing Command");
 
         try {
+
+            if (request.getParameter("error") != null) {
+                String error = request.getParameter("error");
+
+                if (error.equals("wrongNumber")) {
+                    request.setAttribute("errorMessage", "a warning ! wrong phone number format");
+                }
+            }
             request.setAttribute("pageId", Integer.parseInt(request.getParameter("idpage")));
             request.setAttribute("user", userService.selectUser(Integer.parseInt(request.getParameter("id"))));
             LOG.debug("Finished executing Command");

@@ -74,7 +74,9 @@ body{
             <a href="/controller?command=ListUserManager&page=1"" class="btn btn-success"><fmt:message key="manager.List.Order.Add.User" /></a>
             </div>
 			<br>
-
+            <c:if  test="${not empty errorMessage}">
+                                              <p>  <c:out  value="${errorMessage}" /></p>
+                                              </c:if>
             <form class="btnnn"  method="get" action="/controller">
             <input type="hidden" name="command" value="findOrderforIdOrder"/>
 			<fmt:message key="findOrder" /> <input type="volume" name="userId" required />

@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 325px; /* высота блока */
+            height: 360px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -99,7 +99,9 @@ a:hover{
                                    <input type="hidden" name="userId" value="${userId}"/><br/>
 
                                    <div class="info">
-
+                                   <c:if test="${not empty errorMessage}">
+                                   <p><c:out value="${errorMessage}" /></p>
+                                   </c:if>
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="indexAuthenticateUser.order" />  >
                         </form>

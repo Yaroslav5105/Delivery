@@ -82,7 +82,9 @@ body{
 				<a href="/controller?command=dateForInsertUser&idpage=${page}" class="btn btn-success"><fmt:message key="manager.List.User.AddUser" /></a>
 			</div>
 			<br/>
-
+<c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if>
             <form  class="btnnn"   method="get" action="/controller">
             <input type="hidden" name="command" value="findUser"/>
 			<fmt:message key="find.user" /><input type="volume" name="userId" required />

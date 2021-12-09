@@ -17,6 +17,15 @@ public class EditRouteFormCommand implements Command {
         LOG.debug("Start executing Command");
 
         try {
+            if (request.getParameter("error") != null) {
+                String error = request.getParameter("error");
+
+                if (error.equals("kilometer")) {
+                    request.setAttribute("errorMessage", "a warning ! only numbers in kilometer");
+                }
+
+            }
+
             request.setAttribute("route", routeService.selectRoute(Integer.parseInt(request.getParameter("id"))));
             request.setAttribute("idroute", Integer.parseInt(request.getParameter("id")));
             LOG.debug("Finished executing Command");

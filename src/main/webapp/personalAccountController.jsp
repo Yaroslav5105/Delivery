@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 375px; /* высота блока */
+            height: 420px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -87,6 +87,18 @@ a:hover{
                                    <fmt:message key="person.Account.Number" /><input class="log" name="number" value="${user.number}" required>
                                    <fmt:message key="person.Account.Email" /><input class="log" name="email" value="${user.email}" readonly >
                                    <div class="info">
+                                             <c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if>
+                                              <c:if test="${not empty successfully}">
+                                              <p><c:out value="${successfully}" /></p>
+                                              </c:if>
+
+
+                                              <c:if test="${not empty error}">
+                                              <p><c:out value="${error}" /></p>
+                                              </c:if>
+                                              </center></div>
 
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="manager.List.Order.edit" /> >

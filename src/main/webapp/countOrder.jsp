@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 225px; /* высота блока */
+            height: 275px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -90,6 +90,9 @@ a:hover{
                                    <input class="log" type="text" name="volume" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Volume" /> required>
                                    <input class="pass" type="text" name="weight" value="" size="40" placeholder=<fmt:message key="manager.List.Order.Weight" /> required>
                                    <div class="info">
+                                              <c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if> </center></div>
 
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="calculete" /> >

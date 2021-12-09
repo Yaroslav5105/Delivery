@@ -19,11 +19,16 @@ public class FindUserByIdUserManagerCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            request.setAttribute("user", userService.selectUser(Integer.parseInt(request.getParameter("userId"))));
-            request.setAttribute("listOrders", orderService.findAllOrdersByUserId(Integer.parseInt(request.getParameter("userId"))));
-            LOG.debug("Finished executing Command");
-            return "/findOrdersByUserId.jsp";
-        } catch (Exception e) {
+            if (userService.selectUser(Integer.parseInt(request.getParameter("userId"))).getId()!=null) {
+                request.setAttribute("user", userService.selectUser(Integer.parseInt(request.getParameter("userId"))));
+                request.setAttribute("listOrders", orderService.findAllOrdersByUserId(Integer.parseInt(request.getParameter("userId"))));
+                LOG.debug("Finished executing Command");
+                return "/findOrdersByUserId.jsp";
+            }else return "/controller?command=ListUserManager&page=1&error=notId";
+        }catch (NumberFormatException t){
+            return "/controller?command=ListUserManager&page=1&error=number";
+        }
+        catch (Exception e) {
             LOG.error("Error in class FindUserByIdUserManagerCommand = "  , e);
             return "errorNotFoundUser.jsp";
         }

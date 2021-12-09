@@ -13,9 +13,17 @@ public class CountOrderFormCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LOG.debug("Start executing Command");
-        String page = request.getParameter("page");
         try {
+
+            if (request.getParameter("error") != null) {
+                String error = request.getParameter("error");
+
+                if (error.equals("wrongNumber")) {
+                    request.setAttribute("errorMessage", "a warning ! only numbers");
+                }
+            }
+            LOG.debug("Start executing Command");
+            String page = request.getParameter("page");
             request.setAttribute("routes", routeService.findAllRoutes());
             LOG.debug("Finished executing Command");
             return page;

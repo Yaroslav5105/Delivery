@@ -11,4 +11,9 @@ public class UserValidator  {
     public boolean validateEmail(String email) {
         return validation.isCorrectEmail(email);
     }
+
+    public boolean validateWord(String word) { return validation.isCorrectWord(word); }
+
+    public boolean validateKilometer(String kilometer) { return validation.isCorrectkilometer(kilometer); }
+
 }

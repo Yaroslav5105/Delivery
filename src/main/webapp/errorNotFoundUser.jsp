@@ -2,7 +2,9 @@
 
 <html>
 <head>
-<div><center>      <h1> this person was deleted </h1>         </center></div>
+</br></br></br></br>
+
+<div><center>      <h1> there is no such person in the database </h1>         </center></div>
 
 </body>
 </html>

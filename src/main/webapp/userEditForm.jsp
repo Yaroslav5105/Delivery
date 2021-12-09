@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 355px; /* высота блока */
+            height: 410px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -83,12 +83,14 @@ a:hover{
             		               <input type="hidden" name="id" value="${user.id}"/>
                                    <input type="hidden" name="page" value="${pageId}"/>
 
-                                   <fmt:message key="person.Account.Name"/><input class="log" name="login" value="${user.login}" required>
+                                   <fmt:message key="person.Account.Name"/><input class="log" name="login" pattern="^[A-Za-zА-Яа-яЁё]+$"  value="${user.login}" required>
                                    <fmt:message key="login.login"/><input class="log"name="number" value="${user.number}" required>
                                    <fmt:message key="login.password"/><input class="log"  name="password" value="${user.password}" required>
                                    <fmt:message key="person.Account.Email"/><input class="log" name="email" value="${user.email}" readonly >
                                    <div class="info">
-
+                                              <c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if>
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="save" />>
                         </form>

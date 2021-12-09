@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 230px; /* высота блока */
+            height: 300px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -83,10 +83,15 @@ a:hover{
             		               <input type="hidden" name="password" value="user.password"/>
                                    <input type="hidden" name="id" value="${idroute}"/>
 
-                                  <fmt:message key="manager.List.Edit.way" /><input class="log" name="way" value="${route.way}" required>
+                                  <fmt:message key="manager.List.Edit.way" /><input class="log" name="way"  value="${route.way}" required>
                                    <fmt:message key="manager.List.Edit.kilo" /><input class="log" name="kilometers" value="${route.kilometers}" required>
                                    <div class="info">
-
+                                              <c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if>
+                                              <c:if test="${not empty error}">
+                                              <p><c:out value="${error}" /></p>
+                                              </c:if>
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="save" /> >
                         </form>

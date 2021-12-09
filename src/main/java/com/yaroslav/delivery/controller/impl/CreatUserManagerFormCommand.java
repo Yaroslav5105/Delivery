@@ -14,6 +14,17 @@ public class CreatUserManagerFormCommand implements Command {
         LOG.debug("Start executing Command");
 
         try {
+            if (request.getParameter("error") != null) {
+                String error = request.getParameter("error");
+
+                if (error.equals("number")) {
+                    request.setAttribute("errorMessage", "a warning ! wrong phone number format");
+                }
+                if (error.equals("email")) {
+                    request.setAttribute("errorMessage", "a warning ! wrong email format");
+                }
+            }
+
             request.setAttribute("pageId", Integer.parseInt(request.getParameter("idpage")));
             LOG.debug("Finished executing Command");
             return "/adduser.jsp";

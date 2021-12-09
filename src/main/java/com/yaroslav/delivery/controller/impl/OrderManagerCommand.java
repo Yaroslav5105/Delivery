@@ -16,18 +16,22 @@ public class OrderManagerCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
-        String date = request.getParameter("date");
-        String type = request.getParameter("type");
         int id = Integer.parseInt(request.getParameter("id"));
-        int routeId = Integer.parseInt(request.getParameter("routeId"));
-        int volume = Integer.parseInt(request.getParameter("volume"));
-        int weight = Integer.parseInt(request.getParameter("weight"));
 
         try {
+            String date = request.getParameter("date");
+            String type = request.getParameter("type");
+            int routeId = Integer.parseInt(request.getParameter("routeId"));
+            int volume = Integer.parseInt(request.getParameter("volume"));
+            int weight = Integer.parseInt(request.getParameter("weight"));
+
             orderService.createOrder(new OrderDto(id, routeId, volume, weight, date, type));
             LOG.debug("Finished executing Command");
             return "/controller?command=listOrderManager&page=1";
-        } catch (Exception e) {
+        }catch (NumberFormatException r ){
+            return "/controller?command=dateOrderManager&id="+id+"&error=number";
+        }
+        catch (Exception e) {
             LOG.error("Error in class OrderManagerCommand = "  , e);
 
             return "error.html";

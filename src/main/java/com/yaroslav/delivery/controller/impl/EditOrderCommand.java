@@ -19,19 +19,24 @@ public class EditOrderCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
 
-        int pageId = Integer.parseInt(request.getParameter("page"));
         int orderId = Integer.parseInt(request.getParameter("orderId"));
-        int routeId = Integer.parseInt(request.getParameter("routeId"));
-        int weight = Integer.parseInt(request.getParameter("weight"));
-        int volume = Integer.parseInt(request.getParameter("volume"));
-        String date = request.getParameter("date");
-        String type = request.getParameter("type");
+        int pageId = Integer.parseInt(request.getParameter("page"));
+
         try {
+            int routeId = Integer.parseInt(request.getParameter("routeId"));
+            int weight = Integer.parseInt(request.getParameter("weight"));
+            int volume = Integer.parseInt(request.getParameter("volume"));
+            String date = request.getParameter("date");
+            String type = request.getParameter("type");
+
             String way = routeService.selectWay(routeId);
             orderService.updateOrder(new OrderDto(routeId, way, weight, volume, date, type, orderId));
             LOG.debug("Finished executing Command");
             return "/controller?command=listOrderManager&page=" + pageId;
-        } catch (Exception e) {
+        }catch (NumberFormatException e ){
+            return "/controller?command=dateEditOrder&"+"id="+orderId+"&idpage="+pageId+"&error=number" ;
+        }
+        catch (Exception e) {
             LOG.error("Error in class EditOrderCommand = "  , e);
 
             return "error.html";

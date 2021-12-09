@@ -17,7 +17,7 @@
 			<nav class="menu-primary-container">
 				<ul id="menu-primary" class="menu"><li id="menu-item-836" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-836">
 				<a href="/controller?command=dataForAuthenticate"><fmt:message key="index.authorization" /></a></li><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33">
-				<a href="/controller?command=dataFotCrearteUser"><fmt:message key="index.registration" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
+				<a href="/controller?command=dataFotCrearteUser&error=pol"><fmt:message key="index.registration" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
 				<a href="/controller?command=locale&Locale=en&adress=index.jsp">EN</a></li><li id="menu-item-399" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-399">
 				<a href="/controller?command=locale&Locale=ua&adress=index.jsp">UA</a></li><li id="menu-item-619" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-619">
 				<a href="maneger.jsp"><fmt:message key="index.manager" /></a></li></ul>

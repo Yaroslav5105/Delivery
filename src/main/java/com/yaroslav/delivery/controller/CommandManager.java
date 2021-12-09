@@ -56,7 +56,7 @@ public class CommandManager {
         commands.put("dataEditRoute", new EditRouteFormCommand());
         commands.put("editRoute", new EditRouteCommand());
         commands.put("deleteRoute", new DeleteRouteCommand());
-
+        commands.put("addRoute" , new RouteManagerFormCommand());
         commands.put("locale", new LocaleFormCommand());
     }
 

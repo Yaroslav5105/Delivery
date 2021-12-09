@@ -19,19 +19,25 @@ public class OrderUserCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("Start executing Command");
 
-        HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("userId");
-        String date = request.getParameter("date");
-        String type = request.getParameter("type");
-        int routeId = Integer.parseInt(request.getParameter("routeId"));
-        int volume = Integer.parseInt(request.getParameter("volume"));
-        int weight = Integer.parseInt(request.getParameter("weight"));
         try {
+
+            HttpSession session = request.getSession();
+            int userId = (int) session.getAttribute("userId");
+            String date = request.getParameter("date");
+            String type = request.getParameter("type");
+            int routeId = Integer.parseInt(request.getParameter("routeId"));
+            int volume = Integer.parseInt(request.getParameter("volume"));
+            int weight = Integer.parseInt(request.getParameter("weight"));
+
             orderService.createOrder(new OrderDto(userId, routeId, volume, weight, date, type));
             LOG.debug("Finished executing Command");
             return "/controller?command=listOrder";
+
+        } catch (NumberFormatException e) {
+            return "/controller?command=dataForOrder&error=wrongNumber";
+
         } catch (Exception e) {
-            LOG.error("Error in class OrderUserCommand = "  , e);
+            LOG.error("Error in class OrderUserCommand = ", e);
 
             return "error.html";
         }

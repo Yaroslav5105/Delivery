@@ -136,7 +136,7 @@
                 <p><input type="submit" value=<fmt:message key="index.authorization" />  ></p>
             </fieldset>
         </form>
-        <p><fmt:message key="don'reg" /> &nbsp;&nbsp;<a href="/controller?command=dataFotCrearteUser"><fmt:message key="index.registration" /></a><span class="fontawesome-arrow-right"></span></p>
+        <p><fmt:message key="don'reg" /> &nbsp;&nbsp;<a href="/controller?command=dataFotCrearteUser&error=pol"><fmt:message key="index.registration" /></a><span class="fontawesome-arrow-right"></span></p>
     </div>
 </body>
 </html>

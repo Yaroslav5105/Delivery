@@ -18,7 +18,7 @@ body{
 }
 .Myform{
             width:300px; /* ширина блока */
-            height: 240px; /* высота блока */
+            height: 300px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
             margin: 10% auto; /* отступ сверху и выравнивание по середине */
@@ -88,7 +88,13 @@ a:hover{
                                    <input class="pass" name="kilometers"  placeholder=<fmt:message key="manager.List.Edit.kilo" /> required>
 
                                    <div class="info">
+                                              <c:if test="${not empty errorMessage}">
+                                              <p><c:out value="${errorMessage}" /></p>
+                                              </c:if>
 
+                                              <c:if test="${not empty errorWord}">
+                                              <p><c:out value="${errorWord}" /></p>
+                                              </c:if>
                                    </div>
                                    <input class="btn" type="submit" value=<fmt:message key="save" />  >
                         </form>
