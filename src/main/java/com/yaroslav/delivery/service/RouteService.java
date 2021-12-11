@@ -11,8 +11,8 @@ import java.util.List;
 
 public class RouteService {
 
-    private final RouteDao routeDao = new RouteDao();
-    private final RouteConverter routeConverter = new RouteConverter();
+    private  RouteDao routeDao = new RouteDao();
+    private  RouteConverter routeConverter = new RouteConverter();
 
     public List<RouteDto> findAllRoutes() {
         return routeConverter.convertList(routeDao.selectRoutes());

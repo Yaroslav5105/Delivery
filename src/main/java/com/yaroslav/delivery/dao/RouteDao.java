@@ -58,7 +58,7 @@ public class RouteDao {
         return idUser;
     }
 
-    public void deleteRoute(int id) throws SQLException {
+    public boolean deleteRoute(int id) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ROUTE_SQL)) {
             statement.setInt(1, id);
@@ -67,9 +67,10 @@ public class RouteDao {
             LOG.error("Can not delete route" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
-    public void updateRoute(RouteModel route) {
+    public boolean updateRoute(RouteModel route) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ROUTE_SQL)) {
             statement.setString(1, route.getWay());
@@ -81,6 +82,7 @@ public class RouteDao {
 
             throw new RuntimeException(e);
         }
+        return true;
     }
 
 

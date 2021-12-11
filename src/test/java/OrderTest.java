@@ -97,4 +97,12 @@ public class OrderTest {
 
         assertEquals(orderModels, orderDao.selectOrderSortFromLarger(1, 5));
     }
+
+    @Test
+    public  void testCreateOrder() throws SQLException {
+        OrderModel orderModel = new OrderModel();
+        when(orderDao.insertOrder(orderModel)).thenReturn(true);
+
+        assertEquals(true , orderDao.insertOrder(orderModel));
+    }
 }

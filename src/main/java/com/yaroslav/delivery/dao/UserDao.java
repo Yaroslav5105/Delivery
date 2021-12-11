@@ -21,7 +21,7 @@ public class UserDao {
     private static final String DELETE_USER_SQL = "delete from user where id = ?;";
     private static final String SELECT_SORT_ID_USER_BY_FROM_LARGER = "SELECT * FROM user ORDER BY id DESC limit ";
 
-    public void insertUser(UserModel user) throws SQLException {
+    public boolean insertUser(UserModel user) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
 
@@ -35,6 +35,7 @@ public class UserDao {
             LOG.error("Can not insert user" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public List<UserModel> selectUsers(int start, int total) {
@@ -60,7 +61,7 @@ public class UserDao {
         return users;
     }
 
-    public void updateUser(UserModel user) throws SQLException {
+    public boolean updateUser(UserModel user) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_USER_SQL)) {
             statement.setString(1, user.getLogin());
@@ -74,6 +75,7 @@ public class UserDao {
             LOG.error("Can not update user" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public UserModel selectUser(int id) {
@@ -98,7 +100,7 @@ public class UserDao {
         return user;
     }
 
-    public void deleteUser(int id) throws SQLException {
+    public boolean deleteUser(int id) throws SQLException {
 
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_USER_SQL)) {
@@ -108,6 +110,7 @@ public class UserDao {
             LOG.error("Can not selete user" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public UserModel selectUserByEmail(String email) {

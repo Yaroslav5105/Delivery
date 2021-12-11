@@ -24,7 +24,7 @@ public class    OrderDao {
     private static final String SELECT_SORT_ORDER_BY_FROM_LARGER = "SELECT * FROM orderuser ORDER BY date DESC limit ";
 
     
-    public void insertOrder(OrderModel orderModel) throws SQLException {
+    public boolean insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
@@ -45,6 +45,7 @@ public class    OrderDao {
             LOG.error("Can not insert order" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public boolean deleteOrder(int id) throws SQLException {

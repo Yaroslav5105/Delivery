@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
-    private final UserDao userDao = new UserDao();
-    private final UserModel userModel = new UserModel();
-    private final UserConverter userConverter = new UserConverter();
+    private  UserDao userDao = new UserDao();
+    private  UserModel userModel = new UserModel();
+    private  UserConverter userConverter = new UserConverter();
 
     public void createUser(UserDto createUserDto) {
 
