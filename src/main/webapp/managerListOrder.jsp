@@ -41,7 +41,7 @@
 
 }
    TABLE {
-    width: 650px; /* Ширина таблицы */
+    width: 700px; /* Ширина таблицы */
     border-bottom: 2px solid maroon; /* Линия внизу таблицы */
     background: #2c3338; /* Цвет фона таблицы */
    }

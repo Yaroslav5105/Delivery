@@ -10,9 +10,9 @@ import java.util.List;
 
 
 public class OrderService {
-    private final OrderDao orderDao = new OrderDao();
-    private final OrderModel orderModel = new OrderModel();
-    private final OrderConverter converter = new OrderConverter();
+    private OrderDao orderDao = new OrderDao();
+    private OrderModel orderModel = new OrderModel();
+    private OrderConverter converter = new OrderConverter();
 
     public void createOrder(OrderDto creatOrder) {
 
@@ -47,7 +47,7 @@ public class OrderService {
     }
 
 
-    public void updateOrder(OrderDto orderDto) {
+    public boolean updateOrder(OrderDto orderDto) {
 
         OrderModel orderModel = orderDao.selectOrder(orderDto.getId());
         orderModel.setIdRoute(orderDto.getIdRoute());
@@ -62,6 +62,7 @@ public class OrderService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return true;
     }
 
     public void payment(OrderDto orderDto) {
@@ -102,6 +103,7 @@ public class OrderService {
         }
         return converter.convertList(orderDao.selectOrderSortFromSmaller(start, total));
     }
+
     public List<OrderDto> findOrderFromLargerSort(int start) {
         int total = 5;
         if (start != 1) {

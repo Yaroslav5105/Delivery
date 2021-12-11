@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDao {
+public class    OrderDao {
 
     private static final Logger LOG = Logger.getLogger(OrderDao.class);
 
@@ -47,7 +47,7 @@ public class OrderDao {
         }
     }
 
-    public void deleteOrder(int id) throws SQLException {
+    public boolean deleteOrder(int id) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
             statement.setInt(1, id);
@@ -56,6 +56,7 @@ public class OrderDao {
             LOG.error("Can not delete order" , e);
             throw new RuntimeException(e);
         }
+        return  true ;
     }
 
     public OrderModel selectOrder(int id) {
@@ -80,7 +81,7 @@ public class OrderDao {
         return orderModel;
     }
 
-    public void updateOrder(OrderModel orderModel) throws SQLException {
+    public boolean updateOrder(OrderModel orderModel) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, orderModel.getIdUser());
@@ -99,13 +100,14 @@ public class OrderDao {
             statement.setInt(8, orderModel.getId());
 
             statement.executeUpdate();
+            return true;
         }catch (SQLException e){
             LOG.error("Can not update order" , e);
             throw new RuntimeException(e);
         }
     }
 
-    public void updatePayment(OrderModel order) throws SQLException {
+    public boolean updatePayment(OrderModel order) throws SQLException {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_PAYMENT_SQL)) {
             statement.setString(1, order.getPayment());
@@ -115,6 +117,7 @@ public class OrderDao {
             LOG.error("Can not pay order" , e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public List<OrderModel> selectOrdersByUser(int idUser) {
