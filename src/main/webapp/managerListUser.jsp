@@ -139,9 +139,7 @@ body{
 
 				        <a href='/controller?command=ListUserManager&page=1'><h5>1 </a>
                         <a href='/controller?command=ListUserManager&page=2'>2     </a>
-                        <a href='/controller?command=ListUserManager&page=3'>3     </a>
-                        <a href='/controller?command=ListUserManager&page=4'>4      </a>
-                        <a href='/controller?command=ListUserManager&page=5'>5</h5> </a>
+                        <a href='/controller?command=ListUserManager&page=3'>3</h5> </a>
 			</table>
 		</div>
 	</div>

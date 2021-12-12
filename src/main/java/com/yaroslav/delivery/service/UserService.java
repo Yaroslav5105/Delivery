@@ -1,5 +1,6 @@
 package com.yaroslav.delivery.service;
 
+import com.yaroslav.delivery.converter.InterfaceListOrder;
 import com.yaroslav.delivery.converter.UserConverter;
 import com.yaroslav.delivery.dao.UserDao;
 import com.yaroslav.delivery.dto.UserDto;
@@ -28,10 +29,11 @@ public class UserService {
     }
 
     public List<UserDto> findAllUsers(int start) {
+        InterfaceListOrder interfaces ;
         int total = 5;
         if (start != 1) {
-            start = start - 1;
-            start = start * total + 1;
+        interfaces = (star)-> (star - 1) * total + 1;
+        start = interfaces.listOrder(start);
         }
         return userConverter.convertList(userDao.selectUsers(start, total));
     }

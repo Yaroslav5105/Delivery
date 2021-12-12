@@ -1,5 +1,6 @@
 package com.yaroslav.delivery.dao;
 
+import com.yaroslav.delivery.converter.InterfacePrice;
 import com.yaroslav.delivery.db.ConnectionPool;
 import com.yaroslav.delivery.model.OrderModel;
 import org.apache.log4j.Logger;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    OrderDao {
+public class OrderDao {
 
     private static final Logger LOG = Logger.getLogger(OrderDao.class);
 
@@ -23,9 +24,10 @@ public class    OrderDao {
     private static final String SELECT_SORT_ORDER_BY_FROM_SMALLER = "SELECT * FROM orderuser ORDER BY date limit ";
     private static final String SELECT_SORT_ORDER_BY_FROM_LARGER = "SELECT * FROM orderuser ORDER BY date DESC limit ";
 
-    
+
     public boolean insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
+        InterfacePrice interfaces;
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
             int price;
@@ -34,7 +36,10 @@ public class    OrderDao {
             preparedStatement.setString(2, way);
             preparedStatement.setInt(3, orderModel.getVolume());
             preparedStatement.setInt(4, orderModel.getWeight());
-            price = (orderModel.getVolume() + orderModel.getWeight()) * 2 + orderModel.getIdRoute() * 4;
+
+            interfaces = (volume, weight, kilometer) -> (volume + weight) * 2 + kilometer * 4;
+            price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
+
             orderModel.setPrice(price);
             preparedStatement.setInt(5, price);
             preparedStatement.setString(6, orderModel.getPayment());
@@ -42,7 +47,7 @@ public class    OrderDao {
             preparedStatement.setString(8, orderModel.getType());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error("Can not insert order" , e);
+            LOG.error("Can not insert order", e);
             throw new RuntimeException(e);
         }
         return true;
@@ -53,11 +58,11 @@ public class    OrderDao {
              PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_SQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-        }catch (SQLException e){
-            LOG.error("Can not delete order" , e);
+        } catch (SQLException e) {
+            LOG.error("Can not delete order", e);
             throw new RuntimeException(e);
         }
-        return  true ;
+        return true;
     }
 
     public OrderModel selectOrder(int id) {
@@ -76,13 +81,14 @@ public class    OrderDao {
                 orderModel = new OrderModel(id, idUser, way, volume, weight, date, type);
             }
         } catch (SQLException e) {
-            LOG.error("Can not find a order by id" , e);
+            LOG.error("Can not find a order by id", e);
             throw new RuntimeException(e);
         }
         return orderModel;
     }
 
     public boolean updateOrder(OrderModel orderModel) throws SQLException {
+        InterfacePrice interfaces;
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, orderModel.getIdUser());
@@ -90,22 +96,20 @@ public class    OrderDao {
             statement.setInt(3, orderModel.getVolume());
             statement.setInt(4, orderModel.getWeight());
 
-            int route = orderModel.getIdRoute();
-            int volume = orderModel.getVolume();
-            int weight = orderModel.getWeight();
-            int i = (volume + weight) * 2 + route * 4;
-            orderModel.setPrice(i);
-            statement.setInt(5, i);
+            interfaces = (volume, weight, kilometer) -> (volume + weight) * 2 + kilometer * 4;
+            int price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
+            orderModel.setPrice(price);
+            statement.setInt(5, price);
             statement.setString(6, orderModel.getDate());
             statement.setString(7, orderModel.getType());
             statement.setInt(8, orderModel.getId());
 
             statement.executeUpdate();
-            return true;
-        }catch (SQLException e){
-            LOG.error("Can not update order" , e);
+        } catch (SQLException e) {
+            LOG.error("Can not update order", e);
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public boolean updatePayment(OrderModel order) throws SQLException {
@@ -114,8 +118,8 @@ public class    OrderDao {
             statement.setString(1, order.getPayment());
             statement.setInt(2, order.getId());
             statement.executeUpdate();
-        }catch (SQLException e){
-            LOG.error("Can not pay order" , e);
+        } catch (SQLException e) {
+            LOG.error("Can not pay order", e);
             throw new RuntimeException(e);
         }
         return true;
@@ -142,7 +146,7 @@ public class    OrderDao {
             }
 
         } catch (SQLException e) {
-            LOG.error("Can not select order by id" , e);
+            LOG.error("Can not select order by id", e);
 
             throw new RuntimeException(e);
         }
@@ -154,7 +158,7 @@ public class    OrderDao {
         try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
 
-            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL +(start-1)+","+total)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL + (start - 1) + "," + total)) {
                 while (rs.next()) {
                     OrderModel order = new OrderModel();
                     orders.add(order);
@@ -170,7 +174,7 @@ public class    OrderDao {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Can not find all orders " , e);
+            LOG.error("Can not find all orders ", e);
             throw new RuntimeException(e);
         }
         return orders;
@@ -197,7 +201,7 @@ public class    OrderDao {
             }
 
         } catch (SQLException e) {
-            LOG.error("Can not select order by id" , e);
+            LOG.error("Can not select order by id", e);
 
             throw new RuntimeException(e);
         }
@@ -209,7 +213,7 @@ public class    OrderDao {
         try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
 
-            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_SMALLER +(start-1)+","+total)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_SMALLER + (start - 1) + "," + total)) {
                 while (rs.next()) {
                     OrderModel order = new OrderModel();
                     orders.add(order);
@@ -225,17 +229,18 @@ public class    OrderDao {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Can not find all orders " , e);
+            LOG.error("Can not find all orders ", e);
             throw new RuntimeException(e);
         }
         return orders;
     }
+
     public List<OrderModel> selectOrderSortFromLarger(int start, int total) {
         List<OrderModel> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();
              Statement ps = connection.createStatement()) {
 
-            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_LARGER +(start-1)+","+total)) {
+            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_LARGER + (start - 1) + "," + total)) {
                 while (rs.next()) {
                     OrderModel order = new OrderModel();
                     orders.add(order);
@@ -251,7 +256,7 @@ public class    OrderDao {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Can not find all orders " , e);
+            LOG.error("Can not find all orders ", e);
             throw new RuntimeException(e);
         }
         return orders;

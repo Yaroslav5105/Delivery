@@ -137,9 +137,7 @@ body{
 
 				        <a href='/controller?command=sortIdUserForLarger&page=1'><h5>1 </a>
                         <a href='/controller?command=sortIdUserForLarger&page=2'>2     </a>
-                        <a href='/controller?command=sortIdUserForLarger&page=3'>3     </a>
-                        <a href='/controller?command=sortIdUserForLarger&page=4'>4      </a>
-                        <a href='/controller?command=sortIdUserForLarger&page=5'>5</h5> </a>
+                        <a href='/controller?command=sortIdUserForLarger&page=3'>3</h5> </a>
 			</table>
 		</div>
 	</div>
