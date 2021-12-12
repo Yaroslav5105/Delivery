@@ -20,13 +20,13 @@ import static org.mockito.Mockito.when;
 public class RouteTest {
 
     @Mock
-    RouteDao routeDao = new RouteDao();
+    private RouteDao routeDao ;
 
     @Mock
-    RouteConverter routeConverter = new RouteConverter();
+    private RouteConverter routeConverter;
 
     @InjectMocks
-    RouteService routeService = new RouteService();
+    private RouteService routeService = new RouteService();
 
     @Test
     public void testSelectWay() {

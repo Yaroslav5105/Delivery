@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LuggageService {
-    private final LuggageDao luggageDao = new LuggageDao();
-    private final Converter<LuggageModel, LuggageDto> luggageConverter = new LuggageConverter();
+    private  LuggageDao luggageDao = new LuggageDao();
+    private  Converter<LuggageModel, LuggageDto> luggageConverter = new LuggageConverter();
 
     public List<LuggageDto> findAllLuggages() {
 
