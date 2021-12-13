@@ -3,6 +3,7 @@ package com.yaroslav.delivery.dao;
 import com.yaroslav.delivery.converter.InterfacePrice;
 import com.yaroslav.delivery.db.ConnectionPool;
 import com.yaroslav.delivery.model.OrderModel;
+import com.yaroslav.delivery.model.PriceModel;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -27,6 +28,7 @@ public class OrderDao {
 
     public boolean insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
+        PriceDao priceDao =new PriceDao();
         InterfacePrice interfaces;
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
@@ -36,10 +38,9 @@ public class OrderDao {
             preparedStatement.setString(2, way);
             preparedStatement.setInt(3, orderModel.getVolume());
             preparedStatement.setInt(4, orderModel.getWeight());
-
-            interfaces = (volume, weight, kilometer) -> (volume + weight) * 2 + kilometer * 4;
+            PriceModel priceModel = priceDao.selectPrice();
+            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume())+(weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
             price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
-
             orderModel.setPrice(price);
             preparedStatement.setInt(5, price);
             preparedStatement.setString(6, orderModel.getPayment());
@@ -89,14 +90,16 @@ public class OrderDao {
 
     public boolean updateOrder(OrderModel orderModel) throws SQLException {
         InterfacePrice interfaces;
+        PriceDao priceDao =new PriceDao();
+
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
             statement.setInt(1, orderModel.getIdUser());
             statement.setString(2, orderModel.getWay());
             statement.setInt(3, orderModel.getVolume());
             statement.setInt(4, orderModel.getWeight());
-
-            interfaces = (volume, weight, kilometer) -> (volume + weight) * 2 + kilometer * 4;
+            PriceModel priceModel = priceDao.selectPrice();
+            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume())+(weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
             int price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
             orderModel.setPrice(price);
             statement.setInt(5, price);

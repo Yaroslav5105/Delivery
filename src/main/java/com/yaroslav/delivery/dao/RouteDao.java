@@ -20,7 +20,6 @@ public class RouteDao {
     private static final String SELECT_ROUTE_BY_ID = "select way,kilometers from route where id =?";
     private static final String INSERT_ROUTE_SQL = "INSERT INTO route (way, kilometers) VALUES (?,?);";
 
-
     public List<RouteModel> selectRoutes() {
         List<RouteModel> routeModels = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();

@@ -1,6 +1,5 @@
 package com.yaroslav.delivery.service;
 
-import com.yaroslav.delivery.converter.InterfaceInsertOrder;
 import com.yaroslav.delivery.converter.OrderConverter;
 import com.yaroslav.delivery.dao.OrderDao;
 import com.yaroslav.delivery.dto.OrderDto;
@@ -16,10 +15,8 @@ public class OrderService {
     private OrderConverter converter = new OrderConverter();
 
     public void createOrder(OrderDto creatOrder) {
-        InterfaceInsertOrder interfaceInsertOrder;
-        interfaceInsertOrder = (id, route, volume, weight, payment, date, type) -> orderModel.creatOrder(id, route, volume, weight, payment, date, type);
         try {
-            orderDao.insertOrder(interfaceInsertOrder.create(creatOrder.getIdUser(), creatOrder.getIdRoute(), creatOrder.getVolume(), creatOrder.getWeight(), "not paid", creatOrder.getDate(), creatOrder.getType()));
+            orderDao.insertOrder(orderModel.creatOrder(creatOrder.getIdUser(), creatOrder.getIdRoute(), creatOrder.getVolume(), creatOrder.getWeight(), "not paid", creatOrder.getDate(), creatOrder.getType()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

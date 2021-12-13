@@ -51,6 +51,8 @@ public class CommandManager {
         commands.put("findUser", new FindUserByIdUserManagerCommand());
         commands.put("sortIdUserForLarger", new SortIdUserforlargerCommand());
 
+        commands.put("formPriceOrder" , new PriceOrderFormCommand());
+        commands.put("priceOrder" , new OrderPriceCommand());
         commands.put("ListRoute", new ListRouteManagerCommand());
         commands.put("dataEditRoute", new EditRouteFormCommand());
         commands.put("editRoute", new EditRouteCommand());

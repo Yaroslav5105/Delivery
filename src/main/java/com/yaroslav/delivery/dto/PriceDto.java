@@ -7,6 +7,15 @@ public class PriceDto {
     private Integer volume;
     private Integer weight;
 
+    public PriceDto(){}
+
+    public PriceDto(Integer id, Integer kilometer, Integer volume, Integer weight) {
+        this.id = id;
+        this.kilometer = kilometer;
+        this.volume = volume;
+        this.weight = weight;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -17,6 +17,7 @@
 <nav class="menu-primary-container">
 
           <ul id="menu-primary" class="menu"><li id="menu-item-836" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-836">
+          <a href="/controller?command=formPriceOrder"><fmt:message key="price" /></a></li><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33">
           <a href="/controller?command=listOrderManager&page=1"><fmt:message key="manager.listOrderManager" /></a></li><li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33">
           <a href="/controller?command=ListUserManager&page=1"><fmt:message key="manager.ListUserManager" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
           <a href="/controller?command=ListRoute"><fmt:message key="manager.ListRoute" /></a></li><li id="menu-item-130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130">
