@@ -84,7 +84,7 @@ a:hover{
                                  <input type="hidden" name="id" value="${userId}"/>
     	                         <input type="hidden" name="page" value="${pageId}"/>
 
-                                   <input class="log"  type="text" name="name" pattern="^[A-Za-zА-Яа-яЁё]+$" placeholder=<fmt:message key="person.Account.Name" />  required>
+                                   <input class="log"  type="text" name="name" pattern="^[A-Za-zА-Яа-яЁёїЇіІэєЄЭ]+$" placeholder=<fmt:message key="person.Account.Name" />  required>
                                    <input class="pass" type="password" name="password" size="40" placeholder=<fmt:message key="login.password" /> required>
                                    <input class="pass" type="weight" type="number" name="number" size="40" placeholder=<fmt:message key="login.login" /> required>
                                    <input class="pass" type="email" name="mail"  size="40" placeholder=<fmt:message key="mamager.List.email" /> required>

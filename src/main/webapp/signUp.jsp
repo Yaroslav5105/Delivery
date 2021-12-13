@@ -133,7 +133,7 @@
         <input type="hidden" name="command" value="creatUser"/>
             <fieldset class="clearfix">
 
-                <p><span class="fontawesome-user"></span><input type="text" name="name" pattern="^[A-Za-zА-Яа-яЁёїЇіІ]+$"value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
+                <p><span class="fontawesome-user"></span><input type="text" name="name" pattern="^[A-Za-zА-Яа-яЁёїЇіІэєЄЭ]+$"value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
                 <p><span class="fontawesome-lock"></span><input type="password"  name="password" value="" size="40" placeholder=<fmt:message key="login.password" /> required></p>
                 <p><span class="fontawesome-user"></span><input type="text" name="number" value="" size="40" placeholder=<fmt:message key="user.number" />  required></p>
                 <p><span class="fontawesome-user"></span><input type="text" name="mail" value="" size="40" placeholder=<fmt:message key="user.email" />  required></p>

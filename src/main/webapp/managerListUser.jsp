@@ -83,7 +83,7 @@ body{
 			</div>
 			<br/>
 <c:if test="${not empty errorMessage}">
-                                              <p><c:out value="${errorMessage}" /></p>
+                                              <p style="color:#A5313E"><c:out value="${errorMessage}" /></p>
                                               </c:if>
             <form  class="btnnn"   method="get" action="/controller">
             <input type="hidden" name="command" value="findUser"/>

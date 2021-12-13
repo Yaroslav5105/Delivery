@@ -81,8 +81,10 @@ body{
 							<td><c:out value="${Order.price}" /></td>
                             <td><c:out value="${Order.payment}" /></td>
                             <td>
+                            <c:if test="${Order.payment eq 'not paid'}">
 							<a href="/controller?command=dataPayment&id=${Order.id} ">
             		        <input class="bttn"  type="submit" value=<fmt:message key="pay.Order" />>
+							</c:if>
 							 </td>
 						</tr>
 					</c:forEach>

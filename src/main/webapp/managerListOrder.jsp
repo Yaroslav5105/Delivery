@@ -75,8 +75,8 @@ body{
             </div>
 			<br>
             <c:if  test="${not empty errorMessage}">
-                                              <p>  <c:out  value="${errorMessage}" /></p>
-                                              </c:if>
+            <p style="color:#A5313E">  <c:out   value="${errorMessage}" /></p>
+            </c:if>
             <form class="btnnn"  method="get" action="/controller">
             <input type="hidden" name="command" value="findOrderforIdOrder"/>
 			<fmt:message key="findOrder" /> <input type="volume" name="userId" required />
@@ -134,11 +134,11 @@ body{
 						</tr>
 					</c:forEach>
 				</tbody>
-				</table>
+
 				        <a href='/controller?command=listOrderManager&page=1'><h5>1 </a>
                         <a href='/controller?command=listOrderManager&page=2'>2     </a>
                         <a href='/controller?command=listOrderManager&page=3'>3</h5> </a>
-
+</table>
 		</div>
 	</div>
 	<form name="maneger.jsp" method="post" action="maneger.jsp">

@@ -5,7 +5,7 @@ public class Validation {
 
     private static final String email = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
     private static final String number = "^\\+\\d{12}$";
-    private static final String word = "^[a-zA-Zа-яА-ЯёЁїЇіІ]+$";
+    private static final String word = "^[A-Za-zА-Яа-яЁёїЇіІэєЄЭ]+$";
     private static final String kilometer = "^[0-9]+$";
 
     public boolean isCorrectNumber(String number) {
