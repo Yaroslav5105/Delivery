@@ -71,11 +71,11 @@ public class UserDao {
             statement.setInt(5, user.getId());
 
             statement.executeUpdate();
+            return true;
         }catch (SQLException e){
             LOG.error("Can not update user" , e);
             throw new RuntimeException(e);
         }
-        return true;
     }
 
     public UserModel selectUser(int id) {

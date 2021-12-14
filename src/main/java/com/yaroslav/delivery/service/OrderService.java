@@ -14,24 +14,27 @@ public class OrderService {
     private OrderModel orderModel = new OrderModel();
     private OrderConverter converter = new OrderConverter();
 
-    public void createOrder(OrderDto creatOrder) {
+    public boolean createOrder(OrderDto creatOrder) {
         try {
-            orderDao.insertOrder(orderModel.creatOrder(creatOrder.getIdUser(), creatOrder.getIdRoute(), creatOrder.getVolume(), creatOrder.getWeight(), "not paid", creatOrder.getDate(), creatOrder.getType()));
+           return orderDao.insertOrder(orderModel.creatOrder(creatOrder.getIdUser(), creatOrder.getIdRoute(), creatOrder.getVolume(), creatOrder.getWeight(), "not paid", creatOrder.getDate(), creatOrder.getType()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
     }
 
     public int countOrder(OrderDto orderDto) {
         return (orderDto.getVolume() + orderDto.getWeight()) * 2 + orderDto.getIdRoute() * 4;
     }
 
-    public void delete(int delete) {
+    public boolean delete(int delete) {
         try {
-            orderDao.deleteOrder(delete);
+           return orderDao.deleteOrder(delete);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+
         }
+        return false;
     }
 
     public OrderDto selectOrder(int id) {
@@ -57,16 +60,18 @@ public class OrderService {
         return true;
     }
 
-    public void payment(OrderDto orderDto) {
+    public boolean payment(OrderDto orderDto) {
         OrderModel orderModel = orderDao.selectOrder(orderDto.getId());
+
         orderModel.setId(orderDto.getId());
         orderModel.setPayment("successful payment");
 
         try {
-            orderDao.updatePayment(orderModel);
+            return orderDao.updatePayment(orderModel);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
     }
 
     public List<OrderDto> findAllOrdersByUserId(int iduser) {

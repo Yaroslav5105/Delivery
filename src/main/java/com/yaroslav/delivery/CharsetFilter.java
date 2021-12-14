@@ -3,6 +3,7 @@ package com.yaroslav.delivery;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CharsetFilter implements Filter {
@@ -15,6 +16,7 @@ public class CharsetFilter implements Filter {
         String encoding = filterConfig.getInitParameter(ENCODING);
         if(encoding != null){
             defaultEncoding = encoding;
+
         }
     }
 
@@ -24,6 +26,11 @@ public class CharsetFilter implements Filter {
         servletResponse.setCharacterEncoding(defaultEncoding);
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         httpServletRequest.getSession();
+
+        HttpSession session = httpServletRequest.getSession();
+        if(session.getAttribute("locale") == null) {
+            session.setAttribute("locale", "ua");
+        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

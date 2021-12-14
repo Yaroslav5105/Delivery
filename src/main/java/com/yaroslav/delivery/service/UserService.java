@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
-    private  UserDao userDao = new UserDao();
-    private  UserModel userModel = new UserModel();
-    private  UserConverter userConverter = new UserConverter();
+    private UserDao userDao = new UserDao();
+    private UserModel userModel = new UserModel();
+    private UserConverter userConverter = new UserConverter();
 
-    public void createUser(UserDto createUserDto) {
+    public boolean createUser(UserDto createUserDto) {
 
         String username = createUserDto.getLogin();
         String password = createUserDto.getPassword();
@@ -22,23 +22,25 @@ public class UserService {
         String mail = createUserDto.getEmail();
 
         try {
-            userDao.insertUser(userModel.createUser(username, password, number, mail));
+
+            return userDao.insertUser(userModel.createUser(username, password, number, mail));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
     }
 
     public List<UserDto> findAllUsers(int start) {
-        InterfaceListOrder interfaces ;
+        InterfaceListOrder interfaces;
         int total = 5;
         if (start != 1) {
-        interfaces = (star)-> (star - 1) * total + 1;
-        start = interfaces.listOrder(start);
+            interfaces = (star) -> (star - 1) * total + 1;
+            start = interfaces.listOrder(start);
         }
         return userConverter.convertList(userDao.selectUsers(start, total));
     }
 
-    public void updateUser(UserDto userDto) {
+    public boolean updateUser(UserDto userDto) {
         UserModel userModel = userDao.selectUser(userDto.getId());
 
         userModel.setLogin(userDto.getLogin());
@@ -48,10 +50,11 @@ public class UserService {
         userModel.setId(userDto.getId());
 
         try {
-            userDao.updateUser(userModel);
+            return userDao.updateUser(userModel);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
     }
 
     public UserDto selectUser(int id) {
@@ -62,12 +65,14 @@ public class UserService {
     }
 
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
-            userDao.deleteUser(id);
+            return userDao.deleteUser(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
+
     }
 
     public UserDto selectUserByEmail(String email) {

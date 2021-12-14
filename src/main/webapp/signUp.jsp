@@ -129,7 +129,7 @@
 
      </br>
         <form method="post" action="/controller">
-        <input type="hidden" name="command" value="creatUser"/>
+        <input type="hidden" name="command" value="createUser"/>
             <fieldset class="clearfix">
 
                 <p><span class="fontawesome-user"></span><input type="text" name="name" value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>

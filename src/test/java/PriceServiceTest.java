@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PriceTest {
+public class PriceServiceTest {
 
     @Mock
     PriceDao priceDao;
@@ -31,11 +31,11 @@ public class PriceTest {
     public void testFindPrice(){
         List<PriceModel> priceModels = new ArrayList<>();
         List<PriceDto> priceDtos = new ArrayList<>();
+        priceDtos.add(new PriceDto());
 
-        when(priceService.findPrices()).thenReturn(priceDtos);
+        when(priceDao.selectPrices()).thenReturn(priceModels);
         when(converter.convertList(priceModels)).thenReturn(priceDtos);
 
         assertEquals(priceDtos , priceService.findPrices());
-        assertEquals(priceDtos , converter.convertList(priceModels));
     }
 }

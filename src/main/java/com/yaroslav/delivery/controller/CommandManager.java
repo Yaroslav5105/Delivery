@@ -14,7 +14,7 @@ public class CommandManager {
 
     static {
 
-        commands.put("creatUser", new SignUpUserCommand());
+        commands.put("createUser", new SignUpUserCommand());
         commands.put("authenticate", new AuthenticateCommand());
         commands.put("insertRoute", new RouteManagerCommand());
         commands.put("listOrder", new ListOrderUserCommand());

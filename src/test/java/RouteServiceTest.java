@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.sql.SQLException;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RouteTest {
+public class RouteServiceTest {
 
     @Mock
     private RouteDao routeDao ;
@@ -31,36 +34,42 @@ public class RouteTest {
     @Test
     public void testSelectWay() {
         RouteDto routeDto = new RouteDto();
-        when(routeService.selectRoute(5)).thenReturn(routeDto);
+        RouteModel routeModel = new RouteModel();
+        when(routeDao.selectRoute(5)).thenReturn(routeModel);
+        when(routeConverter.convert(routeModel)).thenReturn(routeDto);
         assertEquals(routeDto, routeService.selectRoute(5));
     }
 
     @Test
     public void testFindAllRoutes() {
         List<RouteDto> routeDtos = new ArrayList<>();
+        routeDtos.add(new RouteDto());
         List<RouteModel> routeModels = new ArrayList<>();
-        when(routeService.findAllRoutes()).thenReturn(routeDtos);
+        when(routeDao.selectRoutes()).thenReturn(routeModels);
         when(routeConverter.convertList(routeModels)).thenReturn(routeDtos);
+
         assertEquals(routeDtos , routeService.findAllRoutes());
-        assertEquals(routeDtos , routeConverter.convertList(routeModels));
     }
     @Test
     public void testDelete() throws SQLException {
         when(routeDao.deleteRoute(1)).thenReturn(true);
-        assertEquals(true , routeDao.deleteRoute(1));
+        assertTrue(routeService.delete(1));
     }
 
     @Test
-    public void testUpdate(){
-        RouteModel routeModel = new RouteModel();
-        when(routeDao.updateRoute(routeModel)).thenReturn(true);
-        assertEquals(true , routeDao.updateRoute(routeModel));
+    public void testUpdate()  {
+        RouteDto routeDto = new RouteDto();
+        routeService.update(routeDto);
+        Mockito.verify(routeDao).updateRoute(any(RouteModel.class));
     }
+
 
     @Test
     public void testInsertRoute(){
         RouteModel routeModel = new RouteModel();
+        RouteDto routeDto = new RouteDto();
         when(routeDao.insertRoute(routeModel)).thenReturn(routeModel);
-        assertEquals(routeModel , routeDao.insertRoute(routeModel) );
+        when(routeConverter.convert(routeModel)).thenReturn(routeDto);
+        assertEquals(routeDto , routeService.insertRoute(routeDto));
     }
 }

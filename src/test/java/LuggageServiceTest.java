@@ -1,6 +1,7 @@
 import com.yaroslav.delivery.converter.LuggageConverter;
 import com.yaroslav.delivery.dao.LuggageDao;
 import com.yaroslav.delivery.dto.LuggageDto;
+import com.yaroslav.delivery.model.LuggageModel;
 import com.yaroslav.delivery.service.LuggageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
-public class LuggageTest {
+public class LuggageServiceTest {
 
     @Mock
     LuggageDao luggageDao;
@@ -27,7 +28,9 @@ public class LuggageTest {
     @Test
     public void testFindAllLuggages(){
         List<LuggageDto> luggageDtos =new ArrayList<>();
-        when(luggageService.findAllLuggages()).thenReturn(luggageDtos);
+        List<LuggageModel> luggageModels =new ArrayList<>();
+        when(luggageDao.selectLuggage()).thenReturn(luggageModels);
+        when(converter.convertList(luggageModels)).thenReturn(luggageDtos);
         assertEquals(luggageDtos , luggageService.findAllLuggages());
     }
 }

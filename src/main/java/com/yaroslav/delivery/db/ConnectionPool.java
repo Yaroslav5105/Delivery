@@ -13,11 +13,6 @@ public class ConnectionPool {
     private static DataSource dataSource;
     private final static Logger LOG = Logger.getLogger(ConnectionPool.class);
 
-    public ConnectionPool(DataSource dataSource) {
-        ConnectionPool.dataSource = dataSource;
-    }
-
-
     public static synchronized Connection getConnection() {
         if (dataSource == null) {
             try {
@@ -36,5 +31,4 @@ public class ConnectionPool {
             throw new RuntimeException(e);
         }
     }
-
 }

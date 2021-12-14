@@ -12,5 +12,6 @@ JSTL i18n tag library.
 <c:set var="language"
 	value="${not empty lang ? lang : pageContext.request.locale.language}"
 	scope="session" />
+
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="resources" />
