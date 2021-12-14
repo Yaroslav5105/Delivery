@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
-    private String forward ;
+    private String forward;
     private boolean flagQuery;
     private boolean flagResponse;
 
@@ -47,4 +47,4 @@ public class Controller extends HttpServlet {
             request.getRequestDispatcher(forward).forward(request, response);
         }
     }
-    }
+}

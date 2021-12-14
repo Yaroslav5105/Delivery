@@ -38,7 +38,6 @@ public class AuthenticateCommand implements Command {
             return "controller?command=dataForAuthenticate&error=notFind";
         } catch (Exception e) {
             LOG.error("Error in class AuthenticateCommand = "  , e);
-
             return "/error.html" ;
         }
     }

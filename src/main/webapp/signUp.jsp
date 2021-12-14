@@ -126,17 +126,29 @@
 <form name="index.jsp" method="get" action="index.jsp">
 <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" />> </form>
     <div id="login">
-     <c:if test="${not empty errorMessage}">
-            <p><c:out value="${errorMessage}" /></p>
-            </c:if> </br>
+
+     </br>
         <form method="post" action="/controller">
         <input type="hidden" name="command" value="creatUser"/>
             <fieldset class="clearfix">
 
-                <p><span class="fontawesome-user"></span><input type="text" name="name" pattern="^[A-Za-zА-Яа-яЁёїЇіІэєЄЭ]+$"value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
+                <p><span class="fontawesome-user"></span><input type="text" name="name" value="" size="40" placeholder=<fmt:message key="person.Account.Name" />  class="wpcf7-form-control wpcf7-text" id="form-phone" aria-invalid="false"></span>
+                <c:if test="${not empty wrongName}">
+                     <p style="color:#2A819A" ><c:out value="${wrongName}" /></p>
+                     </c:if>
+
                 <p><span class="fontawesome-lock"></span><input type="password"  name="password" value="" size="40" placeholder=<fmt:message key="login.password" /> required></p>
-                <p><span class="fontawesome-user"></span><input type="text" name="number" value="" size="40" placeholder=<fmt:message key="user.number" />  required></p>
+
+                <p><span class="fontawesome-user"></span><input type="text" name="number" value="" size="40" placeholder="+(380)-11-111-1111"   required></p>
+               <c:if test="${not empty wrongNumber}">
+                    <p style="color:#2A819A" ><c:out value="${wrongNumber}" /></p>
+                    </c:if>
+
                 <p><span class="fontawesome-user"></span><input type="text" name="mail" value="" size="40" placeholder=<fmt:message key="user.email" />  required></p>
+                <c:if test="${not empty errorEmail}">
+                     <p style="color:#2A819A" ><c:out value="${errorEmail}" /></p>
+                     </c:if>
+
                 <p><input type="submit" value=<fmt:message key="index.authorization" />  ></p>
             </fieldset>
         </form>

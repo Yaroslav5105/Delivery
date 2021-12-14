@@ -28,16 +28,28 @@ public class SignUpUserCommand implements Command {
         String password = "";
         String number = "";
 
-
         if (request.getParameter("number") != null && request.getParameter("password") != null && request.getParameter("name") != null && request.getParameter("mail") != null) {
             email = request.getParameter("mail");
             username = request.getParameter("name");
             password = request.getParameter("password");
             number = request.getParameter("number");
         }
+        if (!userValidator.validateWord(username) || !userValidator.validateUserNumber(number) || !userValidator.validateEmail(email)) {
 
-        if (!userValidator.validateUserNumber(number)) {
-            return "controller?command=dataFotCrearteUser&error=wrongNumber";
+            String errorName ="";
+            String errorNumber= "";
+            String errorEmail = "";
+            if (!userValidator.validateWord(username)) {
+                errorName = "wrongName";
+            }
+            if (!userValidator.validateUserNumber(number)) {
+                errorNumber = "wrongNumber";
+            }
+            if (!userValidator.validateEmail(email)) {
+                errorEmail = "wrongEmail";
+
+            }
+            return "controller?command=dataFotCrearteUser&error=" + errorName +"&errorNumber="+errorNumber+"&errorEmail="+errorEmail;
         }
 
         try {

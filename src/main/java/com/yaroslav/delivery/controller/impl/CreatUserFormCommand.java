@@ -12,17 +12,26 @@ public class CreatUserFormCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("Start executing Command");
+
         try {
             if (request.getParameter("error") != null) {
                 String error = request.getParameter("error");
+                String errorNumber = request.getParameter("errorNumber");
+                String errorEmail = request.getParameter("errorEmail");
 
-                    if (error.equals("wrongNumber")) {
-                        request.setAttribute("errorMessage", "Incorrect number, try again");
-                    }
-                    if (error.equals("wrongEmail")) {
-                        request.setAttribute("errorMessage", "Incorrect email, try again");
-                    }
+                if (error.equals("wrongName")) {
+                    request.setAttribute("wrongName", "Incorrect name, try again");
+                }
+                if (errorNumber.equals("wrongNumber")) {
+                    request.setAttribute("wrongNumber", "Incorrect number, try again");
+                }
+                if (errorEmail.equals("wrongEmail")) {
+                    request.setAttribute("errorEmail", "Incorrect email, try again");
+                }
+
             }
+            LOG.debug("Finished executing Command");
             return "signUp.jsp";
         } catch (Exception e) {
             LOG.error("Error in class DataForCreatUserCommand = ", e);

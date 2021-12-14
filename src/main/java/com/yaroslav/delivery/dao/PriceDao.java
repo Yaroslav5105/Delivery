@@ -13,7 +13,6 @@ public class PriceDao {
     private static final String SELECT_PRICES_SQL = "SELECT * FROM price";
     private static final String UPDATE_PRICE_SQL = "update price set kilometer = ? ,  volume =? , weight= ? where id = ?;";
 
-
     public List<PriceModel> selectPrices() {
         List<PriceModel> prices = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();
@@ -35,7 +34,7 @@ public class PriceDao {
         return prices;
     }
 
-    public boolean update(PriceModel priceModel) {
+    public void update(PriceModel priceModel) {
         try {
             Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(UPDATE_PRICE_SQL);
@@ -49,7 +48,6 @@ public class PriceDao {
             LOG.error("Can not select price", e);
             throw new RuntimeException(e);
         }
-        return true;
     }
     public PriceModel selectPrice() {
         PriceModel priceModel = new PriceModel();

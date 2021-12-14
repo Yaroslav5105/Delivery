@@ -28,7 +28,7 @@ public class OrderDao {
 
     public boolean insertOrder(OrderModel orderModel) throws SQLException {
         RouteDao routeDao = new RouteDao();
-        PriceDao priceDao =new PriceDao();
+        PriceDao priceDao = new PriceDao();
         InterfacePrice interfaces;
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL)) {
@@ -39,7 +39,7 @@ public class OrderDao {
             preparedStatement.setInt(3, orderModel.getVolume());
             preparedStatement.setInt(4, orderModel.getWeight());
             PriceModel priceModel = priceDao.selectPrice();
-            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume())+(weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
+            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume()) + (weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
             price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
             orderModel.setPrice(price);
             preparedStatement.setInt(5, price);
@@ -90,7 +90,7 @@ public class OrderDao {
 
     public boolean updateOrder(OrderModel orderModel) throws SQLException {
         InterfacePrice interfaces;
-        PriceDao priceDao =new PriceDao();
+        PriceDao priceDao = new PriceDao();
 
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
@@ -99,7 +99,7 @@ public class OrderDao {
             statement.setInt(3, orderModel.getVolume());
             statement.setInt(4, orderModel.getWeight());
             PriceModel priceModel = priceDao.selectPrice();
-            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume())+(weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
+            interfaces = (volume, weight, kilometer) -> (volume * priceModel.getVolume()) + (weight * priceModel.getWeight()) + (kilometer * priceModel.getKilometer());
             int price = interfaces.price(orderModel.getVolume(), orderModel.getWeight(), orderModel.getIdRoute());
             orderModel.setPrice(price);
             statement.setInt(5, price);
@@ -159,22 +159,20 @@ public class OrderDao {
     public List<OrderModel> selectOrders(int start, int total) {
         List<OrderModel> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();
-             Statement ps = connection.createStatement()) {
-
-            try (ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL + (start - 1) + "," + total)) {
-                while (rs.next()) {
-                    OrderModel order = new OrderModel();
-                    orders.add(order);
-                    order.setId(rs.getInt(1));
-                    order.setIdUser(rs.getInt(2));
-                    order.setWay(rs.getString(3));
-                    order.setVolume(rs.getInt(4));
-                    order.setWeight(rs.getInt(5));
-                    order.setPrice(rs.getInt(6));
-                    order.setPayment(rs.getString(7));
-                    order.setDate(rs.getString(8));
-                    order.setType(rs.getString(9));
-                }
+             Statement ps = connection.createStatement();
+             ResultSet rs = ps.executeQuery(SELECT_ORDERS_SQL + (start - 1) + "," + total)) {
+            while (rs.next()) {
+                OrderModel order = new OrderModel();
+                orders.add(order);
+                order.setId(rs.getInt(1));
+                order.setIdUser(rs.getInt(2));
+                order.setWay(rs.getString(3));
+                order.setVolume(rs.getInt(4));
+                order.setWeight(rs.getInt(5));
+                order.setPrice(rs.getInt(6));
+                order.setPayment(rs.getString(7));
+                order.setDate(rs.getString(8));
+                order.setType(rs.getString(9));
             }
         } catch (SQLException e) {
             LOG.error("Can not find all orders ", e);
@@ -214,22 +212,20 @@ public class OrderDao {
     public List<OrderModel> selectOrderSortFromSmaller(int start, int total) {
         List<OrderModel> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();
-             Statement ps = connection.createStatement()) {
-
-            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_SMALLER + (start - 1) + "," + total)) {
-                while (rs.next()) {
-                    OrderModel order = new OrderModel();
-                    orders.add(order);
-                    order.setId(rs.getInt(1));
-                    order.setIdUser(rs.getInt(2));
-                    order.setWay(rs.getString(3));
-                    order.setVolume(rs.getInt(4));
-                    order.setWeight(rs.getInt(5));
-                    order.setPrice(rs.getInt(6));
-                    order.setPayment(rs.getString(7));
-                    order.setDate(rs.getString(8));
-                    order.setType(rs.getString(9));
-                }
+             Statement ps = connection.createStatement();
+             ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_SMALLER + (start - 1) + "," + total)) {
+            while (rs.next()) {
+                OrderModel order = new OrderModel();
+                orders.add(order);
+                order.setId(rs.getInt(1));
+                order.setIdUser(rs.getInt(2));
+                order.setWay(rs.getString(3));
+                order.setVolume(rs.getInt(4));
+                order.setWeight(rs.getInt(5));
+                order.setPrice(rs.getInt(6));
+                order.setPayment(rs.getString(7));
+                order.setDate(rs.getString(8));
+                order.setType(rs.getString(9));
             }
         } catch (SQLException e) {
             LOG.error("Can not find all orders ", e);
@@ -237,26 +233,23 @@ public class OrderDao {
         }
         return orders;
     }
-
     public List<OrderModel> selectOrderSortFromLarger(int start, int total) {
         List<OrderModel> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();
-             Statement ps = connection.createStatement()) {
-
-            try (ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_LARGER + (start - 1) + "," + total)) {
-                while (rs.next()) {
-                    OrderModel order = new OrderModel();
-                    orders.add(order);
-                    order.setId(rs.getInt(1));
-                    order.setIdUser(rs.getInt(2));
-                    order.setWay(rs.getString(3));
-                    order.setVolume(rs.getInt(4));
-                    order.setWeight(rs.getInt(5));
-                    order.setPrice(rs.getInt(6));
-                    order.setPayment(rs.getString(7));
-                    order.setDate(rs.getString(8));
-                    order.setType(rs.getString(9));
-                }
+             Statement ps = connection.createStatement();
+             ResultSet rs = ps.executeQuery(SELECT_SORT_ORDER_BY_FROM_LARGER + (start - 1) + "," + total)) {
+            while (rs.next()) {
+                OrderModel order = new OrderModel();
+                orders.add(order);
+                order.setId(rs.getInt(1));
+                order.setIdUser(rs.getInt(2));
+                order.setWay(rs.getString(3));
+                order.setVolume(rs.getInt(4));
+                order.setWeight(rs.getInt(5));
+                order.setPrice(rs.getInt(6));
+                order.setPayment(rs.getString(7));
+                order.setDate(rs.getString(8));
+                order.setType(rs.getString(9));
             }
         } catch (SQLException e) {
             LOG.error("Can not find all orders ", e);
