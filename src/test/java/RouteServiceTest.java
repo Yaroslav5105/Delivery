@@ -62,14 +62,4 @@ public class RouteServiceTest {
         routeService.update(routeDto);
         Mockito.verify(routeDao).updateRoute(any(RouteModel.class));
     }
-
-
-    @Test
-    public void testInsertRoute(){
-        RouteModel routeModel = new RouteModel();
-        RouteDto routeDto = new RouteDto();
-        when(routeDao.insertRoute(routeModel)).thenReturn(routeModel);
-        when(routeConverter.convert(routeModel)).thenReturn(routeDto);
-        assertEquals(routeDto , routeService.insertRoute(routeDto));
-    }
 }

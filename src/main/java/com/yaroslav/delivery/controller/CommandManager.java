@@ -30,7 +30,6 @@ public class CommandManager {
         commands.put("dataFotCrearteUser", new CreatUserFormCommand());
         commands.put("dataForAuthenticate", new AuthenticateFormCommand());
         commands.put("goOut", new GoOutCommand());
-
         commands.put("sortDate", new SortDateFromSmallerCommand());
         commands.put("sortDateForLarge", new SortDateFromLargerCommand());
         commands.put("listOrderManager", new ListOrdersManagerCommand());
@@ -39,7 +38,6 @@ public class CommandManager {
         commands.put("editOrder", new EditOrderCommand());
         commands.put("findOrderforIdOrder", new FindOrderByIdOrderManagerCommand());
         commands.put("sort" , new  SortCommand());
-
         commands.put("ListUserManager", new ListUsersManagerCommand());
         commands.put("deleteUser", new DeleteUserCommand());
         commands.put("dateForEditUser", new EditUserFormCommand());
@@ -50,7 +48,6 @@ public class CommandManager {
         commands.put("insertUser", new LoginUserCommand());
         commands.put("findUser", new FindUserByIdUserManagerCommand());
         commands.put("sortIdUserForLarger", new SortIdUserforlargerCommand());
-
         commands.put("formPriceOrder" , new PriceOrderFormCommand());
         commands.put("priceOrder" , new OrderPriceCommand());
         commands.put("ListRoute", new ListRouteManagerCommand());
@@ -59,6 +56,8 @@ public class CommandManager {
         commands.put("deleteRoute", new DeleteRouteCommand());
         commands.put("addRoute" , new RouteManagerFormCommand());
         commands.put("locale", new LocaleFormCommand());
+        commands.put("priceAndWay", new PriceAndWayCommand());
+        commands.put("priceAndWayForm" , new PriceAndWayForm());
     }
 
     public static Command get(String commandName) {

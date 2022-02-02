@@ -64,14 +64,6 @@ public class OrderServiceTest {
 
 
     @Test
-    public void testUpdateOrder() throws SQLException {  //
-
-        OrderDto orderDto = new OrderDto();
-        orderService.updateOrder(orderDto);
-        Mockito.verify(orderDao).updateOrder(any(OrderModel.class));
-    }
-
-    @Test
     public void testSelectOrder() {
         OrderModel orderModel = new OrderModel();
         OrderDto orderDto = new OrderDto();
@@ -91,13 +83,7 @@ public class OrderServiceTest {
         assertEquals( orderDtos , orderService.findAllOrdersByUserId(1020));
     }
 
-    @Test
-    public void testPayment() throws SQLException {
 
-        OrderDto orderDto = new OrderDto();
-        orderService.payment(orderDto);
-        Mockito.verify(orderDao).updatePayment(any(OrderModel.class));
-    }
 
     @Test
     public void testFindOrderFromLargerSort() { //

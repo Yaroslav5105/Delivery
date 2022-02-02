@@ -17,11 +17,11 @@ body{
             padding: 12px 20px; /* оступы для текста */
 }
 .Myform{
-            width:330px; /* ширина блока */
-            height: 510px; /* высота блока */
+            width:300px; /* ширина блока */
+            height: 275px; /* высота блока */
             background: #fff; /* фон блока */
             border-radius: 10px; /* закругленные углы блока */
-            margin: 3% auto; /* отступ сверху и выравнивание по середине */
+            margin: 10% auto; /* отступ сверху и выравнивание по середине */
             box-shadow: 2px 2px 4px 0px #000000; /* тень блока */
 }
 .Myform h1 {
@@ -69,50 +69,24 @@ a{
 }
 a:hover{
             color: #1dabb8; /* цвет ссылки при наведении */
-
 }
 </style>
 </head>
 <body>
-          <form name="maneger.jsp" method="post" action="maneger.jsp">
-               <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
-           </form>
 
 <div class="Myform">
-            <h1><fmt:message key="edit.order" /></h1>
             <div class="inp">
-            <form  method="post" action="/controller">
-                         <input type="hidden" name="command" value="editOrder"/>
-                         <input type="hidden" name="orderId" value="${order.id}"/>
-                         <input type="hidden" name="page" value="${pageId}"/>
-               <fmt:message key="manager.List.Edit.way" /> <select name="routeId">
-               <c:forEach var="route" items="${routes}" >
-               <option value=<c:out value="${route.kilometers}" />>${route.way}</option>
-               </c:forEach>
-               </select><br/><br/>
-
-
-               <fmt:message key="luggage" /> <select name="type">
-                        <c:forEach var="luggage" items="${luggages}">
-                        <option value=<c:out value="${luggage.type}" />>${luggage.type}</option>
-                        </c:forEach>
-                        </select><br/><br/>
-                                   <fmt:message key="data.date" /><input class="log" type="date"  name="date" min="2021-12-15" max="2022-12-31" value="${order.date}" required>
-                                   <fmt:message key="data.volume" /><input class="log" type="volume" name="volume" value="${order.volume}" required>
-                                   <fmt:message key="data.weight" /><input class="log" type="weight" name="weight"  value="${order.weight}" required>
-                                   <div class="info">
-<c:if  test="${not empty errorMessage}">
-<p>  <c:out  value="${errorMessage}" /></p>
-</c:if>
-                                   <fmt:message key="previous.way" /><input  value="${order.way}" readonly/><br/>
-                        		   <fmt:message key="previous.luggage" /><input  value="${order.type}" readonly/>
-                                   </div>
-
-                                   <input class="btn" type="submit" value=<fmt:message key="save" /> >
-                                    </form>
-
+                         <form  method="get" action="/controller">
+                                   <input type="hidden" name="command" value="priceAndWay"/>
+                                   <input class="log" type="text" name="price" value="" size="40" placeholder="Price" required>
+                                   <input class="pass" type="text" name="way" value="" size="40" placeholder="Way" required>
+                                   <input class="btn" type="submit" value="OK" >
+                        </form>
             </div>
 </div>
 
+<form name="IndexAuthenticateUser.jsp" method="post" action="IndexAuthenticateUser.jsp">
+               <input class="btnn" type="submit" value=<fmt:message key="person.Account.user" /> />
+           </form>
 </body>
 </html>

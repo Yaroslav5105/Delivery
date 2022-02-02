@@ -109,4 +109,10 @@ public class OrderService {
         }
         return converter.convertList(orderDao.selectOrderSortFromLarger(start, total));
     }
+
+
+    public List<OrderDto> findAllOrderByPriceAndWay(int price , String way) {
+        return converter.convertList(orderDao.selectOrderByWay(price, way));
+    }
+
 }

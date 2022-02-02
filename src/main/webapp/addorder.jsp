@@ -93,7 +93,7 @@ a:hover{
                                                   </c:forEach>
                                                   </select><br/>
 
-                                   <input class="log" type="date"  name="date" min="2021-11-26" max="2022-12-31" placeholder=<fmt:message key="manager.List.Order.Date" /> required>
+                                   <input class="log" type="date"  name="date" min="2021-12-15" max="2022-12-31" placeholder=<fmt:message key="manager.List.Order.Date" /> required>
                                    <input class="pass" type="volume" name="volume"  placeholder="Volume" size="40" placeholder=<fmt:message key="manager.List.Order.Volume" /> required>
                                    <input class="pass" type="weight" name="weight" placeholder="Weight" size="40" placeholder=<fmt:message key="manager.List.Order.Weight" /> required>
                                    <input type="hidden" name="userId" value="${userId}"/><br/>

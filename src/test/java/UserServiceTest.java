@@ -58,18 +58,6 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUpdateUser()  {  //
-        UserDto userDto = new UserDto();
-        UserModel userModel = new UserModel();
-
-        when(userDao.selectUser(3)).thenReturn(userModel);
-        assertEquals(userModel , userDao.selectUser(3));
-        userService.updateUser(userDto);
-        when(userDao.selectUser(userDto.getId())).thenReturn(userModel);
-
-    }
-
-    @Test
     public void testAuthenticate() {
 
         when(userDao.selectUserAuthenticate("q@gmail.com", "123")).thenReturn(11);
